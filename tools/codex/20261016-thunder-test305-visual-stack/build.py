@@ -2,7 +2,7 @@
 import sys,struct,hashlib,json,argparse,importlib.util
 from pathlib import Path
 sys.dont_write_bytecode=True
-ROOT=Path('./codex/inbox')
+ROOT=Path('./tools/codex')
 def module(name,path):
  spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
 C=module('core_candidate',ROOT/'20261016-fire-core-readability/build.py')

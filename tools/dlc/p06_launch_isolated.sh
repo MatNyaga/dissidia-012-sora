@@ -1,6 +1,6 @@
 #!/bin/sh
 # P0.6 runtime launcher: PPSSPP on a DISPOSABLE profile + memory stick (Mat's real profile/saves are never written).
-# Based on Codex's proven launcher codex/inbox/20261017-hp-projectile-refill/runtime/launch-isolated-336.sh.
+# Based on Codex's proven launcher tools/codex/20261017-hp-projectile-refill/runtime/launch-isolated-336.sh.
 # Run INSIDE the existing Flatpak (host first checks `pgrep -x PPSSPPSDL` = nothing running):
 #   flatpak run --command=sh org.ppsspp.PPSSPP ./tools/dlc/p06_launch_isolated.sh STAGE ISO
 #   STAGE = A (costume-4 row, disc model) | B (costume-4 row + ms0 model copies) | none (no DLC file = control)
@@ -14,7 +14,7 @@ shift
 P=.
 trial=${TRIAL:-$(mktemp -d /tmp/claude-p06.XXXXXX)}
 mkdir -p "$trial/config/ppsspp/PSP/SYSTEM" "$trial/config/ppsspp/PSP/GAME/ULUS10566" "$trial/cache"
-cp -r "$P/codex/inbox/20261017-takeover/disposable-profile/PSP/SAVEDATA" "$trial/config/ppsspp/PSP/"
+cp -r "$P/tools/codex/20261017-takeover/disposable-profile/PSP/SAVEDATA" "$trial/config/ppsspp/PSP/"
 for name in ppsspp.ini controls.ini; do
   cp "${PPSSPP_SOURCE_PSP:?Set PPSSPP_SOURCE_PSP to your source PSP profile directory}/SYSTEM/$name" "$trial/config/ppsspp/PSP/SYSTEM/$name"
 done

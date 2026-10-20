@@ -201,7 +201,8 @@ def patch_text(d):
 # behaviour (all owned from the start, flag 1).
 ICON_INDEX = 413                                     # first new 0-based index (icon 414)
 ICON_SERIES_TEXT = 212                               # new collection group-0 text "KINGDOM HEARTS II"
-KH_ICON_FLAG, AVATAR_ICON_FLAG = 1253, 1254          # free flag bits (no table / code uses them; see notes)
+KH_ICON_FLAG, AVATAR_ICON_FLAG = 1266, 1267          # never set by vanilla (spot33_unlockflags.py, notes/unlocks.md §7)
+OLD_ICON_FLAGS = {1266: 1253, 1267: 1254}            # test327..test348; vanilla sets 1253/1254 (Lv100 owners 8/10)
 KH2_MENU = os.path.join(os.path.dirname(os.path.dirname(HERE)), 'kh2_export', 'raw', 'kh2_fifth', 'remastered',
                         'menu')
 FREE = os.environ.get('ICONS_FREE') == '1'
@@ -211,6 +212,10 @@ ICONS = [(413, 414, 1 if FREE else KH_ICON_FLAG, 2993, (ICON_SERIES_TEXT, 0, 128
          (415, 416, 1 if FREE else KH_ICON_FLAG, 2995, (ICON_SERIES_TEXT, 0, 128, -1), 'Kairi', 'card', 'jmface_ex4'),
          (416, 417, 1 if FREE else AVATAR_ICON_FLAG, 2996, (-1, 0, 130, -1), 'Sora', 'avatar', 'jmface_ex1')]
 OLD_UICN_414 = struct.pack('<HHHH', 413, 414, 1, 2993)   # test302..test325 (owned from the start)
+
+
+def old_uicn_row(ic):
+    return struct.pack('<HHHH', ic[0], ic[1], OLD_ICON_FLAGS.get(ic[2], ic[2]), ic[3])
 ICON_FILE = 'menu/JP/Collection/user_icon/user_icon%03d.gim'
 ICON_TEMPLATE = 413                                  # user_icon413.gim: 64x64 index8, same size (5408)
 AVATAR_BG = (159, 130, 65, 255)                      # gold of the avatar icons
@@ -320,8 +325,8 @@ def patch_uicn(iso, dry):
     assert one == 1 and len(u) == 4 + 8 * n and VAN_ICONS <= n <= VAN_ICONS + len(ICONS), (one, n, len(u))
     want = [uicn_row(ic) for ic in ICONS]
     have = [u[4 + 8 * i:4 + 8 * i + 8] for i in range(VAN_ICONS, n)]
-    for k, hv in enumerate(have):                     # ours, or test302's "owned from start" row 414
-        assert hv == want[k] or (k == 0 and hv == OLD_UICN_414), 'uicn row %d is not ours: %s' % (
+    for k, hv in enumerate(have):     # ours, test327..348 flag numbers, or test302's "owned from start" row 414
+        assert hv in (want[k], old_uicn_row(ICONS[k])) or (k == 0 and hv == OLD_UICN_414), 'uicn row %d is not ours: %s' % (
             VAN_ICONS + k, struct.unpack('<4H', hv))
     if have == want:
         print('  system.bin uicn: already %d rows (flags %s)' % (n, [ic[2] for ic in ICONS]))
@@ -329,6 +334,8 @@ def patch_uicn(iso, dry):
     assert VAN_ICONS + len(want) <= UICN_MAX
     vflags = {struct.unpack_from('<H', u, 4 + 8 * i + 6)[0] for i in range(VAN_ICONS)}
     assert not vflags & {ic[3] for ic in ICONS}
+    uflags = {struct.unpack_from('<H', u, 4 + 8 * i + 4)[0] for i in range(VAN_ICONS)}
+    assert not uflags & {KH_ICON_FLAG, AVATAR_ICON_FLAG}, 'a vanilla icon uses our unlock flag'
     c[2] = struct.pack('<HH', one, VAN_ICONS + len(want)) + u[4:4 + 8 * VAN_ICONS] + b''.join(want)
     sysbin = arc_join(head, chunks)
     delta = -(-(len(sysbin) - sys_size) // 16) * 16

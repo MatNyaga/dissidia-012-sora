@@ -4,7 +4,7 @@
 window.SORA_STRINGS = {
   "app_title": "Sora for Dissidia 012",
   "app_tag": "Fan patch",
-  "app_version": "Version {version}",
+  "app_version": "Version {version} · made by Mat",
   "disclaimer": "Unofficial fan-made project. Not affiliated with, endorsed or sponsored by the makers or publishers of the game.",
   "help_link": "Help",
   "text_smaller": "Smaller text",

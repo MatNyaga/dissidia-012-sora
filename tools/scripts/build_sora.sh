@@ -161,7 +161,7 @@ python3 -I $S/gmo_motion.py take $M/sora_final.gmo $M/sora_final.gmo $CX/exports
 python3 -I $S/gmo_motion.py take $M/sora_final.gmo $M/sora_final.gmo $CX/exports/codex_ex_burst_opening.gmo _801A=_801A
 python3 -I $S/gmo_motion.py take $M/sora_final.gmo $M/sora_final.gmo $CX/charge-strain-v2/exports/codex_charge_strain.gmo _801B=_801B
 python3 -I $S/gmo_motion.py take $M/sora_final.gmo $M/sora_final.gmo codex/EX-finisher/exports/codex_ex_break.gmo _812A=_812A   # Codex Ars Arcanum finisher (K416) = the "break"
-# Codex timed solo Trinity EX (codex/inbox/20261015-ex-timed, strikes on the existing hit windows; test215 ✅ plays
+# Codex timed solo Trinity EX (tools/codex/20261015-ex-timed, strikes on the existing hit windows; test215 ✅ plays
 # through): replaces the _812A above + _812B flurry + _812C grand finish. Built by Claude with the bone-51 assert off.
 python3 -I $S/gmo_motion.py take $M/sora_final.gmo $M/sora_final.gmo codex/EX-timed/exports/codex-ex-timed.gmo _812A=_812A _812B=_812B _812C=_812C
 # model memory: the GMO must stay ≤ ~2,506,640 B (2,523,344 crashed at battle start, test215) → thin the win-camera
@@ -192,12 +192,12 @@ if [ -n "$2" ]; then
     OX=$(mktemp --suffix=.objx); python3 -I -c "import sys; sys.path.insert(0, '$S'); import fep_edit as E; open('$OX', 'wb').write(E.load_objx('$2', 'obj/p_sev120.objx'))"
     # PACKED variant (Codex, Q-20261015-CODEX-003): strain face in the existing eye atlas, +32 B (no extra thinning)
     OPENBLAS_NUM_THREADS=1 python3 -B codex/EX-face/packed/build_packed.py $M/sora_final_kc.gmo $OX --out $M/exface >/dev/null && cp $M/exface/charge-face-packed.gmo $M/sora_final_kc.gmo; rm -f $OX
-    # Reflect cast animation (Codex, codex/inbox/20261016-reflect-gap: KH2 spell 284/A362 ground, 292/A371 air, retargeted
+    # Reflect cast animation (Codex, tools/codex/20261016-reflect-gap: KH2 spell 284/A362 ground, 292/A371 air, retargeted
     # onto the guard's 0-16 / 0-20; built from the FINAL model incl. keychain wep0 curves → taken after keychain + packed
     # face). EX GUARD ONLY (Mat test247): the cast goes into the dead slots _702A/_706B (EX motions 10318/10319 via the
     # stance table, spot33_exguard.py ISO part at the end), _160A/_161A keep the old guard; 4 dead stubs → _070A copies
     # pay for it. Model 2,497,336 B (notes/reflect.md §14).
-    python3 -I $S/spot33_exguard.py --gmo $M/sora_final_kc.gmo $M/sora_final_kc.gmo codex/inbox/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo
+    python3 -I $S/spot33_exguard.py --gmo $M/sora_final_kc.gmo $M/sora_final_kc.gmo tools/codex/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo
     # EX Burst = KH2 solo Trinity Limit (Codex, Mat approved v5 "I love it, ship it"; Q-20261015-CODEX-004): only these two
     # motions are taken (after keychain + packed face; exguard --gmo touches other slots): _812A = v5 incomplete (3 hits,
     # lands in battle stance, 85 frames), _812C = continuous A870 full Break (138 frames). Scripts: spot33_trinity.py;
@@ -207,7 +207,7 @@ if [ -n "$2" ]; then
     # (2026-10-16 11:40Z, Mat "let's try this ship it"): 3-second wind-up (Codex trinity-ready-3s) replaces the 0.4 s
     # one; then (13:07Z, Mat approved) Codex 2 s SOLO staging replaces it: root 4.5 m away from the enemy for 2 s, own camera,
     # exact combo from tick 136; _812A cecf41e3… / _812C e9a305b0…, model 2,499,028 B (test275).
-    python3 -I $S/gmo_motion.py take $M/sora_final_kc.gmo $M/sora_final_kc.gmo codex/inbox/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo _812A=_812A _812C=_812C
+    python3 -I $S/gmo_motion.py take $M/sora_final_kc.gmo $M/sora_final_kc.gmo tools/codex/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo _812A=_812A _812C=_812C
     # Codex's clips carry burst-camera scale (1,1,1) = 1-degree FOV -> brown screen (Mat test259); FOV 45 like Cloud's.
     # gmo_camfov gives the camera bones their OWN scale fcurve (the shared one = every bone; test262 stretched the body
     # 45x). Codex's camera itself frames both fighters (dumps/renders/trinitycam/test263_codexcam_*.png).
@@ -234,7 +234,7 @@ if [ -n "$2" ]; then
     python3 -I $S/spot33_breakgauge.py "$2"                                        # EX Burst gauge: yellow fill + "BREAK" label (Sora's own spec chunks; Cloud unchanged)
     python3 -I $S/spot33_vsname.py "$2" tools/art/sora_name_left.png tools/art/sora_encount.png    # VS/loading names
     python3 -I $S/make_title_art.py >/dev/null                                      # KH2 title-art pictures (Mat)
-    cp tools/art/approved/qb_art.png tools/art/qb_art.png                           # Mat-approved Codex portrait (codex/inbox/20261016-select-portrait) wins over the regenerated one
+    cp tools/art/approved/qb_art.png tools/art/qb_art.png                           # Mat-approved Codex portrait (tools/art/20261016-select-portrait) wins over the regenerated one
     python3 -I $S/spot33_faces.py "$2"                                             # face pictures (KH2 journal portrait)
     python3 -I $S/spot33_2p.py "$2"                                                # 2P/3P costume slots = Sora too (mirror match)
     python3 -I $S/spot33_p2fix.py "$2"                                             # P2/P3 costume .cosx/.exex = P1 (EX banner/aura; was Cloud's "Equipped Ultima Weapon!") + text 9 renamed; notes/p2-audit.md
@@ -288,28 +288,40 @@ if [ -n "$2" ]; then
     # own output (Fire v1 re-applied over v2/v3 changes effe again) — rebuild from scratch instead.
     # Trinity ready events (Codex patch_events.py, after spot33_trinity + soundids: final HP 237-247, one impact 21900091
     # @237, no launch speech; the bar-full voice is the controller callback, spot33_reflect TRINITY_CTL)
-    TX=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $TX/a.objx && python3 -I codex/inbox/20261016-trinity-ready-voice/patch_events.py $TX/a.objx $TX/b.objx && python3 -I codex/inbox/20261016-trinity-ready-3s/retime_events.py $TX/b.objx $TX/c.objx && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $TX/c.objx; rm -rf $TX
+    TX=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $TX/a.objx && python3 -I tools/codex/20261016-trinity-ready-voice/patch_events.py $TX/a.objx $TX/b.objx && python3 -I tools/codex/20261016-trinity-ready-3s/retime_events.py $TX/b.objx $TX/c.objx && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $TX/c.objx; rm -rf $TX
     # Codex Fire v1 (redesign, --kind fire) -> visibility v2 (fire only) -> appearance v3 (smoothed flame texture);
     # canonical Thundaga stays (Thunder v2 crashed in the air, test262b)
-    FX=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $FX/a.objx && python3 -B codex/inbox/20261016-fire-thunder-redesign/build_candidates.py $FX/a.objx --kind fire --out $FX/b.objx >/dev/null && python3 -B codex/inbox/20261016-fire-thunder-visibility-v2/revise.py $FX/b.objx --kind fire --out $FX/c.objx >/dev/null && python3 -B codex/inbox/20261016-fire-appearance-v3/build.py $FX/c.objx --out $FX/d.objx >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $FX/d.objx; rm -rf $FX
+    FX=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $FX/a.objx && python3 -B tools/codex/20261016-fire-thunder-redesign/build_candidates.py $FX/a.objx --kind fire --out $FX/b.objx >/dev/null && python3 -B tools/codex/20261016-fire-thunder-visibility-v2/revise.py $FX/b.objx --kind fire --out $FX/c.objx >/dev/null && python3 -B tools/codex/20261016-fire-appearance-v3/build.py $FX/c.objx --out $FX/d.objx >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $FX/d.objx; rm -rf $FX
     # Magnet Burst: KH2 look (replaced Codex stopgap magnet-visible-dispatch, which added Explosion swirl/flash).
     # (spot33_magnet reads the clean dump read-only for its donor leaf.)
     python3 -I $S/spot33_magnet.py "$2" dumps/ULUS10566.iso                       # KH2 Magnet Burst (helper, test277): KH2FM P_EX100 swirl disc + Magnega band/texture, orb + inward rings + burst in block 68, dead TEX 19 / MDL 26,28 / leaves 20,39 / FEPA pool 9130-9141; piece 0xb32 flags 0x10012 (stuck-fall fix). Replaces Codex stopgap. After the Fire chain.
     # Codex louder Trinity final hit (Mat "that's good enough, ship it", 12:56Z): +4.45 dB copy of slot 91 appended as
     # slot 96 (shared 91 kept), only block 80's final cue retargeted. After every Trinity event writer.
-    FS=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $FS/a.objx && python3 -B codex/inbox/20261016-trinity-finisher-level/patch_finisher.py $FS/a.objx $FS/b.objx 96 >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $FS/b.objx; rm -rf $FS
+    FS=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $FS/a.objx && python3 -B tools/codex/20261016-trinity-finisher-level/patch_finisher.py $FS/a.objx $FS/b.objx 96 >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $FS/b.objx; rm -rf $FS
     # Codex 2 s solo staging events: shifts blocks 78/80 by -60 ticks (accepts the 180-tick output above). LAST Trinity writer.
-    SO=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $SO/a.objx && python3 -I codex/inbox/20261016-trinity-solo-staging/retime_events.py $SO/a.objx $SO/b.objx && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $SO/b.objx; rm -rf $SO
+    SO=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $SO/a.objx && python3 -I tools/codex/20261016-trinity-solo-staging/retime_events.py $SO/a.objx $SO/b.objx && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $SO/b.objx; rm -rf $SO
     python3 -I $S/spot33_ai.py "$2"                                                # CPU AI (helper, test276): own brat attack table, owner 33 in the brain owner table (battle_non_residing.bin), acab + ablt CPU equip rows; notes/cpu-ai.md
     python3 -I $S/spot33_thundaga.py "$2"                                          # Thundaga v2 (test296): warning column on the foe's spot, then 3 bolts drop on that LOCKED spot (dodgeable), smaller impacts, more end lag; Garland method. Must run AFTER spot33_thunder.py (rebuilds rows 0x7C4/5/9/A); notes/thunder.md
     # Fire "fill hollow flame" (Mat chose it on test287): Codex fire-core-readability, TEX 15 index bytes only (same size)
-    FC=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $FC/a.objx && python3 -B codex/inbox/20261016-fire-core-readability/build.py $FC/a.objx --kind core --out $FC/b.objx >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $FC/b.objx; rm -rf $FC
+    FC=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $FC/a.objx && python3 -B tools/codex/20261016-fire-core-readability/build.py $FC/a.objx --kind core --out $FC/b.objx >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $FC/b.objx; rm -rf $FC
     # Thunder look (Codex thunder-test305-visual-stack: bolt body x1.5 + smaller flashes, 33 effect bytes; guard = Thundaga v2 magi)
-    TL=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $TL/a.objx && python3 -B codex/inbox/20261016-thunder-test305-visual-stack/build.py $TL/a.objx --kind thunder-body --out $TL/b.objx >/dev/null && python3 -B codex/inbox/20261016-thunder-test305-visual-stack/build.py $TL/b.objx --kind thunder-flashes --out $TL/c.objx >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $TL/c.objx; rm -rf $TL
+    TL=$(mktemp -d); python3 -I $S/pkg_get.py "$2" obj/p_sev120.objx $TL/a.objx && python3 -B tools/codex/20261016-thunder-test305-visual-stack/build.py $TL/a.objx --kind thunder-body --out $TL/b.objx >/dev/null && python3 -B tools/codex/20261016-thunder-test305-visual-stack/build.py $TL/b.objx --kind thunder-flashes --out $TL/c.objx >/dev/null && python3 -I $S/pkg_put.py "$2" obj/p_sev120.objx $TL/c.objx; rm -rf $TL
     python3 -I $S/spot33_outfits.py "$2" --events-only                             # LAST p_se writer: costume-only trail/sound events -> same for every outfit (outfit 1's); notes/outfits.md §3
     python3 -I $S/spot33_assist.py "$2"                                            # Sora as ASSIST (helper, test279): own p_sev120_a.objx + P_SEV120_*P_A.gmo + assist voice bank, objentry kind-8 + assist.bin owner-33 rows (was Aerith); notes/assist.md  [after events-only: assist file copies the costume-neutral events, QA D-313-04]
     python3 -I $S/spot33_music.py "$2"                                             # LAST: KH2 music (Codex 20261016-kh2-music): KH2TR/KH2WT/KH2SS.AT3 appended to DATA/BGM (ISO dir records), bgm_entry ids 131-133 (auto-picked when Sora is the opponent: owner bit 33, weights TR 32/WT 16/SS 16), bgm_name 132-134, Museum records; keeps every track; notes/music.md
     python3 -I $S/spot33_newtag.py "$2"                                            # yellow NEW tag after buying Sora: unlock row 22 SEEN flag 3623 (Chaos's, already set in saves that saw Sora when he was free) -> 3633 (1 EBOOT word; after spot33_outfits/catalog); notes/unlocks.md §5
-    python3 -I $S/spot33_installfix.py "$2"                                         # LAST: mod-added PACKAGE_INFO rows get install tier 0 → game Data Install sizes 1-3 stay valid (P0.9)
+    python3 -I $S/spot33_savefix.py "$2"                                           # save safety (RR-01/RR-03, test344c = v2): 25-card saves: existing Sora record kept (count -> 24) or card 25 kept (native "receive card" replaces the oldest unlocked one) before Sora's record is set up in slot 24; one-time chrl catch-up FUN_088cbd24(rec,1,level) marked at record +0x777 (0xC1); helper in dead FUN_088cb2c0; after spot33_save/spot33_moves; notes/release-save-safety.md
+    python3 -I $S/spot33_jukebox.py "$2"                                           # Museum > Jukebox: Sora voice group (Encounter/vs/Victory/Loss/Battle, owner 33) + "vs Sora" rows for 30 fighters + museum VOLD copies synced; PP Catalog "Encounter Voice - Sora" 180 PP (flag 888, after flag 925); menu list caps 33->34 (10 words); after spot33_vsvoices/catalog/ownername/music; notes/unlocks.md §6
+    python3 -I $S/spot33_viewer.py "$2"                                            # RR-09: Museum viewer owner lookup record 34 -> owner 33 (outfits 4-6 in View Character; 38 menu words in place); after spot33_museum/outfits; notes/release-rr-static-b.md
+    python3 -I $S/spot33_assistdup.py "$2"                                         # RR-14: assist picker lists Sora once with the Aerith DLC key (17 EBOOT words in FUN_088d5ac8); notes/release-rr-static-b.md
+    python3 -I $S/spot33_oqrecord.py "$2"                                          # RR-18: Original Quest "has record" true for Sora (FUN_089293dc, 21 EBOOT words); after spot33_save; notes/release-rr-static-b.md
+    python3 -I $S/spot33_unlockflags.py "$2"                                       # RR-08: KH2 BGM / KH icon / Sora avatar catalog flags = 1263..1267 (vanilla sets 1250-1262 itself: fighter Lv30/50/70 + Lv100 owners); migrates discs with the old 1249-1251/1253/1254, re-checks the flags are free; after spot33_catalog/museum/music; notes/unlocks.md §7
+    python3 -I $S/spot33_bgmfallback.py "$2"                                       # RR-08 mode 7: Labyrinth battle vs owner 33 whose BGM pool is empty (KH2 tracks not bought) -> stage music via the mode-0/4 picker (EBOOT FUN_0888b544 case 7 + case-0xC words + jump-table entry 12, 27 words in place); every other opponent unchanged; notes/release-rr-static-b.md
+    python3 -I $S/spot33_selectblurb.py "$2"                                       # RR-17: Sora's "[Keyblade Master]" blurb = text id 33 (grid row +6 character number) in the 5 "Play as this character?" blurb groups (chara_select 2, creation_room 5, party_setting 5, story_mode 1, update_list 7); after spot33_catalog/ownername/qbpics; notes/release-rr-static-b.md
+    python3 -I $S/spot33_jukeboxgate.py "$2"                                       # RR-08: Museum Jukebox lists ignore the vanilla "show all" flag 1372 for the mod's purchase flags (music records 1263..1270, Sora voice character 925, Encounter Voice rows 888) -> KH2 tracks / Sora voices hidden until bought; 45 OVL_MENU_APP words in place; after spot33_jukebox/music/unlockflags; notes/unlocks.md §7
+    python3 -I $S/spot33_oqslot.py "$2"                                            # RR-18: Original Quest menus: owner-33 slot name ("Sora" = full-name entry 122 in creation_room 4 / chara_select 0 / party_setting 6 / story_mode 10), slot face (39th icon handle, FUN_08a62530 + FUN_08a53f58 in place), party row face_r/face/name; after spot33_menuart/selectblurb; notes/dlc-phase1.md RR-18
+    python3 -I $S/spot33_grwp.py "$2"                                              # real PSP/Vita: system.bin grwp (Max CP growth) row for owner 33; without it battle setup reads NULL+0x16 and crashes on hardware (PPSSPP ignores); notes/dlc-phase1.md "Vita test"
+    python3 -I $S/spot33_menuclock.py "$2"                                         # Vita menu lag (test354): title + menus keep 333/333/166 MHz (boot clock read FUN_08860df8 -> 333 setter, menu setter FUN_08860e78 222/222/111 -> 333/333/166; 5 EBOOT words); notes/dlc-phase1.md "Vita menu lag"
+    python3 -I $S/spot33_installfix.py "$2"                                      # LAST: mod-added PACKAGE_INFO rows get install tier 0 → game Data Install sizes 1-3 stay valid (P0.9)
 fi
 echo "done: $M/sora_final.gmo"

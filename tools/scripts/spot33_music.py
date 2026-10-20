@@ -1,5 +1,5 @@
 """New KH2 music tracks (Mat: Tension Rising, Working Together, Sinister Shadows), every existing track kept.
-notes/music.md has the formats. Assets = Codex delivery codex/inbox/20261016-kh2-music/encoded/*.AT3 (sha256-guarded).
+notes/music.md has the formats. Assets = Codex delivery tools/music/20261016-kh2-music/encoded/*.AT3 (sha256-guarded).
 
 What it changes (all appends; vanilla rows/strings/records/files stay byte-identical):
   ISO9660   PSP_GAME/USRDIR/DATA/BGM/KH2TR.AT3, KH2WT.AT3, KH2SS.AT3 (Codex KH2_xx.AT3): data appended at the ISO end, directory
@@ -36,7 +36,7 @@ from comb_patch import SECTOR, pkg_offset, read_at, use_iso  # noqa: E402
 from voice_text import KEY  # noqa: E402
 
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
-ASSETS = os.path.join(ROOT, 'codex', 'inbox', '20261016-kh2-music', 'encoded')
+ASSETS = os.path.join(ROOT, 'tools', 'music', '20261016-kh2-music', 'encoded')
 # (disc/table file name, sha256 of Codex's file, BGM id, text id, name, volume, Codex file name)
 # Disc names are 9 characters (Codex's KH2_xx.AT3 = 10): three 10-char records (58 B each) do not fit the 4-sector
 # BGM directory after re-packing, 9-char ones (56 B) do (sector use 2038/2046/2020/2002). More tracks later = the
@@ -184,24 +184,28 @@ SORA_OWNER = 33
 # first unlock-flag slot (+4) and its Museum record flag = the PP Catalog item's flag (spot33_catalog.py BGM items,
 # 240 PP like the 012 tracks). Until bought: not in the Quick Battle/Creation BGM pickers, not in the Museum list,
 # and the auto pick vs Sora only sees stage rows (stage music). MUSIC_UNLOCK=0 env = always available (old rows).
-UNLOCK_FLAGS = {'KH2TR.AT3': 1249, 'KH2WT.AT3': 1250, 'KH2SS.AT3': 1251}
+# 2026-10-18 (RR-08): 1263/1264/1265, never set by vanilla (spot33_unlockflags.py, notes/unlocks.md §7). test327..348
+# used 1249/1250/1251, but vanilla sets 1250/1251 itself (any fighter reaches Lv30/Lv50, menu FUN_08a2b07c) -> rows
+# with the old numbers are accepted and rewritten.
+UNLOCK_FLAGS = {'KH2TR.AT3': 1263, 'KH2WT.AT3': 1264, 'KH2SS.AT3': 1265}
+OLD_UNLOCK_FLAGS = {'KH2TR.AT3': 1249, 'KH2WT.AT3': 1250, 'KH2SS.AT3': 1251}
 
 
 def unlock_on():
     return os.environ.get('MUSIC_UNLOCK', '1') != '0'
 
 
-def track_flag(t, unlock=None):
-    return UNLOCK_FLAGS[t[0]] if (unlock_on() if unlock is None else unlock) else -1
+def track_flag(t, unlock=None, flags=None):
+    return (flags or UNLOCK_FLAGS)[t[0]] if (unlock_on() if unlock is None else unlock) else -1
 
 
-def bent_row(t, auto=None, weights=None, unlock=None):
+def bent_row(t, auto=None, weights=None, unlock=None, flags=None):
     weights = weights or AUTO_WEIGHT
     assert all(0 < w <= 127 for w in weights.values())
     if auto is None:
         auto = os.environ.get('MUSIC_AUTO', '1') != '0'
     name, _, bid, tid, _, vol = t[:6]
-    fl = track_flag(t, unlock)
+    fl = track_flag(t, unlock, flags)
     if auto:
         own = 1 << SORA_OWNER
         r = struct.pack('<HH4hBbBBIII', bid, tid, fl, -1, -1, -1, 3, vol, weights[name], 0,
@@ -256,8 +260,8 @@ def patch_bent(b, want):
     struct.pack_into('<I', van, 8, VAN_ROWS)
     assert n >= VAN_ROWS and sha(bytes(van)) == VAN['bent'], 'bgm_entry vanilla rows differ (not the clean table)'
     have = [b[16 + 44 * i:16 + 44 * (i + 1)] for i in range(VAN_ROWS, n)]
-    assert all(h in [bent_row(t, a, w, u) for a in (True, False) for w in [None] + OLD_AUTO_WEIGHTS
-                     for u in (True, False)]
+    assert all(h in [bent_row(t, a, w, u, fl) for a in (True, False) for w in [None] + OLD_AUTO_WEIGHTS
+                     for u in (True, False) for fl in (None, OLD_UNLOCK_FLAGS)]
                for h, t in zip(have, TRACKS)) and \
         len(have) <= len(TRACKS), 'bgm_entry has extra rows that are not ours'
     ids = {struct.unpack_from('<H', b, 16 + 44 * i)[0] for i in range(VAN_ROWS)}
@@ -289,7 +293,8 @@ def patch_museum(d, want):
     assert size == 8 * n and n >= VAN_MUSEUM and sha(d[o6:o6 + 8 * VAN_MUSEUM]) == VAN['museum'], 'Museum list differs'
     have = [d[o6 + 8 * i:o6 + 8 * i + 8] for i in range(VAN_MUSEUM, n)]
     assert [r[:2] for r in have] == [struct.pack('<H', t[2]) for t in TRACKS][:len(have)], 'Museum extra not ours'
-    assert all(struct.unpack_from('<H', r, 2)[0] in (0xFFFF, UNLOCK_FLAGS[t[0]]) for r, t in zip(have, TRACKS))
+    assert all(struct.unpack_from('<H', r, 2)[0] in (0xFFFF, UNLOCK_FLAGS[t[0]], OLD_UNLOCK_FLAGS[t[0]])
+               for r, t in zip(have, TRACKS))
     h[8], h[17] = VAN_MUSEUM + len(want), 8 * (VAN_MUSEUM + len(want))
     out = struct.pack('<20H', *h) + d[40:o6 + 8 * VAN_MUSEUM] + b''.join(want) + d[o6 + size:]
     # every other section and the string block unchanged

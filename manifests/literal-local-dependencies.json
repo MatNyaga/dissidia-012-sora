@@ -3,7 +3,7 @@
   "references": [
     {
       "consumer": "tools/scripts/spot33_portrait.py",
-      "literal_reference": "codex/inbox/20261016-select-portrait",
+      "literal_reference": "tools/art/20261016-select-portrait",
       "present_in_export": false
     },
     {
@@ -78,72 +78,72 @@
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261015-ex-timed",
+      "literal_reference": "tools/codex/20261015-ex-timed",
       "present_in_export": false
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "literal_reference": "tools/codex/20261016-fire-appearance-v3/build.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-fire-core-readability/build.py",
+      "literal_reference": "tools/codex/20261016-fire-core-readability/build.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-fire-thunder-redesign/build_candidates.py",
+      "literal_reference": "tools/codex/20261016-fire-thunder-redesign/build_candidates.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-fire-thunder-visibility-v2/revise.py",
+      "literal_reference": "tools/codex/20261016-fire-thunder-visibility-v2/revise.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-reflect-gap",
+      "literal_reference": "tools/codex/20261016-reflect-gap",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo",
+      "literal_reference": "tools/codex/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo",
       "present_in_export": false
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-select-portrait",
+      "literal_reference": "tools/art/20261016-select-portrait",
       "present_in_export": false
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-thunder-test305-visual-stack/build.py",
+      "literal_reference": "tools/codex/20261016-thunder-test305-visual-stack/build.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-trinity-finisher-level/patch_finisher.py",
+      "literal_reference": "tools/codex/20261016-trinity-finisher-level/patch_finisher.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-trinity-ready-3s/retime_events.py",
+      "literal_reference": "tools/codex/20261016-trinity-ready-3s/retime_events.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-trinity-ready-voice/patch_events.py",
+      "literal_reference": "tools/codex/20261016-trinity-ready-voice/patch_events.py",
       "present_in_export": true
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo",
+      "literal_reference": "tools/codex/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo",
       "present_in_export": false
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
-      "literal_reference": "codex/inbox/20261016-trinity-solo-staging/retime_events.py",
+      "literal_reference": "tools/codex/20261016-trinity-solo-staging/retime_events.py",
       "present_in_export": true
     },
     {
@@ -298,12 +298,12 @@
     },
     {
       "consumer": "tools/scripts/spot33_trinity.py",
-      "literal_reference": "codex/inbox/20261016-trinity-battle-stance-v5/reference-output/event-contract.json",
+      "literal_reference": "tools/codex/20261016-trinity-battle-stance-v5/reference-output/event-contract.json",
       "present_in_export": false
     },
     {
       "consumer": "tools/scripts/kh2_reflect_mesh.py",
-      "literal_reference": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "literal_reference": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "present_in_export": true
     },
     {
@@ -353,7 +353,7 @@
     },
     {
       "consumer": "tools/scripts/spot33_outfits.py",
-      "literal_reference": "codex/inbox/20261016-drive-outfits",
+      "literal_reference": "tools/art/20261016-drive-outfits",
       "present_in_export": false
     },
     {
@@ -568,7 +568,7 @@
     },
     {
       "consumer": "tools/scripts/spot33_exface.py",
-      "literal_reference": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "literal_reference": "tools/codex/20261015-ex-strained-face/build_face.py",
       "present_in_export": true
     },
     {
@@ -578,7 +578,7 @@
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "literal_reference": "codex/inbox/20261016-kh2-music/encoded/",
+      "literal_reference": "tools/music/20261016-kh2-music/encoded/",
       "present_in_export": false
     },
     {
@@ -613,7 +613,7 @@
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "literal_reference": "codex/inbox/20261018-approved-voices",
+      "literal_reference": "tools/voice/20261018-approved-voices",
       "present_in_export": false
     },
     {
@@ -708,7 +708,7 @@
     },
     {
       "consumer": "tools/scripts/spot33_reflectvoice.py",
-      "literal_reference": "codex/inbox/20261016-reflect-gap/reflect_voice_split.py",
+      "literal_reference": "tools/codex/20261016-reflect-gap/reflect_voice_split.py",
       "present_in_export": true
     },
     {

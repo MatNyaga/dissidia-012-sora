@@ -1,8 +1,9 @@
 //! Streaming VCDIFF (RFC 3284) decoder for patches made by `xdelta3 -e -S none`.
 //!
-//! Pure Rust, no external binary. Memory use = one source segment + one target window
-//! (xdelta3 defaults: source window 64 MiB, target window 8 MiB), so a 1.8 GB disc never
-//! has to fit in RAM.
+//! Pure Rust, no external binary. Memory use = one target window (xdelta3 default 8 MiB) + a
+//! 4 MiB read cache: COPY-from-source bytes are read from the player's file on demand, never as a
+//! whole source segment. So patches made with a whole-disc source window (`-B 2147483648`, which
+//! lets xdelta3 COPY every vanilla byte instead of storing it) decode with the same small memory.
 //!
 //! Supported: default code table, VCD_SOURCE windows, xdelta3's per-window Adler-32
 //! (checked), xdelta3's application header (skipped).
@@ -170,6 +171,50 @@ fn adler32(data: &[u8]) -> u32 {
     (b << 16) | a
 }
 
+/// On-demand reader for the source segment: one aligned chunk cached (COPYs are mostly sequential).
+struct SrcCache {
+    start: u64,
+    buf: Vec<u8>,
+}
+
+const SRC_CHUNK: u64 = 4 << 20;
+
+impl SrcCache {
+    /// Append `n` source bytes at absolute file offset `pos` to `dst`.
+    fn copy<S: Read + Seek>(&mut self, source: &mut S, mut pos: u64, mut n: usize, dst: &mut Vec<u8>) -> Result<(), DecodeError> {
+        while n > 0 {
+            let end = self.start + self.buf.len() as u64;
+            if pos < self.start || pos >= end {
+                self.start = pos - pos % SRC_CHUNK;
+                self.buf.resize(SRC_CHUNK as usize, 0);
+                source.seek(SeekFrom::Start(self.start))?;
+                let mut got = 0usize;
+                while got < self.buf.len() {
+                    match source.read(&mut self.buf[got..]) {
+                        Ok(0) => break,
+                        Ok(k) => got += k,
+                        Err(e) if e.kind() == std::io::ErrorKind::Interrupted => {}
+                        Err(e) => return Err(e.into()),
+                    }
+                }
+                self.buf.truncate(got);
+                if pos >= self.start + got as u64 {
+                    return Err(DecodeError::Io(std::io::Error::new(
+                        std::io::ErrorKind::UnexpectedEof,
+                        "source file shorter than the patch expects",
+                    )));
+                }
+            }
+            let off = (pos - self.start) as usize;
+            let k = n.min(self.buf.len() - off);
+            dst.extend_from_slice(&self.buf[off..off + k]);
+            pos += k as u64;
+            n -= k;
+        }
+        Ok(())
+    }
+}
+
 /// Progress report: bytes of output written so far.
 pub trait Sink {
     fn progress(&mut self, written: u64);
@@ -204,7 +249,7 @@ pub fn decode<S: Read + Seek, W: Write, P: Sink>(
         c.take(n)?;
     }
 
-    let mut src_buf: Vec<u8> = Vec::new();
+    let mut src = SrcCache { start: 0, buf: Vec::new() };
     let mut tgt: Vec<u8> = Vec::new();
     let mut written: u64 = 0;
     let mut window: u64 = 0;
@@ -248,11 +293,9 @@ pub fn decode<S: Read + Seek, W: Write, P: Sink>(
             return bad("window length mismatch");
         }
 
-        // Source segment from the player's file.
-        src_buf.resize(sseg_len, 0);
-        if sseg_len > 0 {
-            source.seek(SeekFrom::Start(sseg_pos))?;
-            source.read_exact(&mut src_buf)?;
+        // Source segment = player's file [sseg_pos, sseg_pos + sseg_len), read on demand by COPY.
+        if sseg_pos.checked_add(sseg_len as u64).is_none() {
+            return bad("source segment out of range");
         }
 
         tgt.clear();
@@ -300,7 +343,7 @@ pub fn decode<S: Read + Seek, W: Write, P: Sink>(
                         let mut left = size;
                         if a < sseg_len {
                             let n = left.min(sseg_len - a);
-                            tgt.extend_from_slice(&src_buf[a..a + n]);
+                            src.copy(source, sseg_pos + a as u64, n, &mut tgt)?;
                             a += n;
                             left -= n;
                         }

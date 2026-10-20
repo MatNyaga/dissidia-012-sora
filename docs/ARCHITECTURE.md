@@ -13,7 +13,7 @@ The disc image holds ISO9660 file records, `PACKAGE_INFO.BIN` (an index sorted b
 Sora uses roster owner **33** and the file key `sev120`. The bootstrap script copies Cloud's structures as a starting
 point, gives owner 33 its own ability, save, name and voice resources, and restores the Cloud files that early
 experiments had changed. `build_sora.sh` then runs every feature patcher in a fixed order. Don't reorder its last
-steps (events, assist, sound IDs, music, NEW tag, install tiers) without a good reason; later steps depend on them.
+steps (events, assist, sound IDs, music, NEW tag, the `grwp` row and menu clock, install tiers) without a good reason; later steps depend on them.
 
 ## Model and animation
 
@@ -35,11 +35,11 @@ still fail in battle, so effects always need an in-game test.
 |---|---|
 | `tools/scripts/` | Format tools, conversion helpers and feature patchers |
 | `tools/poses/` | Hand-made animation recipes |
-| `codex/inbox/` | Helper scripts that build scripts still read from this folder (to be reorganised) |
+| `tools/codex/` | Helper scripts from Codex deliveries that build scripts read (one folder per delivery) |
 | `tools/dlc/` | PSP module probes, toolchain wrapper, owner-table registry |
-| `tools/pkg/` | Package schema, validator, equivalence checker and the engine module |
+| `tools/pkg/` | Package schema, validator, extractor, installer, release maker, equivalence checker and the engine module |
 | `tools/kh2bake/` | Small .NET programs for baking KH2 animations (OpenKH DLLs not included) |
-| `tools/installer/` | Early prototype of the patch app: Rust core and CLI, Tauri window, synthetic tests |
+| `tools/installer/` | Early copy of the patch app (GPL-3.0-or-later): Rust core and CLI, Tauri window, synthetic tests |
 | `tools/repository/` | Checks that need no game files, and an input inventory |
 | `manifests/` | Hashes and selection metadata only |
 | `docs/` | Guides and technical specs |

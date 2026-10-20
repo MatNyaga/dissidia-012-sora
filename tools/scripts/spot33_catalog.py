@@ -18,10 +18,13 @@ What this script writes (guarded old/new, re-runnable, --dry writes nothing):
 2. EBOOT unlock row 22 (owner 33): unlock flag -1 (always) -> 925; costume flags 1/1 (spot33_outfits) kept.
    -> Quick Battle grid, Customization, assist list etc. show Sora only after he is bought (or 925 was set).
    UNLOCK=0 env keeps him unlocked from the start (catalog item still there, buying it changes nothing).
-3. Tab 3: + "[KINGDOM HEARTS II] Set of 3" (150 PP, flag 1253 = icons 414-416) and "[Avatar] Sora" (150 PP,
-   flag 1254 = icon 417), after the last icon item. Icons themselves: spot33_museum.py.
-4. Tab 4: + "BGM - KHII - Tension Rising / Working Together / Sinister Shadows" (240 PP, flags 1249/1250/1251;
+3. Tab 3: + "[KINGDOM HEARTS II] Set of 3" (150 PP, flag 1266 = icons 414-416) and "[Avatar] Sora" (150 PP,
+   flag 1267 = icon 417), after the last icon item. Icons themselves: spot33_museum.py.
+4. Tab 4: + "BGM - KHII - Tension Rising / Working Together / Sinister Shadows" (240 PP, flags 1263/1264/1265;
    bgm_entry rows + Museum records get the same flags in spot33_music.py).
+   2026-10-18 (RR-08): these 5 flags were 1249/1250/1251/1253/1254 until test348; vanilla sets 1250-1262 itself
+   (menu FUN_08a2b07c: any fighter Lv30/50/70 -> 1250/1251/1252, owners 8/10/24-31 at Lv100 -> 1253-1262), so a
+   progressed save "owned" them. Items with the old flags are accepted and rewritten (spot33_unlockflags.py too).
 5. Texts: group 0 #169 / #170 (item names), group 2 #63 "Sora", group 6 #132-134 (BGM names = bgm_name 132-134).
 
   python3 -I spot33_catalog.py ISO [--dry]
@@ -43,8 +46,9 @@ VAN_HEAD = (4, 117, 44, 31, 93, 41, 32, -1)
 REC = '<I12h'
 # flags (free: no flag table / no code immediate uses them, notes/unlocks.md)
 SORA_FLAG = 925                                       # Chaos's old unlock flag (its item is repurposed)
-KH_ICON_FLAG, AVATAR_ICON_FLAG = 1253, 1254           # = spot33_museum ICONS
-BGM_FLAGS = (1249, 1250, 1251)                        # = spot33_music UNLOCK_FLAGS
+KH_ICON_FLAG, AVATAR_ICON_FLAG = 1266, 1267           # = spot33_museum ICONS (spot33_unlockflags.py: never set by vanilla)
+BGM_FLAGS = (1263, 1264, 1265)                        # = spot33_music UNLOCK_FLAGS
+OLD_FLAGS = {1263: 1249, 1264: 1250, 1265: 1251, 1266: 1253, 1267: 1254}   # test327..test348 (vanilla-set, RR-08)
 BGM_TEXT = (132, 133, 134)                            # bgm_name ids of the KHII tracks
 CHAOS_ITEM = (90, 35, 9, -1, 687, 687, 925, 2263, -1, -1, -1, -1, -1)
 SORA_ITEM = (300, 21, 1, 90, -1, -1, SORA_FLAG, 2263, 2, 1, 63, 1, 63)
@@ -52,6 +56,15 @@ G0 = 169                                              # first new group-0 text
 ICON_ITEMS = [(150, G0, 107, -1, -1, -1, KH_ICON_FLAG, -1, -1, -1, -1, -1, -1),
               (150, G0 + 1, 109, -1, -1, -1, AVATAR_ICON_FLAG, -1, -1, -1, -1, -1, -1)]
 BGM_ITEMS = [(240, 111, 33, -1, -1, -1, f, -1, -1, 7, t, 7, t) for f, t in zip(BGM_FLAGS, BGM_TEXT)]
+
+
+def old_item(it):
+    return it[:6] + (OLD_FLAGS[it[6]],) + it[7:]
+
+
+OLD_ICON_ITEMS = [old_item(it) for it in ICON_ITEMS]
+OLD_BGM_ITEMS = [old_item(it) for it in BGM_ITEMS]
+OURS = ICON_ITEMS + BGM_ITEMS + OLD_ICON_ITEMS + OLD_BGM_ITEMS
 TEXTS = {0: (G0, ['[KINGDOM HEARTS II] Set of 3', '[Avatar] Sora']),
          2: (63, ['Sora']),
          6: (132, ['KHII - Tension Rising', 'KHII - Working Together', 'KHII - Sinister Shadows'])}
@@ -91,19 +104,23 @@ def patch_param(d):
         k += c
     assert tabs[0][15] in (CHAOS_ITEM, SORA_ITEM), tabs[0][15]
     if cnt == want_cnt:
-        assert tabs[3][-2:] == ICON_ITEMS and tabs[4][-3:] == BGM_ITEMS, 'catalog extra items are not ours'
-    used = {it[6] for it in items if it not in ICON_ITEMS + BGM_ITEMS and it != SORA_ITEM}
+        assert tabs[3][-2:] in (ICON_ITEMS, OLD_ICON_ITEMS) and tabs[4][-3:] in (BGM_ITEMS, OLD_BGM_ITEMS), \
+            'catalog extra items are not ours'
+    used = {it[6] for it in items if it not in OURS and it != SORA_ITEM}
     assert not used & ({KH_ICON_FLAG, AVATAR_ICON_FLAG} | set(BGM_FLAGS)), 'catalog flag clash'
     tabs[0][15] = SORA_ITEM
     if cnt != want_cnt:
         tabs[3] = tabs[3] + ICON_ITEMS
         tabs[4] = tabs[4] + BGM_ITEMS
+    else:                                                   # old flag numbers (test327..348) -> new, in place
+        tabs[3] = tabs[3][:-2] + ICON_ITEMS
+        tabs[4] = tabs[4][:-3] + BGM_ITEMS
     out = struct.pack('<8h', 4, *want_cnt, 32, -1)
     out += b''.join(struct.pack(REC, *it) for t in tabs for it in t) + d[16 + 28 * n:]
     new_items = [struct.unpack_from(REC, out, 16 + 28 * i) for i in range(sum(want_cnt))]
     keep = [it for i, it in enumerate(items) if i != 15]          # every other vanilla item, in order
-    assert [it for it in new_items if it not in ICON_ITEMS + BGM_ITEMS and it != SORA_ITEM] == \
-        [it for it in keep if it not in ICON_ITEMS + BGM_ITEMS] and len(out) == 16 + 28 * sum(want_cnt) + 32 * 64
+    assert [it for it in new_items if it not in OURS and it != SORA_ITEM] == \
+        [it for it in keep if it not in OURS] and len(out) == 16 + 28 * sum(want_cnt) + 32 * 64
     return out, out != d, new_items
 
 
@@ -167,7 +184,12 @@ def main():
     dry = '--dry' in sys.argv
     assert os.path.basename(iso) != 'ULUS10566.iso', 'never write the vanilla ISO'
     d = get(iso, PARAM)
-    nd, ch, items = patch_param(d)
+    from spot33_jukebox import insert_ev, strip_ev   # "Encounter Voice - Sora" (tab 0) from spot33_jukebox: kept
+    d0, ev = strip_ev(d)
+    nd, ch, items = patch_param(d0)
+    if ev:
+        nd = insert_ev(nd, ev)
+    ch = nd != d
     print('%s: Sora item (tab 0 #15, %d PP, flag %d), icon items %s, BGM items %s: %s (%d -> %d bytes)' % (
         PARAM, SORA_ITEM[0], SORA_FLAG, [(i[0], i[6]) for i in ICON_ITEMS], [(i[0], i[6]) for i in BGM_ITEMS],
         'written' if ch and not dry else ('to write' if ch else 'already'), len(d), len(nd)))

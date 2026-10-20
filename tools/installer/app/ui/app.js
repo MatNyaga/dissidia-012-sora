@@ -1,6 +1,6 @@
 // Fan-patch installer UI. One screen at a time: welcome → working → done | problem.
 // Runs inside the Tauri app (window.__TAURI__) or, in a plain browser, as a clickable demo
-// with simulated progress (that is the mock Mat reviews: tools/installer/mock/index.html).
+// with simulated progress (that is the review mock: mock/index.html).
 (() => {
   "use strict";
   const S = window.SORA_STRINGS;

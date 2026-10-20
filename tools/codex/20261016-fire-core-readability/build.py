@@ -2,11 +2,11 @@
 import sys,struct,hashlib,argparse
 from pathlib import Path
 sys.dont_write_bytecode=True
-sys.path.insert(0,'./codex/inbox/20261016-fire-thunder-visibility-v2');import revise as R
+sys.path.insert(0,'./tools/codex/20261016-fire-thunder-visibility-v2');import revise as R
 import fep_dump as D
 import numpy as np
 P=Path(__file__).resolve().parent
-SOURCE=Path('./codex/inbox/20261016-fire-appearance-v3/smooth-fire-o0f.tex').read_bytes()
+SOURCE=Path('./tools/codex/20261016-fire-appearance-v3/smooth-fire-o0f.tex').read_bytes()
 def decode(t):
  pal=np.frombuffer(t[16448:17472],np.uint8).reshape(256,4);idx=np.frombuffer(D.unswizzle(t[48:16432],128,128),np.uint8).reshape(128,128)
  return pal,idx,pal[idx,:3]

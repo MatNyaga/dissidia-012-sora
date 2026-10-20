@@ -1,10 +1,50 @@
 //! Test/CI harness: runs exactly what the app runs and prints the same plain-word texts.
 //!   sorapatch-cli RELEASE_DIR INPUT_FILE [--out-dir DIR]
 //!   sorapatch-cli --check-strings
+//!   sorapatch-cli --virtual-source CLEAN_ISO OUT_FILE   (release tooling, tools/pkg/make_release.py)
+//!       writes CLEAN_ISO with its EBOOT.BIN replaced by the decryption the app makes (the format-2
+//!       patch source) and prints the manifest "source" block as JSON. Never writes CLEAN_ISO.
 //! Exit 0 = new file built, 1 = a problem (message printed), 2 = usage / release error.
 
-use sorapatch_core::{build, check_input, plan_output, Problem, Progress, Release, Stage};
-use std::path::PathBuf;
+use sorapatch_core::{
+    build, check_input, decrypt_disc_file, plan_output, Problem, Progress, Release, SourceInfo, Stage, VirtualSource,
+    EBOOT_PATH, SOURCE_PLAIN_EBOOT,
+};
+use std::fs::{self, File, OpenOptions};
+use std::io::{BufWriter, Write};
+use std::path::{Path, PathBuf};
+
+/// `--virtual-source`: CLEAN + decrypted EBOOT -> OUT (new file only), source block on stdout.
+fn virtual_source(clean: &Path, out: &Path) -> Result<(), String> {
+    if out.exists() {
+        return Err(format!("{} exists; refusing to overwrite", out.display()));
+    }
+    let pe = decrypt_disc_file(clean, EBOOT_PATH)?;
+    let info = SourceInfo {
+        kind: SOURCE_PLAIN_EBOOT.into(),
+        file: EBOOT_PATH.into(),
+        offset: pe.offset,
+        encrypted_size: pe.encrypted_size,
+        encrypted_sha256: pe.encrypted_sha256.clone(),
+        plain_size: pe.plain.len() as u64,
+        plain_sha256: pe.plain_sha256.clone(),
+    };
+    let part = out.with_extension("part");
+    let mut w = BufWriter::with_capacity(
+        4 << 20,
+        OpenOptions::new().write(true).create_new(true).open(&part).map_err(|e| e.to_string())?,
+    );
+    let mut v = VirtualSource::new(File::open(clean).map_err(|e| e.to_string())?, pe.offset, pe.plain);
+    let res = std::io::copy(&mut v, &mut w).and_then(|_| w.flush());
+    drop(w);
+    if let Err(e) = res {
+        let _ = fs::remove_file(&part);
+        return Err(e.to_string());
+    }
+    fs::rename(&part, out).map_err(|e| e.to_string())?;
+    println!("{}", serde_json::to_string(&info).map_err(|e| e.to_string())?);
+    Ok(())
+}
 
 const STRINGS_JS: &str = include_str!("../../app/ui/strings.en.js");
 
@@ -64,8 +104,19 @@ fn main() {
         println!("strings: {} codes, {missing} missing", CODES.len());
         std::process::exit(if missing == 0 { 0 } else { 1 });
     }
+    if args.first().map(String::as_str) == Some("--virtual-source") {
+        if args.len() != 3 {
+            eprintln!("usage: sorapatch-cli --virtual-source CLEAN_ISO OUT_FILE");
+            std::process::exit(2);
+        }
+        if let Err(e) = virtual_source(Path::new(&args[1]), Path::new(&args[2])) {
+            eprintln!("virtual-source: {e}");
+            std::process::exit(1);
+        }
+        return;
+    }
     if args.len() < 2 {
-        eprintln!("usage: sorapatch-cli RELEASE_DIR INPUT_FILE [--out-dir DIR] | --check-strings");
+        eprintln!("usage: sorapatch-cli RELEASE_DIR INPUT_FILE [--out-dir DIR] | --check-strings | --virtual-source CLEAN OUT");
         std::process::exit(2);
     }
     let rel = Release::load_dir(&PathBuf::from(&args[0])).unwrap_or_else(|e| {

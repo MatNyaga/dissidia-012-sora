@@ -70,6 +70,12 @@ def asm(lines, base):
             w = MEM_OPS[op] << 26 | R[m.group(2)] << 21 | R[a[0]] << 16 | (num(m.group(1)) & 0xFFFF)
         elif op in R3_OPS:
             w = R[a[1]] << 21 | R[a[2]] << 16 | R[a[0]] << 11 | R3_OPS[op]
+        elif op in ('sll', 'srl', 'sra'):                   # sll rd,rt,sa
+            sa = num(a[2])
+            assert 0 <= sa < 32, line
+            w = R[a[1]] << 16 | R[a[0]] << 11 | sa << 6 | {'sll': 0, 'srl': 2, 'sra': 3}[op]
+        elif op in ('sllv', 'srlv', 'srav'):                # sllv rd,rt,rs (Ghidra order: shifted reg, then amount)
+            w = R[a[2]] << 21 | R[a[1]] << 16 | R[a[0]] << 11 | {'sllv': 4, 'srlv': 6, 'srav': 7}[op]
         elif op == 'move':
             w = R[a[1]] << 21 | R[a[0]] << 11 | 37          # or rd,rs,zero (the game's form)
         elif op in ('movz', 'movn'):                        # Allegrex has MIPS IV conditional moves

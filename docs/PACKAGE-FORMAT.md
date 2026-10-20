@@ -5,8 +5,9 @@ Phase 1 (see the [roadmap](ROADMAP.md)). Nothing here touches an ISO.
 
 - Machine-readable parts: `tools/pkg/schema/` (manifest / rows / patches / order schemas + `spaces.json`).
 - Checker: `python3 -I tools/pkg/validate.py PKG [PKG ...]`. Sealer: `python3 -I tools/pkg/pkgformat.py seal PKG`.
-- A small worked example (`tools/pkg/examples/mini/`, dummy data) and the extractor/installer tools are not in this
-  snapshot yet; they come with a later export.
+- Extractor and installer (since the 20 October 2026 refresh): `tools/pkg/extract.py`, `install.py`,
+  `containers.py`, `pkgapply.py` and `code_sites.json` (see §15). The small worked example (`tools/pkg/examples/mini/`,
+  dummy data) is not in this snapshot.
 
 Phase 1 task labels used below: **P1.2** extractor (reference build minus clean disc → package), **P1.3** installer
 in layout A (rows added to the game's own index), **P1.4** engine module, **P1.5** installer in layout B (the game's
@@ -307,3 +308,12 @@ Written before the extractor existed; newer tools settle some of these.
 - P1.4 wrote `tools/pkg/engine/patches/engine-loader.json` in its own shape (`words` list, uppercase hex). When the
   engine becomes a package it converts 1:1 to `patches/extra_prx.json` (`set: engine`, `image: EBOOT`, lowercase
   `va`/`old`/`new`); `engine.json` maps to the engine manifest's `files` entry for `DATA/MODULE/EXTRA.PRX`.
+
+## 15. Settled by the extractor
+
+The extractor (P1.2, `tools/pkg/extract.py`) settles most of §14 without a schema change: every rows file uses the
+key field `at`, data tables inside code images are rows with `ns: img:<IMAGE>`, and code-word differences are grouped
+by `tools/pkg/code_sites.json` (address range → owner_tables id, the script that writes it, a note).
+- 2026-10-20 (release candidate 3): new code site `menu_clock` (`spot33_menuclock.py`: EBOOT 0x08860DF8-FF,
+  0x08860E90-97, 0x08860EA0-A3 → `patches/menu_clock.json`); new `grwp` rows (the Max CP growth table in
+  `system.bin`, `spot33_grwp.py` → `rows/grwp.json`); the `oq_slot_tables` ranges widened to whole words.

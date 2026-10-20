@@ -8,7 +8,7 @@ use sorapatch_core::{build, check_input, plan_output, Problem, Progress, Release
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use tauri::{AppHandle, Emitter, State};
+use tauri::{AppHandle, Emitter, Manager, State};
 
 mod release {
     include!(concat!(env!("OUT_DIR"), "/release.rs"));
@@ -118,6 +118,24 @@ fn main() {
             busy: Arc::new(AtomicBool::new(false)),
         })
         .invoke_handler(tauri::generate_handler![release_info, start, cancel, reveal, autotest])
+        // Closing the window mid-build: cancel and wait until the worker has removed its
+        // temporary file, then quit (a hard exit would leave a hidden partial file behind).
+        .on_window_event(|window, event| {
+            if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+                let state = window.state::<AppState>();
+                if state.busy.load(Ordering::SeqCst) {
+                    api.prevent_close();
+                    state.cancel.store(true, Ordering::SeqCst);
+                    let (busy, app) = (state.busy.clone(), window.app_handle().clone());
+                    std::thread::spawn(move || {
+                        while busy.load(Ordering::SeqCst) {
+                            std::thread::sleep(std::time::Duration::from_millis(50));
+                        }
+                        app.exit(0);
+                    });
+                }
+            }
+        })
         .run(tauri::generate_context!())
         .expect("error while running the app");
 }

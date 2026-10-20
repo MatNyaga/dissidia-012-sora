@@ -133,11 +133,13 @@ class Disc:
 # ---------------------------------------------------------------- names and owner_tables ids
 NAME_RE = re.compile(r"[A-Za-z0-9_./%-]+\.(?:objx|gmo|cosx|exex|gim|scd|bin|pak|mpk|arc|txt|at3|pmf|png|edat)", re.I)
 NAME_GLOBS = ('tools/scripts/*.py', 'tools/scripts/*.sh', 'tools/dlc/*.py', 'tools/voice/*', 'notes/*.md', 'docs/*.md',
-              'docs/learn/*.md', 'codex/inbox/*/*.json', 'codex/inbox/*/*.md', 'codex/inbox/*/*.py', 'codex/inbox/*/*.txt')
+              'docs/learn/*.md') + tuple(  # Codex deliveries (were codex/inbox/*, notes/inbox-move-map.md)
+    '%s/*.%s' % (d, e) for d in ('tools/codex/*', 'tools/voice/2026*', 'tools/music/2026*', 'tools/art/2026*',
+                                 'tools/qa/2026*') for e in ('json', 'md', 'py', 'txt'))
 
 
 def load_names(discs):
-    """hash -> path. Cosmetic only (never decides a verdict): path strings in our scripts/notes/inbox, clip tokens of
+    """hash -> path. Cosmetic only (never decides a verdict): path strings in our scripts/notes/Codex deliveries, clip tokens of
     tools/voice maps, every clip named in every VOLD voice list on both discs, EXTRA.IDX name tables."""
     import glob
     cand = set()
@@ -148,7 +150,7 @@ def load_names(discs):
             with open(p, errors='replace') as f:
                 txt = f.read()
             cand.update(NAME_RE.findall(txt))
-            if '/tools/voice/' in p:
+            if os.path.dirname(p) == os.path.join(ROOT, 'tools/voice'):   # voice maps only, not the voice packages below
                 cand.update('voice/EN/battle/%s.at3' % t for t in re.findall(r'[A-Za-z0-9_]{4,40}', txt))
     for base in list(cand):
         for k in range(1, 13):

@@ -8,7 +8,7 @@
 | The patch app says the file is modified or incomplete | Make a fresh copy from your own disc. Compressed images (CSO and similar) and archives don't work; use a plain `.iso`. |
 | The game won't start on a PS Vita | In Adrenaline, turn off game plugins (hold R at start → Recovery → Plugins). |
 | A save shows "corrupted" on a Vita or PSP | Saves made in PPSSPP can do this on hardware, with the original game too. Try a save made on the device. |
-| Menus feel slow on a Vita | Known. The game lowers the CPU speed in menus. Release candidate 3 keeps menus at the higher speed, which is much better in testing. |
+| Menus feel slow on a Vita | Known. The game lowers the CPU speed in menus. Release 1.0 keeps menus at the higher speed (`spot33_menuclock.py`), which is much better in testing. |
 | Friend card missing after the first start | Sora's record uses friend card slot 25. On a full save, the oldest unlocked card makes room. Lock cards you want to keep before you start. |
 
 ## Building

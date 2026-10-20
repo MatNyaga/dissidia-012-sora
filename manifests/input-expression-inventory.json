@@ -3,367 +3,367 @@
   "limitations": "Superset includes outputs and ISO member names. Dynamic manifests, environment alternatives, imported omitted helpers and glTF external URIs require local expansion; no claim of complete resolved runtime dependency closure.",
   "evidence": [
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 78,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "Path(args.gmo).read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 78,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "Path(args.objx).read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 49,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(children)"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 49,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((neweye if o == eo else d[o:o + z] for (o, t, h, z) in gmo.chunks(d, bo + bh, bo + bz)))"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 50,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((newtex + blind if o == bo else d[o:o + z] for (o, t, h, z) in gmo.chunks(d, mo + mh, mo + mz)))"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 72,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "before.png"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 72,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "after.png"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 18,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "(P / 'assets/pins.json').read_text()"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 27,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "Image.open(P / 'assets/eyes.png')"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 27,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "Image.open(P / 'assets/mouth.png')"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 29,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "atlas.png"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 73,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "charge-face.gmo"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 73,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "charge-face.objx"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 75,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "validation.json"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 27,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "assets/eyes.png"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 27,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "assets/mouth.png"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 30,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "atlas.png"
     },
     {
-      "consumer": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "consumer": "tools/codex/20261015-ex-strained-face/build_face.py",
       "line": 18,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "assets/pins.json"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "consumer": "tools/codex/20261016-fire-appearance-v3/build.py",
       "line": 38,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "(P / 'source-fire-o0f.tex').read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "consumer": "tools/codex/20261016-fire-appearance-v3/build.py",
       "line": 38,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "(P / 'smooth-fire-o0f.tex').read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "consumer": "tools/codex/20261016-fire-appearance-v3/build.py",
       "line": 43,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "R.E.join(data, ei, eff, name, outfd)"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "consumer": "tools/codex/20261016-fire-appearance-v3/build.py",
       "line": 47,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "a.source.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "consumer": "tools/codex/20261016-fire-appearance-v3/build.py",
       "line": 38,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "source-fire-o0f.tex"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "consumer": "tools/codex/20261016-fire-appearance-v3/build.py",
       "line": 38,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "smooth-fire-o0f.tex"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-core-readability/build.py",
+      "consumer": "tools/codex/20261016-fire-core-readability/build.py",
       "line": 9,
       "kind": "IO/join expression; runtime values unresolved",
-      "expression": "Path('./codex/inbox/20261016-fire-appearance-v3/smooth-fire-o0f.tex').read_bytes()"
+      "expression": "Path('./tools/codex/20261016-fire-appearance-v3/smooth-fire-o0f.tex').read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-core-readability/build.py",
+      "consumer": "tools/codex/20261016-fire-core-readability/build.py",
       "line": 40,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "R.E.join(d, ei, eff, n, nf)"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-core-readability/build.py",
+      "consumer": "tools/codex/20261016-fire-core-readability/build.py",
       "line": 45,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "a.source.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-core-readability/build.py",
+      "consumer": "tools/codex/20261016-fire-core-readability/build.py",
       "line": 9,
       "kind": "literal; may be input, output, or game-internal member",
-      "expression": "./codex/inbox/20261016-fire-appearance-v3/smooth-fire-o0f.tex"
+      "expression": "./tools/codex/20261016-fire-appearance-v3/smooth-fire-o0f.tex"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-redesign/build_candidates.py",
+      "consumer": "tools/codex/20261016-fire-thunder-redesign/build_candidates.py",
       "line": 16,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "E.join(d, ei, eff, name, out)"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-redesign/build_candidates.py",
+      "consumer": "tools/codex/20261016-fire-thunder-redesign/build_candidates.py",
       "line": 84,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "Path(args.source).read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-redesign/build_candidates.py",
+      "consumer": "tools/codex/20261016-fire-thunder-redesign/build_candidates.py",
       "line": 84,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": ".objx"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-redesign/build_candidates.py",
+      "consumer": "tools/codex/20261016-fire-thunder-redesign/build_candidates.py",
       "line": 84,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "obj/p_sev120.objx"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-redesign/build_candidates.py",
+      "consumer": "tools/codex/20261016-fire-thunder-redesign/build_candidates.py",
       "line": 90,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": ".json"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-visibility-v2/revise.py",
+      "consumer": "tools/codex/20261016-fire-thunder-visibility-v2/revise.py",
       "line": 100,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "E.join(src, ei, eff, name, out)"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-visibility-v2/revise.py",
+      "consumer": "tools/codex/20261016-fire-thunder-visibility-v2/revise.py",
       "line": 103,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "a.source.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-fire-thunder-visibility-v2/revise.py",
+      "consumer": "tools/codex/20261016-fire-thunder-visibility-v2/revise.py",
       "line": 102,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": ".objx"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 12,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "source.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 9,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "dumps/ULUS10566-test245-tumble.iso"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 9,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "obj/p_sev120.objx"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 12,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "kh2_export/raw/kh2_fifth/original/magic/REFLECT_3.mag"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 45,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "shell0-comparison.png"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 37,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "shell0-unbound.tex"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 47,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "shell0-manifest.json"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "consumer": "tools/codex/20261016-reflect-gap/build_shell_prototype.py",
       "line": 5,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "tools/scripts/fep_edit.py"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/reflect_voice_split.py",
+      "consumer": "tools/codex/20261016-reflect-gap/reflect_voice_split.py",
       "line": 56,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "obj/p_sev120.objx"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/reflect_voice_split.py",
+      "consumer": "tools/codex/20261016-reflect-gap/reflect_voice_split.py",
       "line": 66,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "Only new isolated .objx output allowed"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/reflect_voice_split.py",
+      "consumer": "tools/codex/20261016-reflect-gap/reflect_voice_split.py",
       "line": 67,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "v.out.open('xb')"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/reflect_voice_split.py",
+      "consumer": "tools/codex/20261016-reflect-gap/reflect_voice_split.py",
       "line": 66,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": ".objx"
     },
     {
-      "consumer": "codex/inbox/20261016-reflect-gap/reflect_voice_split.py",
+      "consumer": "tools/codex/20261016-reflect-gap/reflect_voice_split.py",
       "line": 7,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "tools/scripts/fep_edit.py"
     },
     {
-      "consumer": "codex/inbox/20261016-thunder-test305-visual-stack/build.py",
+      "consumer": "tools/codex/20261016-thunder-test305-visual-stack/build.py",
       "line": 52,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "a.source.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-thunder-test305-visual-stack/build.py",
+      "consumer": "tools/codex/20261016-thunder-test305-visual-stack/build.py",
       "line": 8,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "20261016-fire-core-readability/build.py"
     },
     {
-      "consumer": "codex/inbox/20261016-thunder-test305-visual-stack/build.py",
+      "consumer": "tools/codex/20261016-thunder-test305-visual-stack/build.py",
       "line": 9,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "20261016-thunder-canonical-readability/build.py"
     },
     {
-      "consumer": "codex/inbox/20261016-thunder-test305-visual-stack/build.py",
+      "consumer": "tools/codex/20261016-thunder-test305-visual-stack/build.py",
       "line": 24,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "T.REF.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-finisher-level/patch_finisher.py",
+      "consumer": "tools/codex/20261016-trinity-finisher-level/patch_finisher.py",
       "line": 19,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "(P / 'finisher-only.vag').read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-finisher-level/patch_finisher.py",
+      "consumer": "tools/codex/20261016-trinity-finisher-level/patch_finisher.py",
       "line": 41,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "src.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-finisher-level/patch_finisher.py",
+      "consumer": "tools/codex/20261016-trinity-finisher-level/patch_finisher.py",
       "line": 19,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "finisher-only.vag"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-ready-3s/retime_events.py",
+      "consumer": "tools/codex/20261016-trinity-ready-3s/retime_events.py",
       "line": 35,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "src.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-ready-voice/patch_events.py",
+      "consumer": "tools/codex/20261016-trinity-ready-voice/patch_events.py",
       "line": 20,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(main)"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-ready-voice/patch_events.py",
+      "consumer": "tools/codex/20261016-trinity-ready-voice/patch_events.py",
       "line": 20,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(one)"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-ready-voice/patch_events.py",
+      "consumer": "tools/codex/20261016-trinity-ready-voice/patch_events.py",
       "line": 72,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "src.read_bytes()"
     },
     {
-      "consumer": "codex/inbox/20261016-trinity-solo-staging/retime_events.py",
+      "consumer": "tools/codex/20261016-trinity-solo-staging/retime_events.py",
       "line": 35,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "src.read_bytes()"
@@ -385,6 +385,156 @@
       "line": 48,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "/PSP_GAME/USRDIR/DATA/PACKAGE_INFO.BIN"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 41,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'dumps/extracted/EBOOT.elf')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 32,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/scripts')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 33,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/pkg/engine')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 41,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "dumps/extracted/EBOOT.elf"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 43,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'dumps/decomp/all.c')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 43,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'dumps/decomp/menu_all.c')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 44,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/USRDIR/DATA/OVL_MENU_APP.ELF"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 44,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/USRDIR/DATA/OVL_BATTLE_APP.ELF"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 526,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'flag_map.json')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 95,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "dumps/extracted/EBOOT.elf is not the clean plain EBOOT"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 447,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "update_list_param.bin"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 459,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "collection_param.bin"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 473,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "collection_voice_param.bin"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 482,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 484,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 500,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "bgm_entry.bin"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 504,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "party_battle-pbtl.bin"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 525,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'dumps/ULUS10566.iso')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 526,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "flag_map.json"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 578,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(out, 'w')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 98,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 120,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(path)"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 444,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 525,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "dumps/ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/dlc/flag_writers.py",
+      "line": 94,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(ELF, 'rb')"
     },
     {
       "consumer": "tools/dlc/grid_scan.py",
@@ -475,6 +625,60 @@
       "line": 128,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/EN/menu_lpk_%s_seq_0.bin"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 19,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/scripts')"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 46,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'id_spaces.json')"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 45,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'dumps/ULUS10566.iso')"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 46,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "id_spaces.json"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 50,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 52,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 99,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(out, 'w')"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 45,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "dumps/ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/dlc/id_spaces.py",
+      "line": 75,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "objentry.bin"
     },
     {
       "consumer": "tools/dlc/install_plan.py",
@@ -1353,6 +1557,216 @@
       "expression": "open(a[1], 'rb')"
     },
     {
+      "consumer": "tools/dlc/registry.py",
+      "line": 23,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools', 'scripts')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 24,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'registry')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 25,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'flag_map.json')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 22,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, '..', '..')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 25,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "flag_map.json"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 122,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join((struct.pack('<HBBf', f['item'], EFFECTS[f['effect']], 0, f['value']) for p in pkgs for f in sorted(p['fx'], key=lambda f: f['item'])))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 151,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "'; '.join(errs)"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 230,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(open(FLAG_MAP))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 496,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(open(os.path.join(REGDIR, 'tests', 'cases.json')))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 64,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(open(path_or_dict))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 230,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(FLAG_MAP)"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 475,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(REGDIR, 'sora.json')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 476,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(REGDIR, 'test34.json')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 496,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(REGDIR, 'tests', 'cases.json'))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 64,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(path_or_dict)"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 384,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "no tools/dlc/flag_map.json (P2.6): flags not checked against vanilla users"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 475,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "sora.json"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 476,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "test34.json"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 496,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(REGDIR, 'tests', 'cases.json')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 498,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(open(os.path.join(REGDIR, 'sora.json')))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 499,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(open(os.path.join(REGDIR, 'test34.json')))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 571,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(out, 'wb')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 496,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "cases.json"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 498,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(REGDIR, 'sora.json'))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 499,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(REGDIR, 'test34.json'))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 557,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' + '.join((p['package'] for p in pkgs))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 409,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(disc, 'rb')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 498,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(REGDIR, 'sora.json')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 499,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(REGDIR, 'test34.json')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 547,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(a[0], 'rb')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 550,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(out, 'w')"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 498,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "sora.json"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 499,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "test34.json"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 378,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join((u['site'] for u in users[:3]))"
+    },
+    {
+      "consumer": "tools/dlc/registry.py",
+      "line": 382,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(('%s %s' % (u['kind'], u['site']) for u in users[:4]))"
+    },
+    {
       "consumer": "tools/dlc/seq_dump.py",
       "line": 66,
       "kind": "IO/join expression; runtime values unresolved",
@@ -1405,6 +1819,24 @@
       "line": 42,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(here, name)"
+    },
+    {
+      "consumer": "tools/installer/core/Cargo.toml",
+      "line": 5,
+      "kind": "build expression",
+      "expression": "description = \"Checks a disc image, decrypts its EBOOT.BIN and applies a VCDIFF (xdelta3 -S none) patch, streaming, pure Rust.\""
+    },
+    {
+      "consumer": "tools/installer/tests/app_release_gui.sh",
+      "line": 23,
+      "kind": "build expression",
+      "expression": "echo \"== A non-disc file\"; start A /etc/os-release; sleep 12; import -window root \"$W/A.png\"; stop"
+    },
+    {
+      "consumer": "tools/installer/tests/app_release_gui.sh",
+      "line": 28,
+      "kind": "build expression",
+      "expression": "sleep 3; import -window root \"$W/B.png\"; stop"
     },
     {
       "consumer": "tools/installer/tests/run_synthetic.sh",
@@ -1471,6 +1903,156 @@
       "line": 7,
       "kind": "build expression",
       "expression": "foreach (var t in types.Where(t => args.Skip(1).Where(a => !a.EndsWith(\".dll\")).Any(f => t.FullName.Contains(f)))) {"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 513,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "rows: every row (dicts as in rows/*.json, any table) whose ns starts with root_ns. -> new file bytes"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 36,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!objentry\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 37,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!bgm_entry\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 38,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!manual_param\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 39,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!assist\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 40,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!chrp$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 41,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!ablt$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 42,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!item$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 43,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!eqpm$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 44,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!jobp$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 45,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!uicn$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 46,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!grwp$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 47,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!(chrl|amas|acab|eqaa)$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 48,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:battle_non_residing\\.bin!brai\\.0$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 49,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:voice/[a-z]+/voice_load_p_[a-z0-9]+\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 50,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:voice/[a-z]+/voice_load_parameter\\.mpk!voice_load_p_[a-z0-9]+\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 51,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:collection_param\\.bin!sec[0-8]$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 52,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:collection_param\\.bin!tail$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 53,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:(command_list_param|update_list_param)\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 54,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main_lang\\.bin!(bgm_name|ability|item|item_help)\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 55,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "field_lang\\.bin!battle_voice_name\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 59,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:collection_param\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 61,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!system\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 265,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join((b for (_, b) in units))"
+    },
+    {
+      "consumer": "tools/pkg/containers.py",
+      "line": 354,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join(rows)"
     },
     {
       "consumer": "tools/pkg/engine/find_status.py",
@@ -2008,36 +2590,6 @@
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 135,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "tools/scripts/*.py"
-    },
-    {
-      "consumer": "tools/pkg/equiv.py",
-      "line": 135,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "tools/dlc/*.py"
-    },
-    {
-      "consumer": "tools/pkg/equiv.py",
-      "line": 136,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "codex/inbox/*/*.json"
-    },
-    {
-      "consumer": "tools/pkg/equiv.py",
-      "line": 136,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "codex/inbox/*/*.py"
-    },
-    {
-      "consumer": "tools/pkg/equiv.py",
-      "line": 136,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "codex/inbox/*/*.txt"
-    },
-    {
-      "consumer": "tools/pkg/equiv.py",
       "line": 34,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(ROOT, p)"
@@ -2074,43 +2626,55 @@
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 364,
+      "line": 135,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "tools/scripts/*.py"
+    },
+    {
+      "consumer": "tools/pkg/equiv.py",
+      "line": 135,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "tools/dlc/*.py"
+    },
+    {
+      "consumer": "tools/pkg/equiv.py",
+      "line": 366,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(path, encoding='utf-8')"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 365,
+      "line": 367,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "json.load(f)"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 145,
+      "line": 147,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(ROOT, g)"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 174,
+      "line": 176,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(path, encoding='utf-8')"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 498,
+      "line": 500,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(out_json, 'w', encoding='utf-8')"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 514,
+      "line": 516,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": ".iso"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 515,
+      "line": 517,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "refusing to write a .iso"
     },
@@ -2128,111 +2692,1317 @@
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 148,
+      "line": 150,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(p, errors='replace')"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 175,
+      "line": 153,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/voice')"
+    },
+    {
+      "consumer": "tools/pkg/equiv.py",
+      "line": 177,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "json.load(f)"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 194,
+      "line": 196,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": ".objx"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 463,
+      "line": 465,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "', '.join(('%s/%s %d' % (k[0], k[1], v) for (k, v) in sorted(src_count.items())))"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 421,
+      "line": 423,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "PACKAGE.BIN"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 272,
+      "line": 274,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "'; '.join(diffs[:4])"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 413,
+      "line": 415,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "', '.join(lay)"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 422,
+      "line": 424,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "PACKAGE.BIN extent %s -> %s (bytes outside rows are not game data)"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 152,
+      "line": 154,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "voice/EN/battle/%s.at3"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 314,
+      "line": 316,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "', '.join(only_a[:6])"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 314,
+      "line": 316,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "', '.join(only_b[:6])"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 397,
+      "line": 399,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "row points past the end of PACKAGE.BIN on %s (unreadable)"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 397,
+      "line": 399,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "'/'.join(bad)"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 420,
+      "line": 422,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "PACKAGE.BIN"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 465,
+      "line": 467,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "', '.join(x['tables'])"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 482,
+      "line": 484,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "', '.join(('%s %d' % kv for kv in sorted(kinds.items())))"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 165,
+      "line": 167,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "voice/EN/%s/%s.at3"
     },
     {
       "consumer": "tools/pkg/equiv.py",
-      "line": 350,
+      "line": 352,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "', '.join(site)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 46,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/SYSDIR/EBOOT.BIN"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 53,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'ref', 'sora-extract-report.json')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 37,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/scripts')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 53,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "sora-extract-report.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 168,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b' | '.join(parts)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 48,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "OVL_MENU_APP.ELF"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 49,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "OVL_BATTLE_APP.ELF"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 51,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE.BIN"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 51,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE_INFO.BIN"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 57,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!objentry\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 58,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!bgm_entry\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 59,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!manual_param\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 60,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main\\.bin!assist\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 61,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!chrp$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 62,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!ablt$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 63,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!item$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 64,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!eqpm$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 65,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!chrl$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 66,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!amas$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 67,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!jobp$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 68,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!acab$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 69,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!uicn$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 70,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!eqaa$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 71,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system\\.bin!grwp$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 72,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:battle_non_residing\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 75,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:collection_param\\.bin!sec4$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 76,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:collection_param\\.bin!sec6$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 77,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:collection_param\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 78,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:command_list_param\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 79,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:update_list_param\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 80,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main_lang\\.bin!bgm_name\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 81,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main_lang\\.bin!ability\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 82,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main_lang\\.bin!item(_help)?\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 83,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "field_lang\\.bin!battle_voice_name\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 84,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:general_archive/menu/user_icon[0-9]+\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 85,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_customize_ability_0\\.bin#1$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 86,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_customize_ability_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 87,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_exmode_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 88,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_customize_common_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 89,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_chara_select_0\\.bin#2$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 90,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_(creation_room|party_setting)_0\\.bin#5$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 91,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_story_mode_0\\.bin#1$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 92,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_update_list_0\\.bin#7$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 93,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_creation_room_0\\.bin#4$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 94,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_chara_select_0\\.bin#0$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 95,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_party_setting_0\\.bin#6$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 96,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_story_mode_0\\.bin#10$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 97,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_(chara_select|story_mode)_0\\.bin$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 98,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_collection_0\\.bin#3$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 99,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_collection_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 100,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_update_list_0\\.bin#2$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 101,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_update_list_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 102,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "mess_pk_(dungeon|network|md_list|worldmap|loading|colosseum|creation_room)_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 103,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "menu_pk_free_battle_gim_3\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 104,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "menu_pk_collection_gim_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 105,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "menu_pk_dungeon_gim_0\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 106,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "^pkg:menu/(en/)?menu_l?pk_[a-z_]+_gim_[0-9]+\\.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 124,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "obj/p_[a-z]{3}[0-9]{3}(_a)?\\.objx$"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 374,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(HERE, 'code_sites.json'), encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 375,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(f)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 486,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "chrp row 33 +0x0C (rows/chrp.json)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 494,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "rows/start_preset_table.json (img:EBOOT)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 496,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "rows/labyrinth_face.json (img:OVL_MENU_APP)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 512,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(path, 'wb')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 520,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": ".iso"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 530,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(out, n)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 545,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(ROOT, 'tools/dlc/owner_tables.json'), encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 729,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.abspath(__file__), 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 788,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(a.out, 'manifest.json')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 791,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(a.report, 'w', encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 139,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, p)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 348,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "K.join(kind, ns, a, ub)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 374,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'code_sites.json')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 521,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "refusing an .iso output"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 525,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "manifest.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 527,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "manifest.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 527,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "order.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 545,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/dlc/owner_tables.json')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 704,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "spot33_save.py (friend card 24)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 705,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "spot33_ownername.py"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 737,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "tools/pkg/extract.py"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 739,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "Extracted by P1.2 from R0 (reference build) minus the clean dump. Layouts A and B (B: install.py adds the engine from tools/pkg/engine until it is a package of its own). Row semantics + container re-encoders: tools/pkg/containers.py. Layout pins: %d. Stop-gap whole containers: %d."
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 754,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "key at: see tools/pkg/containers.py (grid row index / byte offset / member name / entry id / VA for img:)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 785,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(a.out, rel)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 787,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(a.out, rel)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 788,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "manifest.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 795,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'validate.py')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 145,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/voice_load_P_%s.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 147,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "menu/JP/Collection/user_icon/user_icon%03d.gim"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 149,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/menu/user_icon%02d.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 185,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "!objentry.bin"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 374,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "code_sites.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 545,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "tools/dlc/owner_tables.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 707,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "spot33_soundids.py"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 707,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "spot33_soundids.py"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 708,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "spot33_assist.py (engine +50000 for assist)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 709,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "spot33_assist.py"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 757,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "rows/%s.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 759,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "patches/%s.json"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 795,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "validate.py"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 152,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/event/title_call/title_%s_%s.at3"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 405,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "no code_sites.json range"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 428,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "no code_sites.json range"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 546,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(f)"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 555,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "code_sites.json names unknown owner_tables id %s"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 141,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": ".py"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 142,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(d, fn), errors='replace')"
+    },
+    {
+      "consumer": "tools/pkg/extract.py",
+      "line": 142,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(d, fn)"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 55,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'engine')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 56,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/SYSDIR/EBOOT.BIN"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 41,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'engine')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 42,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/scripts')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 63,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(ENGINE_DIR, 'engine.json'), encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 64,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(f)"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 65,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(ENGINE_DIR, 'extra', 'extra.prx'), 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 69,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(ENGINE_DIR, 'patches', 'extra_prx.json'), encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 70,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(f)"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 129,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/USRDIR/DATA/PACKAGE.BIN"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 130,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/USRDIR/DATA/PACKAGE_INFO.BIN"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 63,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ENGINE_DIR, 'engine.json')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 65,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ENGINE_DIR, 'extra', 'extra.prx')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 68,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "engine EXTRA.PRX does not match engine.json"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 69,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ENGINE_DIR, 'patches', 'extra_prx.json')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 190,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE_INFO.BIN has trailing bytes"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 272,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(clean_path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 300,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 315,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(('%s %s %s' % (p['man']['id'], p['man']['version'], p['man']['package_sha256'][:12]) for p in pkgs))"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 328,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(part, 'r+b')"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 63,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "engine.json"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 69,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "extra_prx.json"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 132,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE_INFO.BIN not at sector %d"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 85,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' -> '.join(stack + (i,))"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 162,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "'/'.join(path)"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 226,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE_INFO.BIN %d B > room %d B"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 271,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "'; '.join(D.notes)"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 276,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE_INFO.BIN is not the clean bytes"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 335,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(bad[:5])"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 152,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "'/'.join(path)"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 157,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "'/'.join(path)"
+    },
+    {
+      "consumer": "tools/pkg/install.py",
+      "line": 275,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/USRDIR/DATA/PACKAGE_INFO.BIN"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 71,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/installer')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 72,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(INSTALLER, 'target/release/sorapatch-cli')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 73,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/SYSDIR/EBOOT.BIN"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 57,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'engine')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 70,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "release.json"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 70,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "README.txt"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 89,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 98,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 328,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(clean_path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 338,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(target_path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 338,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(clean_path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 373,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(target_path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 484,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(clean, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 484,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(vpath, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 545,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'ref', 'release-%s-delta-map.json' % a.version)"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 567,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(work, 'virtual-source.tmp')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 577,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(out, PATCH)"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 124,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(path, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 509,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "default \"Dissidia 012 + Sora (fan patch VER).iso\""
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 519,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(os.path.dirname(out), '.release-verify')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 544,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "Dissidia 012 + Sora (fan patch %s).iso"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 631,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(vsrc, 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 649,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "[6/7] release.json + README"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 658,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(out, 'release.json'), 'w')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 661,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(out, 'README.txt'), 'w')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 665,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(map_json, 'w')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 676,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(work, 'xdelta3-decoded.tmp')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 686,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(work, 'rust')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 100,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "UMD_DATA.BIN"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 275,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE.BIN"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 545,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "release-%s-delta-map.json"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 658,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(out, 'release.json')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 661,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(out, 'README.txt')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 583,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(cmd)"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 658,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "release.json"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 661,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "README.txt"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 671,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(out, 'release.json')"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 692,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(rd, out_name)"
+    },
+    {
+      "consumer": "tools/pkg/make_release.py",
+      "line": 671,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "release.json"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 30,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PSP_GAME/SYSDIR/EBOOT.BIN"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 23,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(ROOT, 'tools/scripts')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 34,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE.BIN"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 34,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "PACKAGE_INFO.BIN"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 38,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(d, 'manifest.json'), encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 39,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(f)"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 32,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "OVL_MENU_APP.ELF"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 33,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "OVL_BATTLE_APP.ELF"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 38,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(d, 'manifest.json')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 42,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(d, 'rows', t + '.json'), encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 43,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(f)"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 47,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(d, 'patches', s + '.json'), encoding='utf-8')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 48,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "json.load(f)"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 196,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(('%s %s (%s)' % (p['man']['id'], p['man']['version'], p['man']['package_sha256'][:12]) for p in pkgs))"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 38,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "manifest.json"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 42,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(d, 'rows', t + '.json')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 47,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(d, 'patches', s + '.json')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 150,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(os.path.join(p['dir'], 'files', f['target'], f['path']), 'rb')"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 150,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(p['dir'], 'files', f['target'], f['path'])"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 42,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": ".json"
+    },
+    {
+      "consumer": "tools/pkg/pkgapply.py",
+      "line": 47,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": ".json"
     },
     {
       "consumer": "tools/pkg/pkgformat.py",
@@ -3456,13 +5226,13 @@
       "consumer": "tools/scripts/build_sora.sh",
       "line": 200,
       "kind": "build expression",
-      "expression": "python3 -I $S/spot33_exguard.py --gmo $M/sora_final_kc.gmo $M/sora_final_kc.gmo codex/inbox/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo"
+      "expression": "python3 -I $S/spot33_exguard.py --gmo $M/sora_final_kc.gmo $M/sora_final_kc.gmo tools/codex/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
       "line": 210,
       "kind": "build expression",
-      "expression": "python3 -I $S/gmo_motion.py take $M/sora_final_kc.gmo $M/sora_final_kc.gmo codex/inbox/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo _812A=_812A _812C=_812C"
+      "expression": "python3 -I $S/gmo_motion.py take $M/sora_final_kc.gmo $M/sora_final_kc.gmo tools/codex/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo _812A=_812A _812C=_812C"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
@@ -3558,7 +5328,7 @@
       "consumer": "tools/scripts/build_sora.sh",
       "line": 237,
       "kind": "build expression",
-      "expression": "cp tools/art/approved/qb_art.png tools/art/qb_art.png                           # Mat-approved Codex portrait (codex/inbox/20261016-select-portrait) wins over the regenerated one"
+      "expression": "cp tools/art/approved/qb_art.png tools/art/qb_art.png                           # Mat-approved Codex portrait (tools/art/20261016-select-portrait) wins over the regenerated one"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
@@ -3834,13 +5604,13 @@
       "consumer": "tools/scripts/build_sora.sh",
       "line": 291,
       "kind": "build expression",
-      "expression": "TX=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $TX/a.objx && python3 -I codex/inbox/20261016-trinity-ready-voice/patch_events.py $TX/a.objx $TX/b.objx && python3 -I codex/inbox/20261016-trinity-ready-3s/retime_events.py $TX/b.objx $TX/c.objx && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $TX/c.objx; rm -rf $TX"
+      "expression": "TX=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $TX/a.objx && python3 -I tools/codex/20261016-trinity-ready-voice/patch_events.py $TX/a.objx $TX/b.objx && python3 -I tools/codex/20261016-trinity-ready-3s/retime_events.py $TX/b.objx $TX/c.objx && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $TX/c.objx; rm -rf $TX"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
       "line": 294,
       "kind": "build expression",
-      "expression": "FX=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $FX/a.objx && python3 -B codex/inbox/20261016-fire-thunder-redesign/build_candidates.py $FX/a.objx --kind fire --out $FX/b.objx >/dev/null && python3 -B codex/inbox/20261016-fire-thunder-visibility-v2/revise.py $FX/b.objx --kind fire --out $FX/c.objx >/dev/null && python3 -B codex/inbox/20261016-fire-appearance-v3/build.py $FX/c.objx --out $FX/d.objx >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $FX/d.objx; rm -rf $FX"
+      "expression": "FX=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $FX/a.objx && python3 -B tools/codex/20261016-fire-thunder-redesign/build_candidates.py $FX/a.objx --kind fire --out $FX/b.objx >/dev/null && python3 -B tools/codex/20261016-fire-thunder-visibility-v2/revise.py $FX/b.objx --kind fire --out $FX/c.objx >/dev/null && python3 -B tools/codex/20261016-fire-appearance-v3/build.py $FX/c.objx --out $FX/d.objx >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $FX/d.objx; rm -rf $FX"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
@@ -3852,13 +5622,13 @@
       "consumer": "tools/scripts/build_sora.sh",
       "line": 300,
       "kind": "build expression",
-      "expression": "FS=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $FS/a.objx && python3 -B codex/inbox/20261016-trinity-finisher-level/patch_finisher.py $FS/a.objx $FS/b.objx 96 >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $FS/b.objx; rm -rf $FS"
+      "expression": "FS=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $FS/a.objx && python3 -B tools/codex/20261016-trinity-finisher-level/patch_finisher.py $FS/a.objx $FS/b.objx 96 >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $FS/b.objx; rm -rf $FS"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
       "line": 302,
       "kind": "build expression",
-      "expression": "SO=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $SO/a.objx && python3 -I codex/inbox/20261016-trinity-solo-staging/retime_events.py $SO/a.objx $SO/b.objx && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $SO/b.objx; rm -rf $SO"
+      "expression": "SO=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $SO/a.objx && python3 -I tools/codex/20261016-trinity-solo-staging/retime_events.py $SO/a.objx $SO/b.objx && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $SO/b.objx; rm -rf $SO"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
@@ -3876,13 +5646,13 @@
       "consumer": "tools/scripts/build_sora.sh",
       "line": 306,
       "kind": "build expression",
-      "expression": "FC=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $FC/a.objx && python3 -B codex/inbox/20261016-fire-core-readability/build.py $FC/a.objx --kind core --out $FC/b.objx >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $FC/b.objx; rm -rf $FC"
+      "expression": "FC=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $FC/a.objx && python3 -B tools/codex/20261016-fire-core-readability/build.py $FC/a.objx --kind core --out $FC/b.objx >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $FC/b.objx; rm -rf $FC"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
       "line": 308,
       "kind": "build expression",
-      "expression": "TL=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $TL/a.objx && python3 -B codex/inbox/20261016-thunder-test305-visual-stack/build.py $TL/a.objx --kind thunder-body --out $TL/b.objx >/dev/null && python3 -B codex/inbox/20261016-thunder-test305-visual-stack/build.py $TL/b.objx --kind thunder-flashes --out $TL/c.objx >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $TL/c.objx; rm -rf $TL"
+      "expression": "TL=$(mktemp -d); python3 -I $S/pkg_get.py \"$2\" obj/p_sev120.objx $TL/a.objx && python3 -B tools/codex/20261016-thunder-test305-visual-stack/build.py $TL/a.objx --kind thunder-body --out $TL/b.objx >/dev/null && python3 -B tools/codex/20261016-thunder-test305-visual-stack/build.py $TL/b.objx --kind thunder-flashes --out $TL/c.objx >/dev/null && python3 -I $S/pkg_put.py \"$2\" obj/p_sev120.objx $TL/c.objx; rm -rf $TL"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
@@ -3912,11 +5682,83 @@
       "consumer": "tools/scripts/build_sora.sh",
       "line": 313,
       "kind": "build expression",
-      "expression": "python3 -I $S/spot33_installfix.py \"$2\"                                         # LAST: mod-added PACKAGE_INFO rows get install tier 0 \u2192 game Data Install sizes 1-3 stay valid (P0.9)"
+      "expression": "python3 -I $S/spot33_savefix.py \"$2\"                                           # save safety (RR-01/RR-03, test344c = v2): 25-card saves: existing Sora record kept (count -> 24) or card 25 kept (native \"receive card\" replaces the oldest unlocked one) before Sora's record is set up in slot 24; one-time chrl catch-up FUN_088cbd24(rec,1,level) marked at record +0x777 (0xC1); helper in dead FUN_088cb2c0; after spot33_save/spot33_moves; notes/release-save-safety.md"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 314,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_jukebox.py \"$2\"                                           # Museum > Jukebox: Sora voice group (Encounter/vs/Victory/Loss/Battle, owner 33) + \"vs Sora\" rows for 30 fighters + museum VOLD copies synced; PP Catalog \"Encounter Voice - Sora\" 180 PP (flag 888, after flag 925); menu list caps 33->34 (10 words); after spot33_vsvoices/catalog/ownername/music; notes/unlocks.md \u00a76"
     },
     {
       "consumer": "tools/scripts/build_sora.sh",
       "line": 315,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_viewer.py \"$2\"                                            # RR-09: Museum viewer owner lookup record 34 -> owner 33 (outfits 4-6 in View Character; 38 menu words in place); after spot33_museum/outfits; notes/release-rr-static-b.md"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 316,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_assistdup.py \"$2\"                                         # RR-14: assist picker lists Sora once with the Aerith DLC key (17 EBOOT words in FUN_088d5ac8); notes/release-rr-static-b.md"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 317,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_oqrecord.py \"$2\"                                          # RR-18: Original Quest \"has record\" true for Sora (FUN_089293dc, 21 EBOOT words); after spot33_save; notes/release-rr-static-b.md"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 318,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_unlockflags.py \"$2\"                                       # RR-08: KH2 BGM / KH icon / Sora avatar catalog flags = 1263..1267 (vanilla sets 1250-1262 itself: fighter Lv30/50/70 + Lv100 owners); migrates discs with the old 1249-1251/1253/1254, re-checks the flags are free; after spot33_catalog/museum/music; notes/unlocks.md \u00a77"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 319,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_bgmfallback.py \"$2\"                                       # RR-08 mode 7: Labyrinth battle vs owner 33 whose BGM pool is empty (KH2 tracks not bought) -> stage music via the mode-0/4 picker (EBOOT FUN_0888b544 case 7 + case-0xC words + jump-table entry 12, 27 words in place); every other opponent unchanged; notes/release-rr-static-b.md"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 320,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_selectblurb.py \"$2\"                                       # RR-17: Sora's \"[Keyblade Master]\" blurb = text id 33 (grid row +6 character number) in the 5 \"Play as this character?\" blurb groups (chara_select 2, creation_room 5, party_setting 5, story_mode 1, update_list 7); after spot33_catalog/ownername/qbpics; notes/release-rr-static-b.md"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 321,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_jukeboxgate.py \"$2\"                                       # RR-08: Museum Jukebox lists ignore the vanilla \"show all\" flag 1372 for the mod's purchase flags (music records 1263..1270, Sora voice character 925, Encounter Voice rows 888) -> KH2 tracks / Sora voices hidden until bought; 45 OVL_MENU_APP words in place; after spot33_jukebox/music/unlockflags; notes/unlocks.md \u00a77"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 322,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_oqslot.py \"$2\"                                            # RR-18: Original Quest menus: owner-33 slot name (\"Sora\" = full-name entry 122 in creation_room 4 / chara_select 0 / party_setting 6 / story_mode 10), slot face (39th icon handle, FUN_08a62530 + FUN_08a53f58 in place), party row face_r/face/name; after spot33_menuart/selectblurb; notes/dlc-phase1.md RR-18"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 323,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_grwp.py \"$2\"                                              # real PSP/Vita: system.bin grwp (Max CP growth) row for owner 33; without it battle setup reads NULL+0x16 and crashes on hardware (PPSSPP ignores); notes/dlc-phase1.md \"Vita test\""
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 324,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_menuclock.py \"$2\"                                         # Vita menu lag (test354): title + menus keep 333/333/166 MHz (boot clock read FUN_08860df8 -> 333 setter, menu setter FUN_08860e78 222/222/111 -> 333/333/166; 5 EBOOT words); notes/dlc-phase1.md \"Vita menu lag\""
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 325,
+      "kind": "build expression",
+      "expression": "python3 -I $S/spot33_installfix.py \"$2\"                                      # LAST: mod-added PACKAGE_INFO rows get install tier 0 \u2192 game Data Install sizes 1-3 stay valid (P0.9)"
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "line": 327,
       "kind": "build expression",
       "expression": "echo \"done: $M/sora_final.gmo\""
     },
@@ -6040,37 +7882,43 @@
     },
     {
       "consumer": "tools/scripts/make_release.sh",
-      "line": 8,
+      "line": 13,
+      "kind": "build expression",
+      "expression": "echo \"NOTE: superseded by tools/pkg/make_release.py for releases (this -S djw patch does not work in the player app)\" >&2"
+    },
+    {
+      "consumer": "tools/scripts/make_release.sh",
+      "line": 15,
       "kind": "build expression",
       "expression": "CLEAN=dumps/ULUS10566.iso"
     },
     {
       "consumer": "tools/scripts/make_release.sh",
-      "line": 11,
+      "line": 18,
       "kind": "build expression",
       "expression": "[ -f \"$MOD\" ] || { echo \"usage: $0 MODDED.iso [NAME]\"; exit 1; }"
     },
     {
       "consumer": "tools/scripts/make_release.sh",
-      "line": 16,
+      "line": 23,
       "kind": "build expression",
-      "expression": "TMP=$(mktemp --suffix=.iso)"
+      "expression": "TMP=$(mktemp -p dumps/release --suffix=.iso.tmp)   # on /data: the root disk (/tmp) is nearly full"
     },
     {
       "consumer": "tools/scripts/make_release.sh",
-      "line": 24,
+      "line": 31,
       "kind": "build expression",
       "expression": "echo \"  xdelta3 -d -s ULUS10566.iso $NAME.xdelta Dissidia012-Sora.iso\""
     },
     {
       "consumer": "tools/scripts/make_release.sh",
-      "line": 30,
+      "line": 37,
       "kind": "build expression",
       "expression": "} > dumps/release/$NAME.txt"
     },
     {
       "consumer": "tools/scripts/make_release.sh",
-      "line": 31,
+      "line": 38,
       "kind": "build expression",
       "expression": "cat dumps/release/$NAME.txt"
     },
@@ -7509,6 +9357,36 @@
       "expression": "os.path.join(outdir, name)"
     },
     {
+      "consumer": "tools/scripts/spot33_assistdup.py",
+      "line": 82,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_assistdup.py",
+      "line": 90,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_assistdup.py",
+      "line": 116,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_assistdup.py",
+      "line": 119,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_assistdup.py",
+      "line": 104,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(('%08x' % w for w in cur))"
+    },
+    {
       "consumer": "tools/scripts/spot33_banner.py",
       "line": 20,
       "kind": "literal; may be input, output, or game-internal member",
@@ -7665,6 +9543,48 @@
       "expression": "pkg_put.py"
     },
     {
+      "consumer": "tools/scripts/spot33_bgmfallback.py",
+      "line": 106,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_bgmfallback.py",
+      "line": 113,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_bgmfallback.py",
+      "line": 130,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(('%08x' % w for w in jt))"
+    },
+    {
+      "consumer": "tools/scripts/spot33_bgmfallback.py",
+      "line": 150,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_bgmfallback.py",
+      "line": 154,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_bgmfallback.py",
+      "line": 128,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(('%08x' % w for w in cur7))"
+    },
+    {
+      "consumer": "tools/scripts/spot33_bgmfallback.py",
+      "line": 128,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(('%08x' % w for w in curt))"
+    },
+    {
       "consumer": "tools/scripts/spot33_breakgauge.py",
       "line": 28,
       "kind": "literal; may be input, output, or game-internal member",
@@ -7786,73 +9706,73 @@
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 40,
+      "line": 43,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "update_list_param.bin"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 41,
+      "line": 44,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "text/EN/mess_pk_update_list_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 67,
+      "line": 80,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 73,
+      "line": 86,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(t, 'x.bin')"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 102,
+      "line": 119,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((struct.pack(REC, *it) for t in tabs for it in t))"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 149,
+      "line": 166,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 168,
+      "line": 185,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "ULUS10566.iso"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 73,
+      "line": 86,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "x.bin"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 160,
+      "line": 177,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'r+b')"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 74,
+      "line": 87,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(p, 'wb')"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 75,
+      "line": 88,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(HERE, 'pkg_put.py')"
     },
     {
       "consumer": "tools/scripts/spot33_catalog.py",
-      "line": 75,
+      "line": 88,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "pkg_put.py"
     },
@@ -8542,7 +10462,7 @@
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 72,
+      "line": 81,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "text/EN/mess_pk_exmode_0.bin"
     },
@@ -8566,55 +10486,55 @@
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 100,
+      "line": 109,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/menu_pk_exmode_gim_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 100,
+      "line": 109,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/EN/menu_lpk_exmode_gim_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 101,
+      "line": 110,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/menu_pk_customize_gim_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 101,
+      "line": 110,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/EN/menu_lpk_customize_gim_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 318,
+      "line": 336,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((struct.pack('<I', w) for w in words))"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 462,
+      "line": 483,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "-> (new main_lang.bin or None if already as wanted, report)"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 494,
+      "line": 515,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "main_lang.bin would exceed its 0x80000 load buffer"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 499,
+      "line": 520,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "mess_pk_exmode_0.bin: groups 2/3 82 -> 86 entries (EXITEMS=0: back to 82). -> (new file or None, report)"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 689,
+      "line": 710,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "main.bin would exceed its 0x180000 load buffer"
     },
@@ -8626,211 +10546,211 @@
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 409,
+      "line": 430,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((struct.pack('<I', w) for w in words))"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 488,
+      "line": 509,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item.bin %d -> %d entries, item_help.bin %d -> %d entries"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 491,
+      "line": 512,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item_help.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 619,
+      "line": 640,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/menu_pk_exmode_seq_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 619,
+      "line": 640,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/EN/menu_lpk_exmode_seq_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 699,
+      "line": 720,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 705,
+      "line": 726,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(t, 'x.bin')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 751,
+      "line": 772,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb' if dry else 'r+b')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 422,
+      "line": 443,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(CLEAN_EBOOT, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 435,
+      "line": 456,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((struct.pack('<H', x ^ K[i + k & 15]) for (k, x) in enumerate(w)))"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 447,
+      "line": 468,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((struct.pack('<H', x ^ K[i + k & 15]) for (k, x) in enumerate(w)))"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 467,
+      "line": 488,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 467,
+      "line": 488,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item_help.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 476,
+      "line": 497,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item.bin has %d entries"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 481,
+      "line": 502,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item_help.bin has %d entries"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 491,
+      "line": 512,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 622,
+      "line": 643,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "'; '.join(rep)"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 657,
+      "line": 678,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(new_rows)"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 705,
+      "line": 726,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "x.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 729,
+      "line": 750,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 733,
+      "line": 754,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(CLEAN_EBOOT, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 735,
+      "line": 756,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(CLEAN_MENU, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 522,
+      "line": 543,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "'/'.join(states)"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 538,
+      "line": 559,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "'/'.join(states)"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 690,
+      "line": 711,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "; system.bin %d -> %d, main.bin %d -> %d B"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 706,
+      "line": 727,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(p, 'wb')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 707,
+      "line": 728,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(HERE, 'pkg_put.py')"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 731,
+      "line": 752,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join((struct.pack('<I', w) for w in ee_words[:4]))"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 732,
+      "line": 753,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "spot33_reflect EE_B (EE_HAS 0x%08x) not installed: run spot33_reflect.py --apply-code first"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 665,
+      "line": 686,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "system.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 688,
+      "line": 709,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "system.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 707,
+      "line": 728,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "pkg_put.py"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 769,
+      "line": 790,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "' '.join(('%08x' % x for x in c))"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 493,
+      "line": 514,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item.bin"
     },
     {
       "consumer": "tools/scripts/spot33_exitems.py",
-      "line": 493,
+      "line": 514,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "item_help.bin"
     },
@@ -9243,6 +11163,84 @@
       "expression": "pkg_put.py"
     },
     {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 29,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, '..', '..', 'dumps', 'ULUS10566.iso')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 82,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "no single grwp chunk in system.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 29,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 73,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 104,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(tmp, 'main.bin')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 76,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 78,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 104,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 105,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(p, 'wb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 106,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'pkg_put.py')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 107,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 49,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join(rows)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_grwp.py",
+      "line": 106,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "pkg_put.py"
+    },
+    {
       "consumer": "tools/scripts/spot33_installfix.py",
       "line": 24,
       "kind": "IO/join expression; runtime values unresolved",
@@ -9331,6 +11329,294 @@
       "line": 100,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "pkg_put.py"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 86,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/battle/voice_p_sev120_00.scd"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 88,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/battle/voice_p_sev120_a_00.scd"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 94,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "update_list_param.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 95,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_update_list_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 96,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "collection_param.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 97,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_collection_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 98,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "collection_voice_param.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 100,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 162,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(t, 'x.bin')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 170,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 342,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join(rows)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 523,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice_load_p_sev120.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 534,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 568,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 601,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "bgm_entry.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 604,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 621,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 162,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "x.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 309,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join(new)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 522,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/voice_load_%s.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 550,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 554,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 597,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 664,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(('%s(=%s)' % c for c in info['clones']))"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 163,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(p, 'wb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 164,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'pkg_put.py')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 302,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join(base)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 462,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "b''.join(base)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 509,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice_load_p_%s.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 510,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/voice_load_P_%s.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 521,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice_load_p_sev120.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 521,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice_load_p_%s.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 524,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice_load_p_sev120.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 666,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(('%d:%s' % a for a in added))"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 164,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "pkg_put.py"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 383,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/battle/%s.at3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 678,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(synced)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 684,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice_load_p_%s.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 508,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": ".bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukebox.py",
+      "line": 671,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/battle/%s.at3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 142,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 149,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 171,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(states)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 180,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 184,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 187,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(('0x%08X x%d' % (p[1], N_WORDS) for p in plan))"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 118,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(('%d id %d flag %s' % (i, r[0], 'always' if r[1] == 65535 else r[1]) for (i, r) in enumerate(recs) if i >= VAN_MUSEUM))"
+    },
+    {
+      "consumer": "tools/scripts/spot33_jukeboxgate.py",
+      "line": 158,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join(('%08x' % w for w in cur))"
     },
     {
       "consumer": "tools/scripts/spot33_lightningfx.py",
@@ -10071,6 +12357,42 @@
       "expression": "open(APPROVED_ART, 'rb')"
     },
     {
+      "consumer": "tools/scripts/spot33_menuclock.py",
+      "line": 38,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, '..', '..', 'dumps', 'ULUS10566.iso')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_menuclock.py",
+      "line": 38,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_menuclock.py",
+      "line": 90,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_menuclock.py",
+      "line": 117,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_menuclock.py",
+      "line": 121,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_menuclock.py",
+      "line": 86,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
       "consumer": "tools/scripts/spot33_movenames.py",
       "line": 26,
       "kind": "literal; may be input, output, or game-internal member",
@@ -10234,55 +12556,55 @@
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 205,
+      "line": 206,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(os.path.dirname(os.path.dirname(HERE)), 'kh2_export', 'raw', 'kh2_fifth', 'remastered', 'menu')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 214,
+      "line": 219,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/JP/Collection/user_icon/user_icon%03d.gim"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 217,
+      "line": 222,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/JP/story_mode/chara2/p_sev120_1p.gim"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 398,
+      "line": 405,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/JP/character_select/chara2/p_sev120_1p.gim"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 399,
+      "line": 406,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/JP/character_select/chara2/p_sev100_1p.gim"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 400,
+      "line": 407,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(os.path.dirname(os.path.dirname(HERE)), 'tools', 'art', 'approved', 'qb_art.png')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 223,
+      "line": 228,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/menu_pk_collection_gim_0.bin"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 400,
+      "line": 407,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "qb_art.png"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 425,
+      "line": 432,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(os.path.dirname(os.path.dirname(HERE)), 'dumps', 'renders', 'menuart')"
     },
@@ -10300,61 +12622,61 @@
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 231,
+      "line": 236,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "general_archive/menu/user_icon%02d.bin"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 244,
+      "line": 249,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(t, 'f.png')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 309,
+      "line": 314,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 332,
+      "line": 339,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(want)"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 358,
+      "line": 365,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 376,
+      "line": 383,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 422,
+      "line": 429,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "ULUS10566.iso"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 423,
+      "line": 430,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "menu/JP/character_select/chara2/p_sev120_1p.gim"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 428,
+      "line": 435,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(rdir, 'museum_portrait_p_sev120_1p.png')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 475,
+      "line": 482,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(rdir, 'records_icon_0x4060.png')"
     },
@@ -10366,55 +12688,55 @@
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 244,
+      "line": 249,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "f.png"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 312,
+      "line": 317,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "general_archive/main/main.bin"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 314,
+      "line": 319,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "system.bin"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 350,
+      "line": 357,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "  system.bin uicn: %d -> %d rows (rows %s); system.bin %d -> %d, main.bin %d -> %d bytes"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 354,
+      "line": 361,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "general_archive/main/main.bin"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 368,
+      "line": 375,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'r+b')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 428,
+      "line": 435,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "museum_portrait_p_sev120_1p.png"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 447,
+      "line": 454,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(rdir, 'user_icon%03d.png' % ic[1])"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 475,
+      "line": 482,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "records_icon_0x4060.png"
     },
@@ -10432,37 +12754,37 @@
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 245,
+      "line": 250,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(KH2_MENU, name + '.imd', '-0.dds')"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 246,
+      "line": 251,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "Image.open(p)"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 276,
+      "line": 281,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(rows)"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 327,
+      "line": 332,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "  system.bin uicn: already %d rows (flags %s)"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 411,
+      "line": 418,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "Image.open(APPROVED)"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 464,
+      "line": 471,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "user_icon%03d.gim"
     },
@@ -10474,25 +12796,25 @@
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 245,
+      "line": 250,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "-0.dds"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 349,
+      "line": 356,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "system.bin"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 447,
+      "line": 454,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "user_icon%03d.png"
     },
     {
       "consumer": "tools/scripts/spot33_museum.py",
-      "line": 407,
+      "line": 414,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(APPROVED, 'rb')"
     },
@@ -10500,7 +12822,7 @@
       "consumer": "tools/scripts/spot33_music.py",
       "line": 39,
       "kind": "IO/join expression; runtime values unresolved",
-      "expression": "os.path.join(ROOT, 'codex', 'inbox', '20261016-kh2-music', 'encoded')"
+      "expression": "os.path.join(ROOT, 'tools', 'music', '20261016-kh2-music', 'encoded')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
@@ -10546,19 +12868,37 @@
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 187,
+      "line": 190,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "KH2TR.AT3"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 187,
+      "line": 190,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "KH2WT.AT3"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 187,
+      "line": 190,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "KH2SS.AT3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_music.py",
+      "line": 191,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "KH2TR.AT3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_music.py",
+      "line": 191,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "KH2WT.AT3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_music.py",
+      "line": 191,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "KH2SS.AT3"
     },
@@ -10618,31 +12958,31 @@
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 303,
+      "line": 308,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 309,
+      "line": 314,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(t, 'x.bin')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 359,
+      "line": 364,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 432,
+      "line": 437,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'r+b')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 492,
+      "line": 497,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "ULUS10566.iso"
     },
@@ -10654,55 +12994,55 @@
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 265,
+      "line": 269,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(want)"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 294,
+      "line": 299,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(want)"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 309,
+      "line": 314,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "x.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 330,
+      "line": 335,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_entry.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 331,
+      "line": 336,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_entry.bin: rows %d -> %d (ids %s), auto music vs owner %d: %s"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 337,
+      "line": 342,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_name.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 338,
+      "line": 343,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_name.bin: names %d -> %d (text ids %s: %s)"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 469,
+      "line": 474,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_entry.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 472,
+      "line": 477,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_name.bin"
     },
@@ -10714,67 +13054,67 @@
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 310,
+      "line": 315,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(p, 'wb')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 311,
+      "line": 316,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(HERE, 'pkg_put.py')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 390,
+      "line": 395,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'r+b')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 408,
+      "line": 413,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 479,
+      "line": 484,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_entry.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 481,
+      "line": 486,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_name.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 311,
+      "line": 316,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "pkg_put.py"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 346,
+      "line": 351,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_entry.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 347,
+      "line": 352,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_name.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 346,
+      "line": 351,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_entry.bin"
     },
     {
       "consumer": "tools/scripts/spot33_music.py",
-      "line": 347,
+      "line": 352,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "bgm_name.bin"
     },
@@ -10887,10 +13227,142 @@
       "expression": "collection_param.bin +0x%X"
     },
     {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 41,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, '../../dumps/extracted/EBOOT.elf')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 41,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "../../dumps/extracted/EBOOT.elf"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 95,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 102,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 109,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(CLEAN_ELF, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 111,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "clean EBOOT.elf mismatch"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 120,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqrecord.py",
+      "line": 123,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 52,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, '../../dumps/extracted/OVL_MENU_APP.ELF')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 145,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "menu/menu_pk_original_quest_gim_3.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 52,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "../../dumps/extracted/OVL_MENU_APP.ELF"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 142,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_creation_room_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 142,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_chara_select_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 143,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_party_setting_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 143,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_story_mode_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 238,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 244,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 164,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "clean OVL_MENU_APP.ELF differs at %08x"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 172,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "clean OVL_MENU_APP.ELF differs at %08x"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 243,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(CLEAN_MENU, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 253,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_oqslot.py",
+      "line": 258,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
       "consumer": "tools/scripts/spot33_outfits.py",
       "line": 36,
       "kind": "IO/join expression; runtime values unresolved",
-      "expression": "os.path.join(ROOT, 'codex', 'inbox', '20261016-drive-outfits')"
+      "expression": "os.path.join(ROOT, 'tools', 'art', '20261016-drive-outfits')"
     },
     {
       "consumer": "tools/scripts/spot33_outfits.py",
@@ -11706,7 +14178,7 @@
       "consumer": "tools/scripts/spot33_reflectvoice.py",
       "line": 18,
       "kind": "IO/join expression; runtime values unresolved",
-      "expression": "os.path.join(ROOT, 'codex', 'inbox', '20261016-reflect-gap')"
+      "expression": "os.path.join(ROOT, 'tools', 'codex', '20261016-reflect-gap')"
     },
     {
       "consumer": "tools/scripts/spot33_reflectvoice.py",
@@ -11819,6 +14291,132 @@
     {
       "consumer": "tools/scripts/spot33_save.py",
       "line": 237,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "pkg_put.py"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 49,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, '../../dumps/extracted/EBOOT.elf')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 49,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "../../dumps/extracted/EBOOT.elf"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 186,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 188,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 213,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 221,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 262,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 271,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_savefix.py",
+      "line": 214,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(CLEAN_EBOOT, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 36,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_chara_select_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 36,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_creation_room_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 37,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_party_setting_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 37,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_story_mode_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 38,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "text/EN/mess_pk_update_list_0.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 53,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 59,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(t, 'x.bin')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 92,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 59,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "x.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 60,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(p, 'wb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 61,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'pkg_put.py')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_selectblurb.py",
+      "line": 61,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "pkg_put.py"
     },
@@ -12498,59 +15096,59 @@
       "consumer": "tools/scripts/spot33_tips.py",
       "line": 100,
       "kind": "IO/join expression; runtime values unresolved",
-      "expression": "'\\n'.join([HEAD('\u25c6Trinity Limit'), 'His EX Burst calls on the light of his friends.', HI + SP + '\u2605Tap ' + CIRCLE + ' again and again to fill the gauge!\\x1b', 'The fuller it gets, the longer the storm of', 'Keyblade strikes lasts.', '', HEAD('\u25c6Sora-only Gear'), SP + '\u2605Kingdom Key: connected combo hits build EX', SP + '\u2605Protect Belt: blocked hits fill the EX Gauge', 'Keep an eye out for more gear made just for him!'])"
+      "expression": "'\\n'.join([HEAD('\u25c6Trinity Limit'), 'His EX Burst calls on the light of his friends.', HI + SP + '\u2605Tap ' + CIRCLE + ' again and again to fill the gauge!\\x1b', 'Fill it all the way for the full storm of strikes!', '', HEAD('\u25c6Sora-only Gear'), SP + '\u2605Kingdom Key: connected combo hits build EX', SP + '\u2605Protect Belt: blocked hits fill the EX Gauge', SP + '\u2605Save the King: reflected bravery hits +50%', SP + '\u2605Crown Pendant: EX Mode lasts 30% longer'])"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 131,
+      "line": 133,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "manual_param.bin not in main.bin"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 117,
+      "line": 119,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "manual_param.bin size %d != header %d"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 125,
+      "line": 127,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 188,
+      "line": 190,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "b''.join(vanilla)"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 197,
+      "line": 199,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "%s: %d -> %d B; main.bin %d -> %d B; %s %d -> %d B (group 2 %d -> %d)"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 214,
+      "line": 216,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(t, os.path.basename(path))"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 215,
+      "line": 217,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(p, 'wb')"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 216,
+      "line": 218,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(HERE, 'pkg_put.py')"
     },
     {
       "consumer": "tools/scripts/spot33_tips.py",
-      "line": 216,
+      "line": 218,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "pkg_put.py"
     },
@@ -12631,6 +15229,180 @@
       "line": 147,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "pkg_put.py"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 50,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "update_list_param.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 50,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "collection_param.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 50,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "collection_voice_param.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 51,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 52,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "party_battle-pbtl.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 128,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin uicn rows 413..416 + bgm_entry rows 131..133, in place inside main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 84,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 90,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(t, 'x.bin')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 131,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 153,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "bgm_entry.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 214,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 266,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 281,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "bgm_entry.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 299,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 304,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 90,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "x.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 139,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "system.bin has no uicn chunk"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 91,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(p, 'wb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 92,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'pkg_put.py')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 92,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "pkg_put.py"
+    },
+    {
+      "consumer": "tools/scripts/spot33_unlockflags.py",
+      "line": 328,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "', '.join(new_files)"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 77,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 94,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "objentry.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 109,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "ULUS10566.iso"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 116,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 80,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "collection_param.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 82,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "general_archive/main/main.bin"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 126,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_viewer.py",
+      "line": 131,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_voice.py",
@@ -12870,191 +15642,191 @@
       "consumer": "tools/scripts/spot33_vsvoices.py",
       "line": 75,
       "kind": "IO/join expression; runtime values unresolved",
-      "expression": "os.path.join(ROOT, 'codex/inbox/20261018-approved-voices')"
+      "expression": "os.path.join(ROOT, 'tools/voice/20261018-1408-approved-voices-complete')"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 176,
+      "line": 177,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "voice/EN/event/title_call/%s.at3"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 267,
+      "line": 268,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "json.load(open(os.path.join(PKG, 'manifest.json')))"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 277,
+      "line": 278,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "prepare_audio.py's guard, read-only: SHA-256 vs manifest, mono PCM16"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 278,
+      "line": 279,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(PKG, asset['file'])"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 253,
+      "line": 254,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(iso, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 267,
+      "line": 268,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(os.path.join(PKG, 'manifest.json'))"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 280,
+      "line": 281,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "wave.open(p)"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 449,
+      "line": 450,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "wave.open(out_wav, 'wb')"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 496,
+      "line": 497,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(t, 'x.bin')"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 267,
+      "line": 268,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(PKG, 'manifest.json')"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 293,
+      "line": 294,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(at3_path, 'rb')"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 496,
+      "line": 497,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "x.bin"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 587,
+      "line": 591,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "'; '.join(notes[k])"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 604,
+      "line": 608,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "os.path.join(t, os.path.basename(path))"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 650,
+      "line": 654,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "'; '.join(('%s = %s' % kv for kv in HELD.items()))"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 267,
+      "line": 268,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "manifest.json"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 466,
+      "line": 467,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": "voice/EN/battle/%s.at3"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 479,
-      "kind": "IO/join expression; runtime values unresolved",
-      "expression": "os.path.join(t, 'n.at3')"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 497,
-      "kind": "IO/join expression; runtime values unresolved",
-      "expression": "open(p, 'wb')"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 498,
-      "kind": "IO/join expression; runtime values unresolved",
-      "expression": "os.path.join(HERE, 'pkg_put.py')"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 612,
-      "kind": "IO/join expression; runtime values unresolved",
-      "expression": "os.path.join(t, os.path.basename(path) + '.wav')"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 669,
-      "kind": "IO/join expression; runtime values unresolved",
-      "expression": "open(iso, 'r+b')"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 479,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "n.at3"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 498,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "pkg_put.py"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 596,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "voice/EN/battle/%s.at3"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 598,
-      "kind": "literal; may be input, output, or game-internal member",
-      "expression": "voice/EN/battle/%s.at3"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 626,
-      "kind": "IO/join expression; runtime values unresolved",
-      "expression": "open(out, 'rb')"
-    },
-    {
-      "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 652,
-      "kind": "IO/join expression; runtime values unresolved",
-      "expression": "' '.join((str(o) for (o, _, _) in soras))"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
       "line": 480,
       "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(t, 'n.at3')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 498,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(p, 'wb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 499,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(HERE, 'pkg_put.py')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 616,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "os.path.join(t, os.path.basename(path) + '.wav')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 673,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(iso, 'r+b')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 480,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "n.at3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 499,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "pkg_put.py"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 600,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/battle/%s.at3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 602,
+      "kind": "literal; may be input, output, or game-internal member",
+      "expression": "voice/EN/battle/%s.at3"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 630,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "open(out, 'rb')"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 656,
+      "kind": "IO/join expression; runtime values unresolved",
+      "expression": "' '.join((str(o) for (o, _, _) in soras))"
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "line": 481,
+      "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(f, 'wb')"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 612,
+      "line": 616,
       "kind": "literal; may be input, output, or game-internal member",
       "expression": ".wav"
     },
     {
       "consumer": "tools/scripts/spot33_vsvoices.py",
-      "line": 279,
+      "line": 280,
       "kind": "IO/join expression; runtime values unresolved",
       "expression": "open(p, 'rb')"
     },

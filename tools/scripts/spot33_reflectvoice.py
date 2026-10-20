@@ -1,7 +1,7 @@
 """EX Reflect says "Back off!" (Mat confirmed 2026-10-16; KH2 tt0_sora_029 = existing voice slot 7): in the guard blocks
 20/21 (motions 470/471) the frame-0 voice event becomes normal-only (cond byte +5 = 1, keeps slot 37 "Defense!") and an
 EX-only copy (cond +5 = 2) plays slot 7. Uses Codex's guarded transformer
-codex/inbox/20261016-reflect-gap/reflect_voice_split.py (checks the layout, refuses a conflicting slot, keeps every
+tools/codex/20261016-reflect-gap/reflect_voice_split.py (checks the layout, refuses a conflicting slot, keeps every
 non-script chunk byte-identical, idempotent). Slot 7's bank data is checked against the selected clip first.
 Needs no new voice/sound slot; objx +32 B.
 
@@ -15,7 +15,7 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(ROOT, 'codex', 'inbox', '20261016-reflect-gap'))
+sys.path.insert(0, os.path.join(ROOT, 'tools', 'codex', '20261016-reflect-gap'))
 sys.dont_write_bytecode = True
 import fep_edit as E  # noqa: E402
 import sscf  # noqa: E402

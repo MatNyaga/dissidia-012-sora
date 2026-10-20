@@ -1,4 +1,4 @@
-"""Mat's approved voice lines (Codex package codex/inbox/20261018-approved-voices) on a TEST disc:
+"""Mat's approved voice lines (Codex package tools/voice/20261018-approved-voices) on a TEST disc:
 1. every playable speaker's battle-opening line against Sora (VOLD row: moment 0x0046, condition 2, value 33),
 2. Sora's mirror line (Sora vs Sora: Sora's own VOLD row condition 2 value 33),
 3. Sora as a TITLE CALLER ("Square Enix presents" half + "Dissidia Duodecim" half) on days 25 and 29,
@@ -72,7 +72,7 @@ from roster_patch import MENU_FILEOFF, MENU_ISO_SECTOR, MENU_VADDR  # noqa: E402
 from spot33_lines import at3  # noqa: E402
 from voice_lines import VoiceISO  # noqa: E402
 
-PKG = os.path.join(ROOT, 'codex/inbox/20261018-approved-voices')
+PKG = os.path.join(ROOT, 'tools/voice/20261018-1408-approved-voices-complete')  # final 75-file successor
 GAIN_MODE = os.environ.get('GAIN_MODE', 'match')   # match (default, test338) | off (test337: no level change)
 assert GAIN_MODE in ('match', 'off'), GAIN_MODE
 LIM_MED_MAX = float(os.environ.get('LIM_MED_MAX', '6'))  # dB: max median limiting on speech (gentle)
@@ -168,6 +168,7 @@ def sora_lines(assets):
         name = who[len('Sora vs '):]
         assert name in SORA_VS_OWNERS, (who, 'no routable opponent; add it to HELD or SORA_VS_OWNERS')
         assert a.get('owner') == SORA and a.get('opponent') == name, (who, a.get('owner'), a.get('opponent'))
+        assert a.get('opponent_owner') == SORA_VS_OWNERS[name], (who, a.get('opponent_owner'), SORA_VS_OWNERS[name])
         out.append((SORA_VS_OWNERS[name], a, subtitle_text(a['text'])))
     return sorted(out, key=lambda x: x[0])
 
@@ -533,7 +534,10 @@ def main():
     for owner, key, pfx, who, text in SPEAKERS:
         a = assets[who]
         if who != 'Sora mirror':
-            assert a['mapping']['intended_trigger'] == 'speaker battle opening vs Sora owner33', who
+            trig = a['mapping']['intended_trigger']
+            assert trig == 'speaker battle opening vs Sora owner33' or \
+                trig == '%s speaker owner%d opening against Sora owner33' % (who, owner), (who, trig)
+            assert a.get('owner') in (None, owner), (who, 'manifest owner', a.get('owner'), 'disc owner', owner)
         rows = new_rows[key]
         assert rows[0][0].startswith(pfx + '_'), (key, rows[0][0], 'speaker check failed')
         mirror = [r for r in rows if r[3] == VS and r[4] == owner]

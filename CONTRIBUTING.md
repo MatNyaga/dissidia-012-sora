@@ -35,4 +35,5 @@ rather than the file itself.
 
 - Run `bash tools/repository/smoke.sh`.
 - Look at the list and sizes of staged files. Nothing from a game, no build outputs, no personal paths or secrets.
-- Don't add third-party assets or a licence file; licensing is still to be decided by the project owner.
+- Don't add third-party assets. New code is MIT like the rest of the repository; changes in `tools/installer/` are
+  GPL-3.0-or-later (see [LICENSE](LICENSE)).

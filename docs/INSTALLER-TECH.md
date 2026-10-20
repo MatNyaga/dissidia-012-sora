@@ -5,8 +5,9 @@ operating system with the release patch built in.
 
 **Where the code lives.** The maintained app is in its own public repository,
 <https://github.com/MatNyaga/sora-fan-patch> (GPL-3.0-or-later). `tools/installer/` in this repository is an
-**early prototype** from 18 October 2026: the decoder, checks, CLI and window are there, but not the EBOOT
-decryption, the licence files or the build pipeline added later. Use the app repository for anything current.
+**early copy** (refreshed 20 October 2026, before the 1.0.0 version bump): the decoder, checks, EBOOT decryption,
+CLI, window and the GPL text (`tools/installer/LICENSE`) are there, but not the build pipeline. Use the app
+repository for anything current.
 
 ## 1. Design rules
 
@@ -128,12 +129,13 @@ Version 1 ships unsigned (signing costs money and ties a real name to a fan mod)
 
 ## 7. Licence
 
-The EBOOT decryption in the app (`core/src/pspcrypt.rs` in the app repository) is a fresh Rust port of the type-2
+The EBOOT decryption in the app (`core/src/pspcrypt.rs`, also in `tools/installer/` here) is a fresh Rust port of the type-2
 ~PSP decryption path from **pspdecrypt** (GPL-3.0), whose PRX code comes from **PPSSPP** (GPL-2.0-or-later) and whose
 KIRK engine is **libkirk** (GPL-3.0-or-later). All three allow combination under GPL-3.0-or-later, so the core, the
 CLI and the app are **GPL-3.0-or-later**. Their dependencies (RustCrypto, serde, fs4, Tauri) are MIT/Apache-2.0 and
 compatible. Every download ships the GPL text and a link to the exact source. The release data (patch and
-`release.json`) is our own content and is kept separate from the program.
+`release.json`) is our own content and is kept separate from the program. The rest of this research repository is
+MIT ([LICENSE](../LICENSE)); `tools/installer/` keeps GPL-3.0-or-later.
 
 ## 8. Dependency note: glib advisory GHSA-wrw7-89jp-8q8g
 

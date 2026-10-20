@@ -1,6 +1,6 @@
 #!/bin/bash
 # End-to-end test of sorapatch-core on SMALL SYNTHETIC files only (no game data, no .iso names).
-#   tools/installer/tests/run_synthetic.sh [WORKDIR]     (default: tools/installer/testdata)
+#   tests/run_synthetic.sh [WORKDIR]     (default: testdata/ in the installer workspace)
 # Makes a fake 3 MiB "disc" with a ULUS-10566 header, a "modded" copy (changed bytes + appended
 # tail, like a mode-B disc), encodes with the real xdelta3 under several settings, applies with
 # our pure-Rust decoder, and checks every plain-word problem case. Needs: cargo, xdelta3, python3.
@@ -12,7 +12,7 @@ W=$(cd "$W" && pwd)
 case "$W" in */dumps*) echo "refusing to work under dumps/"; exit 2;; esac
 cd "$HERE"
 nice cargo build --release -q -p sorapatch-cli
-CLI=$HERE/target/release/sorapatch-cli
+CLI=${CARGO_TARGET_DIR:-$HERE/target}/release/sorapatch-cli
 "$CLI" --check-strings
 
 python3 -I - "$W" <<'PY'

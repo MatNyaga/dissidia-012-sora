@@ -249,6 +249,41 @@
    ]
   },
   {
+   "category": "table",
+   "covers": "owner 33",
+   "owner_max_data_only": 33,
+   "owner34": "needs the record-slot allocator (code)",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "refs": [
+    "tools/pkg/code_sites.json",
+    "notes/dlc-phase1.md P1.2"
+   ],
+   "id": "save_record_hooks",
+   "name": "Saved fighter record: code hooks (owner -> record slot, friend-card limit)",
+   "kind": "code-site",
+   "where": "EBOOT FUN_088cb164 0x088CB17C..0x088CB1E8 and FUN_088cb3b4 0x088CB3B4..0x088CB404 (owner 33 -> record slot 24), friend-card limit sites 0x088F523C / 0x088F52A0",
+   "row_size": "words",
+   "sora_today": {
+    "scripts": [
+     "spot33_save.py"
+    ],
+    "what": "53 EBOOT words: owner 33 uses record 24 (friend card 24), friend-card limit 25 -> 24"
+   },
+   "new_fighter": {
+    "needs": "nothing in layout A (single-owner hook); Phase 2 = record-slot allocator",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Added 2026-10-18 by P1.2 (extractor): the code part of save_record_slot (kind save) as its own code-site so patches/ can name it. Data side stays save_record_slot."
+  },
+  {
    "id": "start_preset_table",
    "name": "Default equipment preset per owner",
    "category": "table",
@@ -698,7 +733,7 @@
      "spot33_museum.py",
      "spot33_catalog.py"
     ],
-    "what": "icons 414 (Sora), 415/416 (Riku/Kairi), 417 (avatar); unlock flags 1 / 1253 / 1254; viewed flag 2580+idx"
+    "what": "icons 414 (Sora), 415/416 (Riku/Kairi), 417 (avatar); unlock flags 1266 (KH set: 414-416) / 1267 (avatar 417), were 1253/1254 until test348 (vanilla-set, RR-08); viewed flag 2580+idx"
    },
    "new_fighter": {
     "needs": "1-4 icons",
@@ -1080,7 +1115,7 @@
    "category": "table",
    "kind": "data",
    "where": "menu 0x08A864D0 (getter FUN_08a85ecc; mode table 0x08A8665C follows)",
-   "row_size": "12 B (u16 pic, u16 name pic, u16 logo, u16 ?, i32 owner)",
+   "row_size": "12 B (u16 pic, u16 name pic, u16 logo, u16 character number = blurb text id (char_blurbs), i32 owner)",
    "index_base": "row index (32 = random/free, magic)",
    "capacity": {
     "max_rows": 33,
@@ -1469,6 +1504,41 @@
    "refs": []
   },
   {
+   "category": "table",
+   "covers": "owner 33",
+   "owner_max_data_only": 33,
+   "owner34": "needs code (table has no row 34)",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "refs": [
+    "tools/pkg/code_sites.json",
+    "notes/dlc-phase1.md P1.2"
+   ],
+   "id": "network_name_hook",
+   "name": "Friend Card / Ghost name lookup: code hook",
+   "kind": "code-site",
+   "where": "menu overlay FUN_08a1d7f8 0x08A1D7FC..0x08A1D814 (7 words: owner 33 -> name 63 instead of the u16 table 0x08A23ACC[owner-1])",
+   "row_size": "words",
+   "sora_today": {
+    "scripts": [
+     "spot33_ownername.py"
+    ],
+    "what": "7 menu-overlay words"
+   },
+   "new_fighter": {
+    "needs": "nothing in layout A (single-owner hook); Phase 2 = registry name index",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Added 2026-10-18 by P1.2 (extractor): code part of network_names (kind data) as its own code-site."
+  },
+  {
    "id": "museum_viewer_owners",
    "name": "Museum 3D viewer owner table (DLC costumes)",
    "category": "table",
@@ -1485,8 +1555,10 @@
    "owner_max_data_only": null,
    "owner34": "needs relocation",
    "sora_today": {
-    "scripts": [],
-    "what": "Sora absent -> outfits 4+ not in the viewer"
+    "scripts": [
+     "spot33_viewer.py"
+    ],
+    "what": "table not extended (data follows); code returns owner 33 for record index 34 (museum_viewer_code) -> outfits 4-6 in the viewer"
    },
    "new_fighter": {
     "needs": "list entry",
@@ -1497,6 +1569,38 @@
    },
    "phase2_target": "registry lookup",
    "notes": "Data follows: relocate.",
+   "refs": []
+  },
+  {
+   "id": "museum_viewer_code",
+   "name": "Museum 3D viewer owner lookup code (menu)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu FUN_08a3200c (record index -> owner via 0x08A358FC) + FUN_08a32284 (DLC costume loop, compacted; tail)",
+   "row_size": "n/a",
+   "index_base": "record index",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": "Museum record 34 (Sora)",
+   "owner_max_data_only": null,
+   "owner34": "needs code (one more index -> owner case)",
+   "sora_today": {
+    "scripts": [
+     "spot33_viewer.py"
+    ],
+    "what": "38 words in place: record index 34 -> owner 33, others unchanged"
+   },
+   "new_fighter": {
+    "needs": "another index case or a relocated table",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "RR-09 (notes/release-rr-static-b.md). Code half of museum_viewer_owners.",
    "refs": []
   },
   {
@@ -1791,29 +1895,64 @@
    "name": "Jukebox voice groups",
    "category": "table",
    "kind": "data",
-   "where": "collection_voice_param (33 groups)",
+   "where": "collection_voice_param (groups by owner byte) + collection_param section 8 (Jukebox character list) + voice_load_parameter.mpk (museum VOLD copies) + menu list caps",
    "row_size": "group",
    "index_base": "group index",
    "capacity": {
-    "max_rows": null,
-    "used_rows": 33,
-    "free_rows": "append"
+    "max_rows": 34,
+    "used_rows": 34,
+    "free_rows": 0
    },
    "covers": null,
    "owner_max_data_only": null,
    "owner34": null,
    "sora_today": {
-    "scripts": [],
-    "what": "Sora has none (open)"
+    "scripts": [
+     "spot33_jukebox.py"
+    ],
+    "what": "group 33 (Encounter/vs/Victory/Loss/Battle), section-8 entry after Feral Chaos, vs-Sora rows in 30 groups, museum VOLD copies synced, menu caps 33->34 (10 words); flag 888"
    },
    "new_fighter": {
-    "needs": "one group",
+    "needs": "one group + section-8 entry + museum VOLD member + a bigger character-list buffer (obj+0x710..0x754 is full at 34)",
     "type": [
-     "data row"
+     "data row",
+     "code"
     ]
    },
    "phase2_target": "append",
-   "notes": "",
+   "notes": "notes/unlocks.md section 6. Character list obj+0x710 (cap 0x22 after spot33_jukebox) touches the row list at obj+0x754 (moved from 0x752); a 35th fighter needs both buffers moved (menu code). 'vs Feral Chaos' rows use Feral Chaos's flag 886 (native for all 30 fighters) - not a bug; Encounter/vs rows are on the fighter's own Encounter Voice flag (Sora 888); the list builders skip the vanilla override 1372 for mod flags (jukebox_gate_code).",
+   "refs": []
+  },
+  {
+   "id": "jukebox_list_code",
+   "name": "Jukebox list size code (menu)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu: FUN_08a36ee8 character list obj+0x710 (cap/memset), FUN_08a37024 + row label + FUN_08a382bc voice-row list obj+0x752",
+   "row_size": "u16 per entry",
+   "index_base": "list order",
+   "capacity": {
+    "max_rows": 34,
+    "used_rows": 34,
+    "free_rows": 0
+   },
+   "covers": "34 Jukebox characters",
+   "owner_max_data_only": null,
+   "owner34": "needs code",
+   "sora_today": {
+    "scripts": [
+     "spot33_jukebox.py"
+    ],
+    "what": "10 words: character list cap 0x21 -> 0x22 (+ memset 0x42 -> 0x44), voice-row list obj+0x752 -> 0x754 (4 sites), cap 0x200 -> 0x1FF, memset 0x400 -> 0x3FE"
+   },
+   "new_fighter": {
+    "needs": "both buffers moved/grown (obj+0x710..0x754 full at 34)",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Code half of jukebox_voice (notes/unlocks.md section 6). code_sites.json ranges -> patches/jukebox_list_code.json.",
    "refs": []
   },
   {
@@ -1826,7 +1965,7 @@
    "index_base": "tab + order",
    "capacity": {
     "max_rows": null,
-    "used_rows": "117/44/31/93/41 + 3",
+    "used_rows": "118/44/31/93/41 + 3",
     "free_rows": "append"
    },
    "covers": null,
@@ -1834,9 +1973,10 @@
    "owner34": null,
    "sora_today": {
     "scripts": [
-     "spot33_catalog.py"
+     "spot33_catalog.py",
+     "spot33_jukebox.py"
     ],
-    "what": "tab 0 item 15 Chaos -> Sora (flag 925); tab 3 icons (1253/1254); tab 4 BGM (1249..1251)"
+    "what": "tab 0 item 15 Chaos -> Sora (flag 925); tab 0 #109 Encounter Voice - Sora (flag 888, new 2093); tab 3 icons (1266/1267); tab 4 BGM (1263..1265) (were 1253/1254 + 1249..1251 until test348; RR-08 spot33_unlockflags)"
    },
    "new_fighter": {
     "needs": "items + flags",
@@ -1880,6 +2020,76 @@
    "phase2_target": "append",
    "notes": "",
    "refs": []
+  },
+  {
+   "id": "bgm_mode7_fallback",
+   "name": "Labyrinth (mode 7) BGM pick: empty owner pool -> stage music (code)",
+   "category": "special-case",
+   "kind": "code-site",
+   "where": "EBOOT FUN_0888b544 case 7 (0x0888B61C, 22 words) + case-0xC words 0x0888B6A4 (4) + jump table 0x089CA530 (entry 12 -> 0x0888B608)",
+   "row_size": "n/a",
+   "index_base": "opponent owner byte 0x09AFC900",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": "owner 33 only (xori 0x21)",
+   "owner_max_data_only": null,
+   "owner34": "needs code (compare is owner 33 only; a generic version = 'any mod owner' or 'any owner')",
+   "sora_today": {
+    "scripts": [
+     "spot33_bgmfallback.py"
+    ],
+    "what": "mode-7 pick -1 and opponent owner 33 -> mode-0/4 picker FUN_08ade458 (owner OR stage rows) = stage music while the KH2 tracks are locked"
+   },
+   "new_fighter": {
+    "needs": "own owner compare or a generic empty-pool fallback",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "RR-08 mode 7 (notes/release-rr-static-b.md). Vanilla -1 cases for other owners (Chaos 23, Feral Chaos 32 bit 0, locked Shantotto/Prishe bit-1 rows) deliberately untouched.",
+   "refs": [
+    "notes/release-rr-static-b.md RR-08",
+    "notes/music.md 7"
+   ]
+  },
+  {
+   "id": "jukebox_gate_code",
+   "name": "Museum Jukebox list gates: vanilla 'show all' flag 1372 skipped for mod purchase flags (code)",
+   "category": "special-case",
+   "kind": "code-site",
+   "where": "menu: FUN_08a36d1c music list 0x08A36DB0, FUN_08a36ee8 voice characters 0x08A36F7C, FUN_08a37024 voice rows 0x08A370D8 (15 words each, in place)",
+   "row_size": "n/a",
+   "index_base": "record unlock flag (collection_param sec 6 +2 / sec 8 +0 / collection_voice_param row +2)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": "music flags 1263..1270 (mod reserved block), voice character flag 925, voice row flag 888",
+   "owner_max_data_only": null,
+   "owner34": "needs code (each gate exempts one flag range: a new fighter's purchase flags need their own range or a shared mod flag block)",
+   "sora_today": {
+    "scripts": [
+     "spot33_jukeboxgate.py"
+    ],
+    "what": "override (flag 1372) no longer lists KH2 tracks 131-133, Sora's Jukebox entry (925) or his Encounter Voice rows (888) before they are bought; every other row unchanged"
+   },
+   "new_fighter": {
+    "needs": "own flag in the exempt range (music: 1268..1270 free) or wider ranges",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "RR-08 Jukebox leak (notes/unlocks.md section 7 addendum, notes/release-rr-static-b.md RR-08). Museum item lists (FUN_08a301b0) keep the vanilla override.",
+   "refs": [
+    "notes/unlocks.md 7",
+    "notes/release-rr-static-b.md RR-08"
+   ]
   },
   {
    "id": "brai_seco",
@@ -2000,9 +2210,10 @@
      "spot33_voice.py",
      "voice_lines.py",
      "spot33_lines.py",
-     "spot33_vsvoices.py"
+     "spot33_vsvoices.py",
+     "spot33_jukebox.py"
     ],
-    "what": "own list; cond-2 rows value 33 in 29 other fighters' lists; Sora mirror row"
+    "what": "own list; cond-2 rows value 33 in 29 other fighters' lists; Sora mirror row; Museum copies in voice_load_parameter.mpk re-synced to the loose lists + member voice_load_p_sev120.bin"
    },
    "new_fighter": {
     "needs": "own list + vs rows merged into shared lists",
@@ -2011,7 +2222,7 @@
     ]
    },
    "phase2_target": "append",
-   "notes": "Shared files: installer merges rows (order-independent).",
+   "notes": "Package rows: loose lists ns pkg:voice/EN/voice_load_p_<key>.bin and Museum members ns pkg:voice/EN/voice_load_parameter.mpk!voice_load_p_<key>.bin use the same VOLD grid codec (16+24); Sora's own Museum member is a whole-member add on the mpk ns.",
    "refs": []
   },
   {
@@ -2115,6 +2326,41 @@
    "phase2_target": "append",
    "notes": "",
    "refs": []
+  },
+  {
+   "id": "char_blurbs",
+   "name": "Character style blurbs (\"Play as this character?\" dialog)",
+   "category": "table",
+   "kind": "text",
+   "where": "blurb groups: chara_select 2, creation_room 5, party_setting 5, story_mode 1, update_list 7 (33 entries: #0 'You cannot select this character yet.', #1..#32)",
+   "row_size": "text entry",
+   "index_base": "character number = qb_grid_rows u16 +6 (1..23 = owner, Kain 24, Tifa 25, Laguna 26, Yuna 27, Vaan 28, Lightning 29, Prishe 30, Gilgamesh 31, Feral Chaos 32; Sora 33)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 34,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_selectblurb.py"
+    ],
+    "what": "'[Keyblade Master] ...' = entry 33 in all five groups"
+   },
+   "new_fighter": {
+    "needs": "entry 34, 35 ... + grid row character number",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "RR-17 (notes/release-rr-static-b.md). The grid row's +6 field is the text index, not the owner.",
+   "refs": [
+    "notes/release-rr-static-b.md RR-17"
+   ]
   },
   {
    "id": "item_texts",
@@ -2604,19 +2850,22 @@
     "scripts": [
      "spot33_catalog.py",
      "spot33_museum.py",
-     "spot33_music.py"
+     "spot33_music.py",
+     "spot33_unlockflags.py"
     ],
-    "what": "925 (Chaos's flag reused), SEEN 3633 (spot33_newtag), 1249..1251 BGM, 1253/1254 icons, viewed 3681, icon viewed 2993"
+    "what": "925 unlock (Chaos's flag reused); 1263 TR / 1264 WT / 1265 SS / 1266 KH icon set / 1267 Avatar (save word +0x9C bits 0x8000..0x80000), reserved mod block 1263..1270 (spot33_unlockflags.py migrates old discs that used 1249-1251/1253/1254); 888 Encounter Voice - Sora; catalog NEW 2093; SEEN 3633 (spot33_newtag); viewed 3681; icon viewed 2993. Sora's catalog item still reuses Chaos's NEW flag 2263 (known, cosmetic)"
    },
    "new_fighter": {
-    "needs": "unused flag bits",
+    "needs": "allocate from a verified-free block; vanilla writes 1250-1262 on level milestones (FUN_08a2b07c: any fighter Lv30/50/70 -> 1250/1251/1252, Lv100 rewards 1253-1262 from table 0x08A2E8AC) and 1372 = Jukebox 'show all' override; check every vanilla writer, not just data rows",
     "type": [
      "id allocation"
     ]
    },
    "phase2_target": "append",
-   "notes": "Need a map of unused flags (Phase 1 task).",
-   "refs": []
+   "notes": "Old KH2 flags 1249..1251 BGM / 1253/1254 icons collided with the vanilla level-milestone flags 1250-1262 (set by FUN_08a2b07c) -> moved to 1263..1267 (RR-08). Free-flag proof must include code writers.",
+   "refs": [
+    "notes/unlocks.md §7"
+   ]
   },
   {
    "id": "save_stats_blocks",
@@ -2986,6 +3235,177 @@
    "phase2_target": "none (already generic)",
    "notes": "Bump one text byte per release so old installs are ignored (P0.9).",
    "refs": []
+  },
+  {
+   "id": "oq_slot_code",
+   "name": "Original Quest slot face: 39th icon handle for owner 33 (code)",
+   "category": "special-case",
+   "kind": "code-site",
+   "where": "menu: FUN_08a62530 handle-list builder 0x08A62530 (38 words) + FUN_08a53f58 slot face 0x08A54044 (21 words), in place",
+   "row_size": "n/a",
+   "index_base": "face table 0x08A54638[owner] (owner o -> handle o+2)",
+   "capacity": {
+    "max_rows": 38,
+    "used_rows": 38,
+    "free_rows": "0 (scene object has no room; owner 33's handle lives in face-table word 0x08A546BC)"
+   },
+   "covers": "owners 1..32 via the scene list, 33 via the extra handle",
+   "owner_max_data_only": null,
+   "owner34": "needs code (one more extra handle + its own storage word, e.g. 0x08A546C0)",
+   "sora_today": {
+    "scripts": [
+     "spot33_oqslot.py"
+    ],
+    "what": "39th handle = (layout 0x660E, picture 25897 = Sora OQ icon) built from pair word 0x08A637BC, stored in 0x08A546BC; slot uses it when the face-table entry is >= 64"
+   },
+   "new_fighter": {
+    "needs": "extra handle + storage word + icon picture at 25652 + 245 + n",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "RR-18 runtime slip 1 (black face square).",
+   "refs": [
+    "notes/dlc-phase1.md RR-18"
+   ]
+  },
+  {
+   "id": "oq_slot_tables",
+   "name": "Original Quest owner tables: slot full-name entry, party picture rows, extra icon pair",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08A544E0[owner] (u32 full-name entry), 0x08A6CAD0[owner] (6 B: face_r, face, name pictures), 0x08A6B394[owner] (u16 party picker face_r), pair word 0x08A637BC",
+   "row_size": "4 B / 6 B / 2 B / 4 B",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 35,
+    "used_rows": 34,
+    "free_rows": "1 (owner 34 entries reserved, -1 / 0)"
+   },
+   "covers": "1..32 (+33)",
+   "owner_max_data_only": 34,
+   "owner34": "OK for name + rows (needs pictures at base + 245 + 1 and a full-name entry); face needs oq_slot_code",
+   "sora_today": {
+    "scripts": [
+     "spot33_oqslot.py"
+    ],
+    "what": "full-name entry 122; row (26028, 26063, 25929); picker banner 26028 (vanilla owners 33/34 = Feral Chaos 25814); pair (0x660E, 25897)"
+   },
+   "new_fighter": {
+    "needs": "full-name text entry + 3 pictures + icon",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "RR-18 runtime slips 1-3.",
+   "refs": [
+    "notes/dlc-phase1.md RR-18"
+   ]
+  },
+  {
+   "id": "oq_full_names",
+   "name": "Full character names (slot / party labels)",
+   "category": "table",
+   "kind": "text",
+   "where": "full-name groups: creation_room 4, chara_select 0, party_setting 6, story_mode 10 (122 entries vanilla: #0 'Play as this character?', #7..28 WoL..Gabranth, #57..65 Kain..Chaos, #66..95 manikins, #121 Feral Chaos)",
+   "row_size": "text entry",
+   "index_base": "full-name index (0x08A544E0[owner])",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 123,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_oqslot.py"
+    ],
+    "what": "'Sora' = entry 122 in all four groups"
+   },
+   "new_fighter": {
+    "needs": "entry 123 ...",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": [
+    "notes/dlc-phase1.md RR-18"
+   ]
+  },
+  {
+   "id": "grwp",
+   "name": "Max CP growth (system.bin grwp)",
+   "category": "table",
+   "kind": "data",
+   "where": "system.bin chunk grwp: u32 3, u32 count, count x 0x1C rows (u16 idx, u16 owner, ..., +0x14 s16 base, +0x16 s16 growth); battle setup FUN_088b5670 -> FUN_088c0a20 -> FUN_088c09ac linear scan; RAM copy 0x09B68B58 (room 0x708 B = 64 rows)",
+   "row_size": "0x1C",
+   "index_base": "owner (linear scan)",
+   "capacity": {
+    "max_rows": 64,
+    "used_rows": 33,
+    "free_rows": 31
+   },
+   "covers": "owners 1..32 vanilla",
+   "owner_max_data_only": 63,
+   "owner34": "needs a row",
+   "sora_today": {
+    "scripts": [
+     "spot33_grwp.py"
+    ],
+    "what": "row idx 32 / owner 33 = Cloud's values (329 + 121*L/100)"
+   },
+   "new_fighter": {
+    "needs": "one row; missing row = NULL read in battle setup = crash on real PSP/Vita (PPSSPP silent)",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Found by the Vita test 2026-10-19 (C1-2858-3). Static test tools/qa/owner_rows.py detects missing per-owner rows.",
+   "refs": [
+    "notes/dlc-phase1.md Vita test",
+    "docs/PHASE1-PLAN.md RR-22"
+   ]
+  },
+  {
+   "id": "menu_clock",
+   "name": "CPU clock in title + menus: 333/333/166 instead of the game's 222/222/111 (code)",
+   "category": "special-case",
+   "kind": "code-site",
+   "where": "EBOOT FUN_08860df8 (boot clock read, 2 words -> j 0x08860E3C) + FUN_08860e78 (menu setter, 3 li words) via scePower_469989ad",
+   "row_size": "n/a",
+   "index_base": "n/a (not per owner)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": "all owners (global)",
+   "owner_max_data_only": null,
+   "owner34": "nothing needed (global engine fix)",
+   "sora_today": {
+    "scripts": [
+     "spot33_menuclock.py"
+    ],
+    "what": "5 EBOOT words; menus never drop to 222 MHz"
+   },
+   "new_fighter": {
+    "needs": "nothing",
+    "type": []
+   },
+   "phase2_target": "engine",
+   "notes": "Vita menu lag (test354, 2026-10-20): Adrenaline's CPU 333 does not reach the plain-EBOOT disc, so the game sets it itself. Lesson: never rely on CFW clock settings.",
+   "refs": [
+    "notes/dlc-phase1.md Vita menu lag"
+   ]
   }
  ]
 }

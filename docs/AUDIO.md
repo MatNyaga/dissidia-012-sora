@@ -7,7 +7,7 @@ repository.
 
 - **75 recordings** were selected for the mod, including **35 new Sora lines** (battle intros, wins, and matchup
   lines against other fighters) and the matching lines from the other fighters.
-- The final voice package is in the release candidates. In testing, CPU Sora says his matchup lines, Lightning's
+- The final voice package is in release 1.0. In testing, CPU Sora says his matchup lines, Lightning's
   "vs Sora" line plays in battle, and Garland's "vs Sora" line is listed and plays in the Jukebox.
 - Sora also has a **Jukebox** voice entry, bought in the PP Catalog like the other fighters' voice sets.
 - Not covered yet: Chaos's round-specific lines, Aerith-assist lines and Cosmos story scenes. These keep the

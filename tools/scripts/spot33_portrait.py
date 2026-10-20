@@ -1,6 +1,6 @@
 """Sora's select-screen portrait ONLY (Quick Battle art + main-menu character select art), from
 tools/art/approved/qb_art.png = Codex's refined portrait that Mat approved ("I like the image", 2026-10-16;
-codex/inbox/20261016-select-portrait). Re-encodes just those two GIM entries with spot33_qbpics' own template/marker
+tools/art/20261016-select-portrait). Re-encodes just those two GIM entries with spot33_qbpics' own template/marker
 path (keep + put) and leaves every other pack entry byte-identical. Asserts the result equals Codex's verified GIM
 (sha256 d964a61b...). Re-runnable ("already").
 

@@ -1,5 +1,5 @@
 """KH2 Reflega meshes + texture -> native Dissidia MDL / TEX blobs (library for spot33_barrier.py; generalises Codex's
-codex/inbox/20261016-reflect-gap/build_shell_prototype.py from model 0 to any REFLECT_3.mag model).
+tools/codex/20261016-reflect-gap/build_shell_prototype.py from model 0 to any REFLECT_3.mag model).
 
 Source: kh2_export/raw/kh2_fifth/original/magic/REFLECT_3.mag (sha256 checked), DPD 0 (21 OMD models, 3 textures).
 KH2 programs (pdata 0 = ground Reflega, pdata 2 = the full-sphere variant; tools/scripts/kh2_pax_dump.py) draw model

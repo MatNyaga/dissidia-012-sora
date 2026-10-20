@@ -9,7 +9,7 @@ fn main() {
         .map(PathBuf::from)
         .unwrap_or_else(|_| PathBuf::from("../../testdata/rel-default"));
     let dir = dir.canonicalize().unwrap_or_else(|_| {
-        panic!("release dir {} not found: run tools/installer/tests/run_synthetic.sh or set SORAPATCH_RELEASE_DIR", dir.display())
+        panic!("release dir {} not found: run tests/run_synthetic.sh (installer workspace root) or set SORAPATCH_RELEASE_DIR", dir.display())
     });
     let (m, p) = (dir.join("release.json"), dir.join("patch.vcdiff"));
     for f in [&m, &p] {

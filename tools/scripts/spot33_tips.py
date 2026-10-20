@@ -100,13 +100,15 @@ PAGES = [
     '\n'.join([HEAD('◆Trinity Limit'),
                'His EX Burst calls on the light of his friends.',
                HI + SP + '★Tap ' + CIRCLE + ' again and again to fill the gauge!\x1b',
-               'The fuller it gets, the longer the storm of',
-               'Keyblade strikes lasts.',
+               # RR-17 (2026-10-18): TRI is two-way (19+ taps = full storm 8500, fewer = 3-hit 8501), and all four
+               # Sora-only items (678-681) exist now; the old page said "fuller = longer" and listed only two
+               'Fill it all the way for the full storm of strikes!',
                '',
                HEAD('◆Sora-only Gear'),
                SP + '★Kingdom Key: connected combo hits build EX',
                SP + '★Protect Belt: blocked hits fill the EX Gauge',
-               'Keep an eye out for more gear made just for him!']),
+               SP + '★Save the King: reflected bravery hits +50%',
+               SP + '★Crown Pendant: EX Mode lasts 30% longer']),
 ]
 
 

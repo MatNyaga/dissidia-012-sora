@@ -1,10 +1,11 @@
 //! Core of the fan-patch installer: check the player's file, then build the patched copy.
 //!
-//! Rules (docs/INSTALLER-UX.md): the player's file is only ever READ; the new file is written
+//! Rules (player-facing UX spec): the player's file is only ever READ; the new file is written
 //! under a hidden temporary name next to it and renamed only after its SHA-256 matches the
 //! release manifest; any failure or cancel removes the temporary file. Every problem has a
 //! stable `code` that the UI turns into plain words (app/ui/strings.en.js).
 
+pub mod pspcrypt;
 pub mod vcdiff;
 
 use serde::{Deserialize, Serialize};
@@ -50,7 +51,30 @@ pub struct Manifest {
     /// Other releases of the same game: disc id -> region word shown to the player.
     #[serde(default)]
     pub other_regions: BTreeMap<String, String>,
+    /// Format 2: what the patch's source is, when it is not the player's file byte for byte.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<SourceInfo>,
 }
+
+/// Format-2 patch source `"kind": "plain_eboot"`: the player's (already checked) clean disc with
+/// the bytes of its encrypted EBOOT.BIN replaced, from `offset`, by that EBOOT's decryption
+/// (pspcrypt.rs). Same size as the disc; only `plain_size` bytes differ. So the release never has
+/// to carry the game's plain code: COPY instructions read it from the player's own decrypted EBOOT.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SourceInfo {
+    pub kind: String,
+    /// ISO path of the encrypted file, e.g. "PSP_GAME/SYSDIR/EBOOT.BIN".
+    pub file: String,
+    /// Byte offset of that file in the disc image (sector * 2048).
+    pub offset: u64,
+    pub encrypted_size: u64,
+    pub encrypted_sha256: String,
+    pub plain_size: u64,
+    pub plain_sha256: String,
+}
+
+pub const SOURCE_PLAIN_EBOOT: &str = "plain_eboot";
+pub const EBOOT_PATH: &str = "PSP_GAME/SYSDIR/EBOOT.BIN";
 
 pub struct Release {
     pub manifest: Manifest,
@@ -62,8 +86,12 @@ impl Release {
     pub fn from_parts(manifest_json: &str, delta: impl Into<Cow<'static, [u8]>>) -> Result<Self, String> {
         let delta = delta.into();
         let manifest: Manifest = serde_json::from_str(manifest_json).map_err(|e| e.to_string())?;
-        if manifest.format != 1 {
-            return Err(format!("unknown manifest format {}", manifest.format));
+        match (manifest.format, &manifest.source) {
+            (1, None) => {}
+            (2, Some(s)) if s.kind == SOURCE_PLAIN_EBOOT && s.plain_size <= s.encrypted_size => {}
+            (2, Some(s)) => return Err(format!("unknown or bad patch source kind {:?}", s.kind)),
+            (2, None) => return Err("manifest format 2 needs a \"source\"".into()),
+            (f, _) => return Err(format!("unknown manifest format {f}")),
         }
         Ok(Release { manifest, delta })
     }
@@ -122,6 +150,10 @@ pub trait Progress {
 
 /// Human size in GB with one decimal, e.g. "1.9 GB" (used in messages).
 pub fn gb(bytes: u64) -> String {
+    if bytes < 1_000_000_000 {
+        // "0.0 GB" for a 10 MB file reads like "empty"; say MB below 1 GB.
+        return format!("{} MB", bytes / 1_000_000);
+    }
     format!("{:.1} GB", bytes as f64 / 1_000_000_000.0)
 }
 
@@ -149,8 +181,9 @@ fn sniff(head: &[u8]) -> Option<Problem> {
     None
 }
 
-/// Read the game id from /UMD_DATA.BIN of a PSP ISO9660 image ("ULUS-10566"), if present.
-pub fn read_disc_id<R: Read + Seek>(f: &mut R) -> Option<String> {
+/// Find a file in a PSP ISO9660 image by path ("PSP_GAME/SYSDIR/EBOOT.BIN"):
+/// (byte offset, size). Read only; `None` if the image has no such file.
+pub fn iso_find<R: Read + Seek>(f: &mut R, path: &str) -> Option<(u64, u64)> {
     let mut pvd = [0u8; 2048];
     f.seek(SeekFrom::Start(16 * 2048)).ok()?;
     f.read_exact(&mut pvd).ok()?;
@@ -158,37 +191,163 @@ pub fn read_disc_id<R: Read + Seek>(f: &mut R) -> Option<String> {
         return None;
     }
     let root = &pvd[156..156 + 34];
-    let lba = u32::from_le_bytes(root[2..6].try_into().ok()?) as u64;
-    let len = (u32::from_le_bytes(root[10..14].try_into().ok()?) as usize).min(64 * 2048);
-    let mut dir = vec![0u8; len];
-    f.seek(SeekFrom::Start(lba * 2048)).ok()?;
-    f.read_exact(&mut dir).ok()?;
-    let mut p = 0usize;
-    while p < dir.len() {
-        let rl = dir[p] as usize;
-        if rl == 0 {
-            p = (p / 2048 + 1) * 2048; // records never cross a sector; jump to the next one
-            continue;
-        }
-        if p + rl > dir.len() || rl < 34 {
-            break;
-        }
-        let r = &dir[p..p + rl];
-        let nl = r[32] as usize;
-        if 33 + nl <= rl {
-            let name = &r[33..33 + nl];
-            if name.eq_ignore_ascii_case(b"UMD_DATA.BIN;1") || name.eq_ignore_ascii_case(b"UMD_DATA.BIN") {
-                let flba = u32::from_le_bytes(r[2..6].try_into().ok()?) as u64;
-                let mut id = [0u8; 10];
-                f.seek(SeekFrom::Start(flba * 2048)).ok()?;
-                f.read_exact(&mut id).ok()?;
-                let s = String::from_utf8_lossy(&id).to_string();
-                return if s.is_ascii() { Some(s) } else { None };
+    let mut lba = u32::from_le_bytes(root[2..6].try_into().ok()?) as u64;
+    let mut len = u32::from_le_bytes(root[10..14].try_into().ok()?) as u64;
+    let parts: Vec<&str> = path.split('/').filter(|p| !p.is_empty()).collect();
+    for (k, want) in parts.iter().enumerate() {
+        let last = k + 1 == parts.len();
+        let mut dir = vec![0u8; len.min(64 * 2048) as usize];
+        f.seek(SeekFrom::Start(lba * 2048)).ok()?;
+        f.read_exact(&mut dir).ok()?;
+        let mut p = 0usize;
+        let mut found = None;
+        while p < dir.len() {
+            let rl = dir[p] as usize;
+            if rl == 0 {
+                p = (p / 2048 + 1) * 2048; // records never cross a sector; jump to the next one
+                continue;
             }
+            if p + rl > dir.len() || rl < 34 {
+                break;
+            }
+            let r = &dir[p..p + rl];
+            let nl = r[32] as usize;
+            if 33 + nl <= rl {
+                let name = &r[33..33 + nl];
+                let name = name.split(|&c| c == b';').next().unwrap_or(name);
+                let is_dir = r[25] & 2 != 0;
+                if name.eq_ignore_ascii_case(want.as_bytes()) && is_dir != last {
+                    let flba = u32::from_le_bytes(r[2..6].try_into().ok()?) as u64;
+                    let fsize = u32::from_le_bytes(r[10..14].try_into().ok()?) as u64;
+                    found = Some((flba, fsize));
+                    break;
+                }
+            }
+            p += rl;
         }
-        p += rl;
+        let (flba, fsize) = found?;
+        if last {
+            return Some((flba * 2048, fsize));
+        }
+        lba = flba;
+        len = fsize;
     }
     None
+}
+
+/// Read the game id from /UMD_DATA.BIN of a PSP ISO9660 image ("ULUS-10566"), if present.
+pub fn read_disc_id<R: Read + Seek>(f: &mut R) -> Option<String> {
+    let (off, _) = iso_find(f, "UMD_DATA.BIN")?;
+    let mut id = [0u8; 10];
+    f.seek(SeekFrom::Start(off)).ok()?;
+    f.read_exact(&mut id).ok()?;
+    let s = String::from_utf8_lossy(&id).to_string();
+    if s.is_ascii() {
+        Some(s)
+    } else {
+        None
+    }
+}
+
+// ---------------------------------------------------------------- format-2 source (decrypted EBOOT)
+
+/// The disc's EBOOT.BIN, decrypted in memory (never written next to the player's file).
+pub struct PlainEboot {
+    pub offset: u64,
+    pub encrypted_size: u64,
+    pub encrypted_sha256: String,
+    pub plain: Vec<u8>,
+    pub plain_sha256: String,
+}
+
+/// Find, read and decrypt `file` (a ~PSP executable) inside a disc image. Read only.
+pub fn decrypt_disc_file(path: &Path, file: &str) -> Result<PlainEboot, String> {
+    let mut f = File::open(path).map_err(|e| e.to_string())?;
+    let (offset, size) = iso_find(&mut f, file).ok_or_else(|| format!("{file} not found in the disc image"))?;
+    if size > 64 << 20 {
+        return Err(format!("{file} is {size} bytes; too large"));
+    }
+    let mut enc = vec![0u8; size as usize];
+    f.seek(SeekFrom::Start(offset)).map_err(|e| e.to_string())?;
+    f.read_exact(&mut enc).map_err(|e| e.to_string())?;
+    let plain = pspcrypt::decrypt(&enc).map_err(|e| format!("{file}: {e}"))?;
+    Ok(PlainEboot {
+        offset,
+        encrypted_size: size,
+        encrypted_sha256: hex(&Sha256::digest(&enc)),
+        plain_sha256: hex(&Sha256::digest(&plain)),
+        plain,
+    })
+}
+
+/// The player's file as the patch sees it: `file` with `overlay` bytes shown from `at` on.
+/// Read + Seek over the real file; nothing is written anywhere.
+pub struct VirtualSource<F: Read + Seek> {
+    file: F,
+    pos: u64,
+    at: u64,
+    overlay: Vec<u8>,
+}
+
+impl<F: Read + Seek> VirtualSource<F> {
+    pub fn new(file: F, at: u64, overlay: Vec<u8>) -> Self {
+        VirtualSource { file, pos: 0, at, overlay }
+    }
+}
+
+impl<F: Read + Seek> Read for VirtualSource<F> {
+    fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+        if buf.is_empty() {
+            return Ok(0);
+        }
+        let end = self.at + self.overlay.len() as u64;
+        let n = if self.pos >= self.at && self.pos < end {
+            let o = (self.pos - self.at) as usize;
+            let n = buf.len().min(self.overlay.len() - o);
+            buf[..n].copy_from_slice(&self.overlay[o..o + n]);
+            n
+        } else {
+            // Plain file bytes, stopping where the overlay starts.
+            let lim = if self.pos < self.at { ((self.at - self.pos) as usize).min(buf.len()) } else { buf.len() };
+            self.file.seek(SeekFrom::Start(self.pos))?;
+            self.file.read(&mut buf[..lim])?
+        };
+        self.pos += n as u64;
+        Ok(n)
+    }
+}
+
+impl<F: Read + Seek> Seek for VirtualSource<F> {
+    fn seek(&mut self, to: SeekFrom) -> std::io::Result<u64> {
+        let new = match to {
+            SeekFrom::Start(p) => Some(p),
+            SeekFrom::Current(d) => self.pos.checked_add_signed(d),
+            SeekFrom::End(d) => self.file.seek(SeekFrom::End(0))?.checked_add_signed(d),
+        };
+        self.pos = new.ok_or_else(|| std::io::Error::new(std::io::ErrorKind::InvalidInput, "seek before start"))?;
+        Ok(self.pos)
+    }
+}
+
+/// Open the patch source for `input` (already checked by check_input): the file itself
+/// (format 1) or the file with its EBOOT decrypted in memory (format 2).
+pub fn open_source(rel: &Release, input: &Path) -> Result<VirtualSource<File>, Problem> {
+    let f = File::open(input).map_err(|e| Problem::new("cant_read").detail(e))?;
+    let Some(s) = &rel.manifest.source else {
+        return Ok(VirtualSource::new(f, 0, Vec::new()));
+    };
+    let fail = |d: String| Problem::new("build_failed").with("code", "E-DECRYPT").detail(d);
+    let pe = decrypt_disc_file(input, &s.file).map_err(fail)?;
+    if pe.offset != s.offset || pe.encrypted_size != s.encrypted_size || pe.encrypted_sha256 != s.encrypted_sha256 {
+        return Err(fail(format!(
+            "{} at {} ({} B, sha256 {}) is not the expected file",
+            s.file, pe.offset, pe.encrypted_size, pe.encrypted_sha256
+        )));
+    }
+    if pe.plain.len() as u64 != s.plain_size || pe.plain_sha256 != s.plain_sha256 {
+        return Err(fail(format!("decrypted {} B, sha256 {}", pe.plain.len(), pe.plain_sha256)));
+    }
+    Ok(VirtualSource::new(f, s.offset, pe.plain))
 }
 
 fn sha256_file<P: Progress>(path: &Path, size: u64, stage: Stage, prog: &mut P) -> Result<String, Problem> {
@@ -287,9 +446,12 @@ pub fn plan_output(rel: &Release, input: &Path, out_dir: Option<&Path>) -> Resul
         Some(i) => (&name[..i], &name[i..]),
         None => (name.as_str(), ""),
     };
+    remove_stale_temps(&dir, stem, ext);
+    // A name is free when neither it nor its temporary file exists (a temp that is still there
+    // after remove_stale_temps belongs to a build that is running right now).
     let mut out = dir.join(name);
     let mut k = 2;
-    while out.exists() {
+    while out.exists() || temp_path(&out).exists() {
         out = dir.join(format!("{stem} ({k}){ext}"));
         k += 1;
     }
@@ -312,6 +474,45 @@ fn same_file(a: &Path, b: &Path) -> bool {
         (Ok(x), Ok(y)) => x == y,
         _ => false,
     }
+}
+
+/// A temporary file untouched this long is a leftover of a build that was killed (window closed
+/// mid-build, Ctrl+C, crash, power cut): a running build writes to it every few milliseconds, and
+/// even the final flush to a slow USB stick finishes well within this.
+const STALE_TEMP_SECS: u64 = 10 * 60;
+
+/// Deletes our own leftover temporary files in `dir`: only hidden regular files named exactly
+/// `.<stem><ext>.part` or `.<stem> (<n>)<ext>.part` (the names `temp_path` gives this release's
+/// output) that have not been written for STALE_TEMP_SECS. Nothing else is ever touched.
+fn remove_stale_temps(dir: &Path, stem: &str, ext: &str) {
+    let Ok(entries) = fs::read_dir(dir) else { return };
+    for e in entries.flatten() {
+        let name = e.file_name().to_string_lossy().to_string();
+        if !is_our_temp_name(&name, stem, ext) {
+            continue;
+        }
+        let Ok(meta) = e.metadata() else { continue };
+        let idle = meta.modified().ok().and_then(|t| t.elapsed().ok()).map(|d| d.as_secs());
+        if meta.is_file() && idle.is_some_and(|s| s >= STALE_TEMP_SECS) {
+            let _ = fs::remove_file(e.path());
+        }
+    }
+}
+
+fn is_our_temp_name(name: &str, stem: &str, ext: &str) -> bool {
+    let Some(mid) = name
+        .strip_prefix('.')
+        .and_then(|n| n.strip_prefix(stem))
+        .and_then(|n| n.strip_suffix(".part"))
+        .and_then(|n| n.strip_suffix(ext))
+    else {
+        return false;
+    };
+    mid.is_empty()
+        || mid
+            .strip_prefix(" (")
+            .and_then(|m| m.strip_suffix(')'))
+            .is_some_and(|d| !d.is_empty() && d.bytes().all(|b| b.is_ascii_digit()))
 }
 
 fn temp_path(out: &Path) -> PathBuf {
@@ -382,7 +583,7 @@ pub fn build<P: Progress>(rel: &Release, input: &Path, out: &Path, prog: &mut P)
         .open(&tmp)
         .map_err(|e| Problem::new("cant_write").detail(e))?;
     let mut guard = TempGuard { path: tmp.clone(), armed: true };
-    let mut src = File::open(input).map_err(|e| Problem::new("cant_read").detail(e))?;
+    let mut src = open_source(rel, input)?;
     let mut w = HashingWriter { inner: BufWriter::with_capacity(1 << 20, file), hash: Sha256::new() };
     let mut sink = DecodeSink { prog, total: m.output.size };
     let written = match vcdiff::decode(&rel.delta, &mut src, &mut w, &mut sink) {
@@ -460,6 +661,114 @@ mod tests {
     #[test]
     fn disc_id_absent_on_random_data() {
         assert_eq!(read_disc_id(&mut Cursor::new(vec![7u8; 100_000])), None);
+    }
+
+    #[test]
+    fn virtual_source_overlays_exactly() {
+        let base: Vec<u8> = (0..10_000u32).map(|i| (i % 251) as u8).collect();
+        let ov = vec![0xEEu8; 1234];
+        let at = 4000u64;
+        let mut want = base.clone();
+        want[at as usize..at as usize + ov.len()].copy_from_slice(&ov);
+        let mut v = VirtualSource::new(Cursor::new(base), at, ov);
+        let mut got = Vec::new();
+        v.read_to_end(&mut got).unwrap();
+        assert_eq!(got, want);
+        for (pos, n) in [(3990u64, 30usize), (5230, 10), (0, 10_000), (9_995, 5), (4500, 7)] {
+            let mut b = vec![0u8; n];
+            v.seek(SeekFrom::Start(pos)).unwrap();
+            v.read_exact(&mut b).unwrap();
+            assert_eq!(b, want[pos as usize..pos as usize + n], "at {pos}");
+        }
+        assert_eq!(v.seek(SeekFrom::End(-1)).unwrap(), 9_999);
+    }
+
+    #[test]
+    fn iso_find_nested_and_missing() {
+        let img = fake_disc("ULUS-10566|0123456789ABCDEF|0001|G");
+        let mut c = Cursor::new(img);
+        assert_eq!(iso_find(&mut c, "UMD_DATA.BIN"), Some((19 * 2048, 32)));
+        assert_eq!(iso_find(&mut c, "PSP_GAME/SYSDIR/EBOOT.BIN"), None);
+        assert_eq!(iso_find(&mut c, "UMD_DATA.BIN/X"), None);
+    }
+
+    #[test]
+    fn manifest_formats() {
+        let base = r#""title":"t","version":"1","input":{"disc_id":"X","size":1,"sha256":"a"},
+            "output":{"file_name":"o","size":1,"sha256":"b"}"#;
+        let src = r#","source":{"kind":"plain_eboot","file":"PSP_GAME/SYSDIR/EBOOT.BIN","offset":2048,
+            "encrypted_size":10,"encrypted_sha256":"c","plain_size":8,"plain_sha256":"d"}"#;
+        let m = |f: u32, s: &str| Release::from_parts(&format!("{{\"format\":{f},{base}{s}}}"), Vec::new());
+        assert!(m(1, "").is_ok());
+        assert!(m(2, src).is_ok());
+        assert!(m(2, "").is_err());
+        assert!(m(1, src).is_err());
+        assert!(m(3, "").is_err());
+        assert!(m(2, &src.replace("plain_eboot", "other")).is_err());
+    }
+
+    /// Hash-only check against a real clean disc, when one is given (never committed):
+    ///   SORAPATCH_CLEAN_ISO=/path/ULUS10566.iso cargo test -- --ignored real_eboot
+    #[test]
+    #[ignore]
+    fn real_eboot_decrypts_to_known_plain_elf() {
+        let Ok(p) = std::env::var("SORAPATCH_CLEAN_ISO") else {
+            eprintln!("SORAPATCH_CLEAN_ISO not set; skipped");
+            return;
+        };
+        let pe = decrypt_disc_file(Path::new(&p), EBOOT_PATH).expect("decrypt");
+        assert_eq!(pe.offset, 560 * 2048);
+        assert_eq!(pe.encrypted_size, 4_641_296);
+        assert_eq!(pe.encrypted_sha256, "8fbf3541ab121aff85aae72795760736dfe37706996b2b0f9b81d36fc98f3394");
+        assert_eq!(pe.plain.len(), 4_640_948);
+        assert_eq!(pe.plain_sha256, "0bc8e779aad2814a3d1bd77346f69ca5e16665845ed053cd0ad44a9cbfaefe6d");
+    }
+
+    #[test]
+    fn temp_name_matching() {
+        let (st, ext) = ("Dissidia 012 + Sora (fan patch 1.0)", ".iso");
+        assert!(is_our_temp_name(".Dissidia 012 + Sora (fan patch 1.0).iso.part", st, ext));
+        assert!(is_our_temp_name(".Dissidia 012 + Sora (fan patch 1.0) (12).iso.part", st, ext));
+        assert!(!is_our_temp_name("Dissidia 012 + Sora (fan patch 1.0).iso.part", st, ext));
+        assert!(!is_our_temp_name(".Dissidia 012 + Sora (fan patch 1.0) (x).iso.part", st, ext));
+        assert!(!is_our_temp_name(".Dissidia 012 + Sora (fan patch 1.0) ().iso.part", st, ext));
+        assert!(!is_our_temp_name(".Dissidia 012 + Sora (fan patch 1.0).iso", st, ext));
+        assert!(!is_our_temp_name(".Dissidia 012 + Sora (fan patch 1.0) copy.iso.part", st, ext));
+        assert!(!is_our_temp_name(".other.iso.part", st, ext));
+    }
+
+    /// A leftover temp from a killed build must neither block the folder (it used to give
+    /// cant_write "File exists") nor be deleted while it could still belong to a running build.
+    #[test]
+    fn plan_output_handles_leftover_temps() {
+        let dir = std::env::temp_dir().join(format!("sorapatch-stale-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        let rel = Release::from_parts(
+            r#"{"format":1,"title":"t","version":"1","input":{"disc_id":"X","size":1,"sha256":"a"},
+               "output":{"file_name":"Out.iso","size":1,"sha256":"b"}}"#,
+            Vec::new(),
+        )
+        .unwrap();
+        let input = dir.join("in.iso");
+        fs::write(&input, b"x").unwrap();
+        let fresh = dir.join(".Out.iso.part");
+        let stale = dir.join(".Out (2).iso.part");
+        let foreign = dir.join(".Out.iso.part.keep");
+        for f in [&fresh, &stale, &foreign] {
+            fs::write(f, b"partial").unwrap();
+        }
+        let old = std::time::SystemTime::now() - std::time::Duration::from_secs(STALE_TEMP_SECS + 5);
+        for f in [&stale, &foreign] {
+            File::options().write(true).open(f).unwrap().set_modified(old).unwrap();
+        }
+        let out = plan_output(&rel, &input, None).expect("leftover temp must not block the folder");
+        assert!(fresh.exists(), "a recent temp (maybe a running build) is kept");
+        assert!(!stale.exists(), "an idle leftover temp is removed");
+        assert!(foreign.exists(), "other files are never touched");
+        // ".Out.iso.part" is busy, the stale "(2)" temp is gone, so "(2)" is free again.
+        assert_eq!(out, dir.join("Out (2).iso"));
+        fs::remove_dir_all(&dir).unwrap();
     }
 
     #[test]

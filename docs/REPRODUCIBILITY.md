@@ -46,11 +46,11 @@ Git, and being selected for the build doesn't make them shareable.
 | `codex/EX-openings/charge-strain-v2/exports/codex_charge_strain.gmo` | `_801B` donor; generation command absent. |
 | `codex/EX-finisher/exports/codex_ex_break.gmo` | `_812A` donor, still read even though later overwritten; recipe absent. |
 | `codex/EX-timed/exports/codex-ex-timed.gmo` | `_812A/B/C` donor; recipe absent. |
-| `codex/inbox/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo` | Guard motion donor for `spot33_exguard.py --gmo`; regeneration chain absent. |
-| `codex/inbox/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo` | Final `_812A/_812C` motion donor; only event retimer is committed, not motion-generation recipe. |
+| `tools/codex/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo` | Guard motion donor for `spot33_exguard.py --gmo`; regeneration chain absent. |
+| `tools/codex/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo` | Final `_812A/_812C` motion donor; only event retimer is committed, not motion-generation recipe. |
 | `codex/EX-face/packed/build_packed.py` and `codex/EX-face/build_face.py` | **Missing source**, called/imported by full build. Existing local implementation also needs selected face assets (`assets/pins.json`, `eyes.png`, `mouth.png`) resolved relative to its face helper. The separately committed `20261015-ex-strained-face/build_face.py` is not proof of an interchangeable import path or identical version. |
-| `codex/inbox/20261016-drive-outfits/build_variants.py` | **Missing source**, imported by `spot33_outfits.py`. Local implementation builds textures from remastered own-game DDS; needs review/export before this path can run. |
-| `codex/inbox/20261016-drive-outfits/output/restore-body.gim`, `restore-face.gim`, and `{Limit,Master,Valor,Wisdom,Final}/{body.gim,face-clothing.gim}` | Texture-only variants bound to baseline textures. Local generator expects remastered `kh2_sixth/.../P_EX100.mdlx/-1.dds` and each `P_EX100_{KH1F,TRIF,BTLF,MAGF,ULTF}.mdlx/{-0.dds,-1.dds}`. Exact generator CLI/version and baseline source GMO still need reconciliation. |
+| `tools/art/20261016-drive-outfits/build_variants.py` | **Missing source**, imported by `spot33_outfits.py`. Local implementation builds textures from remastered own-game DDS; needs review/export before this path can run. |
+| `tools/art/20261016-drive-outfits/output/restore-body.gim`, `restore-face.gim`, and `{Limit,Master,Valor,Wisdom,Final}/{body.gim,face-clothing.gim}` | Texture-only variants bound to baseline textures. Local generator expects remastered `kh2_sixth/.../P_EX100.mdlx/-1.dds` and each `P_EX100_{KH1F,TRIF,BTLF,MAGF,ULTF}.mdlx/{-0.dds,-1.dds}`. Exact generator CLI/version and baseline source GMO still need reconciliation. |
 
 ## Effects and source-helper gaps
 
@@ -59,12 +59,12 @@ Git, and being selected for the build doesn't make them shareable.
 | `kh2_export/raw/kh2_fifth/original/magic/REFLECT_3.mag` | Own KH2 extraction; SHA `f41496e0a19cdb926cd10fe71ea03c9b758ecc9bba948af186c22c0c2e6d78da`, checked by `kh2_reflect_mesh.py`. Converted in the barrier path, no prebuilt mesh upload needed. |
 | `kh2_export/raw/kh2_sixth/original/obj/P_EX100.a.us` | Own KH2 effects; SHA `ddbb877b6d02dedcabb4ae5652b2d18ca9153e333dafe1de427a4b86459b419c`. |
 | `kh2_export/raw/kh2_fifth/original/magic/MAGNET_3.mag` | Own KH2 effects; SHA `8d98edbd872c92b55ea4ab9556a6af8d9bdc2aee59879c49afaea9cd3952605a`; converted with preceding source by `kh2_magnet_mesh.py`. |
-| `codex/inbox/20261016-fire-thunder-redesign/{native_orbit.py,thunder_base.py}` | **Missing source imports** of committed `build_candidates.py`; local copies have absolute-path assumptions and need reviewed export. |
-| `codex/inbox/20261016-fire-thunder-visibility-v2/build_candidates.py` | `revise.py` imports this module from its own directory. Clone only has a different directory's copy; module-search closure must be reconciled explicitly. |
-| `codex/inbox/20261016-fire-appearance-v3/{source-fire-o0f.tex,smooth-fire-o0f.tex}` | Selected native texture reference/derivative. Committed build checks source bytes but does not regenerate the smoothed texture from scratch. Recipe/hash pin reconciliation is open. |
-| `codex/inbox/20261016-thunder-canonical-readability/build.py` | **Missing dynamically loaded source** used by thunder visual-stack helper. |
-| `codex/inbox/20261016-fire-thunder-visibility-v2/fire.objx` | Reference read by the missing Thunder helper, for canonical hit-table comparisons. A built game file (not included); its exact build recipe is still missing. |
-| `codex/inbox/20261016-trinity-finisher-level/finisher-only.vag` | Prepared ADPCM finisher sample; patcher appends bytes but does not recreate source gain/encoding. Local recipe and source identity need reconciliation. |
+| `tools/codex/20261016-fire-thunder-redesign/{native_orbit.py,thunder_base.py}` | **Missing source imports** of committed `build_candidates.py`; local copies have absolute-path assumptions and need reviewed export. |
+| `tools/codex/20261016-fire-thunder-visibility-v2/build_candidates.py` | `revise.py` imports this module from its own directory. Clone only has a different directory's copy; module-search closure must be reconciled explicitly. |
+| `tools/codex/20261016-fire-appearance-v3/{source-fire-o0f.tex,smooth-fire-o0f.tex}` | Selected native texture reference/derivative. Committed build checks source bytes but does not regenerate the smoothed texture from scratch. Recipe/hash pin reconciliation is open. |
+| `tools/codex/20261016-thunder-canonical-readability/build.py` | **Missing dynamically loaded source** used by thunder visual-stack helper. |
+| `tools/codex/20261016-fire-thunder-visibility-v2/fire.objx` | Reference read by the missing Thunder helper, for canonical hit-table comparisons. A built game file (not included); its exact build recipe is still missing. |
+| `tools/codex/20261016-trinity-finisher-level/finisher-only.vag` | Prepared ADPCM finisher sample; patcher appends bytes but does not recreate source gain/encoding. Local recipe and source identity need reconciliation. |
 
 Don't use `--help` to test these helpers without assets: some read game files as soon as they load.
 
@@ -87,9 +87,9 @@ Other audio dependencies:
 | `dumps/voice_sora/cloud_voice.scd`, `map.txt`, and every WAV referenced by map | Original donor SSCF from own Dissidia disc. Map syntax `N path.wav`; `sscf.py rebuild BANK MAP OUT_BANK` is implemented. Exact donor extraction and all mapping entries are local/unresolved. Full builder skips this block if map is absent, which is not an acceptable reproduction success. |
 | `dumps/voice_sora/sora16/tt0_sora_{013,014,029}.wav` | Locally acquired KH2 spell/Reflect voice, mono PCM16; extra bank slots and voice split consume these exact filenames. Full map may require other clips. |
 | `tools/voice/sora_lines.txt` or `$LINES` | Map syntax `CLIP WAV SUBTITLE...` plus `@LINE_ID CLIP` and `!LINE_ID text`. Every WAV is a dynamic local dependency. Exact map/mapping approval remains excluded. |
-| `codex/inbox/20261018-approved-voices/manifest.json` plus every main-role `assets[].file` | **This earlier path is hard-coded in `spot33_vsvoices.py` in this snapshot.** Each row needs character, role, file and SHA-256; mono PCM16 is hash-checked. It is not the final 75-recording manifest, so don't just rename the final package into this path. |
-| Final 75-recording selection | Selection metadata only, in `manifests/audio-selection.json`; not a drop-in build manifest. The release builds use the final package; this snapshot's voice patcher has not been updated to it yet. |
-| `codex/inbox/20261016-kh2-music/encoded/KH2_TR.AT3` | Source SHA `8593526111d8a7eb663780f6f7fec8ab0cd055874470102115392f6ae61d239b`. |
+| `tools/voice/20261018-1408-approved-voices-complete/manifest.json` plus every main-role `assets[].file` | The final 75-recording package, hard-coded in `spot33_vsvoices.py` since the 20 October refresh. Each row needs character, role, file and SHA-256; mono PCM16 is hash-checked. The package itself (audio) is not included. |
+| Final 75-recording selection | Selection metadata only, in `manifests/audio-selection.json`; not a drop-in build manifest (no file paths or dialogue text). |
+| `tools/music/20261016-kh2-music/encoded/KH2_TR.AT3` | Source SHA `8593526111d8a7eb663780f6f7fec8ab0cd055874470102115392f6ae61d239b`. |
 | Same directory `KH2_WT.AT3` / `KH2_SS.AT3` | SHA `d1d13c455d25b1833c1a573cac51c8f5442bcb7cd4ee80fed9863ed0a1e7fa65` / `8a2088c72aba5b041dcb972331a004e431e5fb8eb507aa653b8511336054b763`. Own KH2 music; exact source extraction, loop/encode recipe still local. `spot33_music.py` validates RIFF/ATRAC data and rewrites disc names; it does not generate source tracks. |
 
 The implemented voice encoding command is in `spot33_lines.at3`: FFmpeg converts mono PCM16 at 44.1 kHz, pads 2,048 samples, then `tools/atracdenc/atracdenc -e atrac3 --container riff -i PADDED.wav -o OUT.at3` with `ATRAC3_MONO=1`; Python corrects the fact chunk. Do not omit that correction or infer that an arbitrary stock encoder provides the required mono behavior.

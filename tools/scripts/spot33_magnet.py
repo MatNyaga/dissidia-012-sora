@@ -1,5 +1,5 @@
 """Magnet Burst (motion 10098, p_se block 68, piece 0xb32) = KH2 Magnet Burst / Magnet look -- notes/kh2-effects.md
-"Magnet Burst". Replaces Codex's visibility stopgap (inbox/20261016-magnet-visible-dispatch: Explosion swirl FEPA 68
+"Magnet Burst". Replaces Codex's visibility stopgap (tools/codex/20261016-magnet-visible-dispatch: Explosion swirl FEPA 68
 @18 + flash 57 @60 in block 68). Same method as spot33_barrier.py (KH2 mesh into a dead effect leaf, own FEPA rows,
 op 0x19 one-shots), meshes from kh2_magnet_mesh.py.
 

@@ -34,9 +34,10 @@ never will.
 
 ## Licence
 
-No licence has been chosen for this repository yet (see the [README](../README.md)). Draft `license = "MIT"` lines
-were removed from the Cargo files in this snapshot, because a repository-wide licence hasn't been decided. The
-maintained patch app is GPL-3.0-or-later in its own repository. Third-party tools keep their own licences.
+This repository is under the [MIT License](../LICENSE), except `tools/installer/`: that folder is a copy of the
+patch app, contains code ported from pspdecrypt and libkirk, and stays GPL-3.0-or-later
+([tools/installer/LICENSE](../tools/installer/LICENSE); its Cargo files say so too). The maintained patch app is
+GPL-3.0-or-later in its own repository. Third-party tools keep their own licences.
 
 ## Before every push
 

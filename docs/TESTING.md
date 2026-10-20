@@ -79,6 +79,7 @@ Saves created in PPSSPP may show as "corrupted" on hardware, with the original g
 - There is no pinned dependency environment yet.
 - A real PSP hasn't been tested.
 - The Phase 2 multi-fighter engine is a plan with early tools, not a tested feature.
-- This snapshot is older than the release candidates; the newest fixes will come with a later export.
+- The 20 October 2026 refresh brings the build scripts up to release 1.0; the missing helpers listed in
+  [REPRODUCIBILITY.md](REPRODUCIBILITY.md) are still missing.
 
 Current release status and known issues are in the [roadmap](ROADMAP.md).

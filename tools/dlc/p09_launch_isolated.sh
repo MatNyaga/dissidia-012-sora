@@ -1,8 +1,8 @@
 #!/bin/sh
 # P0.9 runtime launcher: PPSSPP on a DISPOSABLE profile + memory stick, for the Data Install test.
 # Same isolation as tools/dlc/p06_launch_isolated.sh (based on Codex's proven
-# codex/inbox/20261017-hp-projectile-refill/runtime/launch-isolated-336.sh). Mat's ppsspp.ini/controls.ini are only
-# READ (copied into the trial); his memory stick and saves are never used.
+# tools/codex/20261017-hp-projectile-refill/runtime/launch-isolated-336.sh). Mat's ppsspp.ini/controls.ini are only
+# READ (copied into the trial); their memory stick and saves are never used.
 # Run INSIDE the existing Flatpak (host first checks `pgrep -x PPSSPPSDL` = nothing running):
 #   flatpak run --command=sh org.ppsspp.PPSSPP ./tools/dlc/p09_launch_isolated.sh ISO
 #   ISO = ./dumps/ULUS10566-test338-voicesloud.iso (or the clean dumps/ULUS10566.iso)
@@ -18,7 +18,7 @@ if [ -n "${TRIAL:-}" ] && [ -d "$TRIAL/config/ppsspp/PSP/SYSTEM" ]; then
 else
   trial=${TRIAL:-$(mktemp -d /tmp/claude-p09.XXXXXX)}
   mkdir -p "$trial/config/ppsspp/PSP/SYSTEM" "$trial/cache"
-  cp -r "$P/codex/inbox/20261017-takeover/disposable-profile/PSP/SAVEDATA" "$trial/config/ppsspp/PSP/"
+  cp -r "$P/tools/codex/20261017-takeover/disposable-profile/PSP/SAVEDATA" "$trial/config/ppsspp/PSP/"
   for name in ppsspp.ini controls.ini; do
     cp "${PPSSPP_SOURCE_PSP:?Set PPSSPP_SOURCE_PSP to your source PSP profile directory}/SYSTEM/$name" "$trial/config/ppsspp/PSP/SYSTEM/$name"
   done

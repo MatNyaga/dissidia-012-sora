@@ -1,7 +1,7 @@
 """Sora's EX Burst = KH2 solo Trinity Limit (Codex v5, Mat: "I love it, ship it") — the script (p_se type 8) side.
 
 Rewrites the two post-charge burst blocks of owner 33 (obj/p_sev120.objx) to the approved event contract
-(codex/inbox/20261016-trinity-battle-stance-v5/reference-output/event-contract.json, sha256 8f2d9ec5…):
+(tools/codex/20261016-trinity-battle-stance-v5/reference-output/event-contract.json, sha256 8f2d9ec5…):
   8501 -> block 78 (GMO _812A, 85 frames = 168 ticks): INCOMPLETE (grades 0-3): exactly three Bravery hits
           0x3CF / group 33 at ticks 16-31, 35-39, 51-58. No HP hit, no 4th hit, no finisher.
   8500 -> block 80 (GMO _812C, 138 frames = 274 ticks): FULL (grade 4): ten A870 source windows, nine Bravery 0x3CF

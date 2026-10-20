@@ -2,7 +2,7 @@
 import sys,struct,json,hashlib,argparse
 from pathlib import Path
 sys.dont_write_bytecode=True
-sys.path.insert(0,'./codex/inbox/20261016-fire-thunder-visibility-v2')
+sys.path.insert(0,'./tools/codex/20261016-fire-thunder-visibility-v2')
 import revise as R
 import fep_dump as D
 import numpy as np

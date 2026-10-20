@@ -1,7 +1,7 @@
 """Sora's outfits (KH2 Drive Forms), data only. notes/outfits.md.
 
 Outfit 2 = Limit Form, 3 = Master Form (Mat 2026-10-16: "Limit and master"), 4 = Valor, 5 = Wisdom, 6 = Final:
-Codex's texture-only variants (codex/inbox/20261016-drive-outfits, apply_variant.py) applied to the CURRENT 1P model.
+Codex's texture-only variants (tools/art/20261016-drive-outfits, apply_variant.py) applied to the CURRENT 1P model.
 Only the two Sora textures (sora_tex0 body, sora_tex1 face/clothing) change; every other byte stays the 1P model's, so
 motions/size stay identical. Re-runnable ("already"); --dry writes nothing.
 
@@ -33,7 +33,7 @@ from pathlib import Path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
-PKG = os.path.join(ROOT, 'codex', 'inbox', '20261016-drive-outfits')
+PKG = os.path.join(ROOT, 'tools', 'art', '20261016-drive-outfits')
 sys.path.insert(0, HERE)
 sys.path.insert(0, PKG)
 sys.dont_write_bytecode = True

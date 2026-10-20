@@ -56,6 +56,15 @@ MAIN = 'general_archive/main/main.bin'
 LANG = 'general_archive/main/EN/main_lang.bin'
 
 ON = os.environ.get('EXITEMS', '1') == '1'
+# PANEL (RR-12, Mat's runtime find on p16 2026-10-18): the □ "Can be equipped by" panel (menu FUN_08aff218, shared
+# by Customization / Shop / Artifacts) lit EVERY portrait for 678..681: in Customization its mask comes from
+# FUN_08af8ea8 -> MENU_FIX, which returns all bits while Sora is the edited fighter (that is what lets him equip them;
+# the real equip lists of other fighters were already correct). Owner 33 shares bit 0 with Warrior of Light, so no
+# 32-bit mask can light Sora alone -> PANEL_LIT replaces the panel's lit test (0x08aff32c `and a0,s2,a0`; s1 = panel,
+# *(s1+0) = item id, s4 = sprite owner after spot33_charpanel = 32 only for Sora, Feral Chaos is not in that list):
+# items 678..681 -> lit only for Sora's portrait, whatever the mask; every other item = the original `and`.
+# 8 words in the last free words of this script's range; the jal's delay slot is the native next word (sll a2,a1,2).
+PANEL_FIX = os.environ.get('PANEL_FIX', '1') == '1'
 DONOR = {KK_ID: 0, PB_ID: 101, SK_ID: 57, CP_ID: 81}       # Broadsword, Leather Armor, Buckler, Bronze Helm
 SLOT = {KK_ID: 0, PB_ID: 3, SK_ID: 1, CP_ID: 2}
 NAME_IDX = {KK_ID: 762, PB_ID: 763, SK_ID: 764, CP_ID: 765}
@@ -291,6 +300,15 @@ PI_F:
 PI_RET:
     jr ra
     nop
+PANEL_LIT:
+    lw t7,0x0(s1)
+    addiu t7,t7,-%(first)d
+    sltiu t7,t7,%(n)d
+    and a0,s2,a0
+    xori t8,s4,0x20
+    sltiu t8,t8,0x1
+    jr ra
+    movn a0,t8,t7
 """
 SRC_ARGS = dict(first=KK_ID, first1=KK_ID - 1, n=len(ITEMS), end=KK_ID + len(ITEMS), lim=683 - len(ITEMS),
                 cf=FLAGS << 8 | 1, sk=SK_ID, pct=int(round(SHIELD_MULT * 128)), sra7='0x%08x' % (13 << 16 | 13 << 11 | 7 << 6 | 3),
@@ -331,6 +349,9 @@ def plan():
              ('eboot', 0x088D56D8, (0x00B32021, 0x2484FFFF), (j('jal', labels['PICID3'], 0x088D56D8), 0)),
              ('eboot', 0x088D5714, (0x00B02021, 0x2484FFFF), (j('jal', labels['PICID0'], 0x088D5714), 0)),
              ('eboot', 0x088079AC, (0x0E268E24,), (j('jal', labels['SHIELD'], 0x088079AC),))]
+    # □ "Can be equipped by" panel (RR-12, 2026-10-18): PANEL_FIX=0 puts the vanilla word back
+    sites.append(('menu', 0x08AFF32C, (0x02442024,),
+                  (j('jal', labels['PANEL_LIT'], 0x08AFF32C),) if PANEL_FIX else (0x02442024,)))
     _, jl = jt_plan()
     sites += [('eboot', 0x088BE63C, (0x27BDFDD0, 0xAFB50214), (j('j', jl['STASH'], 0x088BE63C), 0x27BDFDD0)),
               ('eboot', 0x088BE96C, (0x0E22F6CB,), (j('jal', jl['SCALE'], 0x088BE96C),))]

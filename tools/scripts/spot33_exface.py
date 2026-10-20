@@ -1,6 +1,6 @@
 """EX Burst power-up (tap Circle, motion 8101 / _801B) shows Codex's strained-angry face: in the p_se type-8 block that
 type 7 maps motion 8101 to, the face-state event op 0x14 [0, 2] becomes [0, 6] (eye/face ID 6 = EX_STRAIN, added to the
-model by codex/inbox/20261015-ex-strained-face/build_face.py). Same size; re-runnable (already 6 = nothing to do).
+model by tools/codex/20261015-ex-strained-face/build_face.py). Same size; re-runnable (already 6 = nothing to do).
 Needs the model WITH the strain atlas (face ID 6), else the face channel has no ID 6.
 
   python3 -I spot33_exface.py ISO [--dry]

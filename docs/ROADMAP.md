@@ -7,7 +7,7 @@ Last updated: 20 October 2026.
 | Stage | What it means | Status |
 |---|---|---|
 | Sora as a fighter | Model, moves, EX Mode, voices, menus, saves | Done, playable |
-| Phase 1: release 1.0 | Sora as a package, a clean disc layout, a patch app | Release candidate 3 in progress |
+| Phase 1: release 1.0 | Sora as a package, a clean disc layout, a patch app | Released 20 October 2026 |
 | Phase 2: multi-fighter engine | New fighters without new game code for each | Planned; first tools written |
 | Phase 3 and 4 | More select-screen space; drop-in fighter packs | Ideas for later |
 
@@ -36,20 +36,20 @@ On a **PS Vita with Adrenaline**: boot, character select, Sora battles, EX Mode,
 Data Install and Sora as an assist all pass. An early crash in every Sora battle on the Vita (a missing Sora row in a
 game table that the emulator ignored) was found and fixed this way.
 
-### Left before 1.0
+### Release 1.0 (20 October 2026)
 
-1. **Release candidate 3**: a clean build with the latest fixes (the Vita crash fix, Original Quest menu fixes and
-   faster menus on the Vita), then the full PPSSPP and Vita checks again.
-2. **Patch app builds for Windows and macOS**, each started once on its own system with a full patch run.
-3. **Publish** on the [releases page](https://github.com/MatNyaga/sora-fan-patch/releases), with a short guide and
-   the [project page](https://matnyaga.github.io/sora-fan-patch/).
-4. A refreshed export of this research repository with the newer tools.
+1. **Release candidate 3** became release 1.0: a clean build with the latest fixes (the Vita crash fix, Original
+   Quest menu fixes and faster menus on the Vita).
+2. **Patch app** for Windows, macOS and Linux, on the
+   [releases page](https://github.com/MatNyaga/sora-fan-patch/releases).
+3. **Project page:** <https://matnyaga.github.io/sora-fan-patch/>.
+4. This research repository was refreshed with the newer tools.
 
 ### Known issues
 
 - In Quick Battle, "Opponent Info" shows no name for Sora (cosmetic).
-- On a Vita, menus can feel a little slower than in the original game. Release candidate 3 keeps menus at the
-  higher CPU speed, which is much better in testing.
+- On a Vita, menus can feel a little slower than in the original game. Release 1.0 keeps menus at the higher
+  CPU speed (`tools/scripts/spot33_menuclock.py`), which is much better in testing.
 - Some old Adrenaline game plugins stop the game from starting; turn game plugins off.
 - A real PSP has not been tested. It will need custom firmware.
 - Not covered yet: Chaos's round-specific lines, Aerith-assist lines and Cosmos story scenes keep the game's
