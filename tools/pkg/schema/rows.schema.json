@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dissidia012-sora/pkg/rows.schema.json#1.0",
+  "title": "rows/<owner_tables id>.json, format 1.0",
+  "description": "Row-level edits of ONE owner_tables.json table (docs/PACKAGE-FORMAT.md section 7). Raw bytes are what the installer writes; 'fields' is the decoded view (must match raw when a codec exists). Rows sorted by (ns, key tuple in key_fields order), unique.",
+  "type": "object",
+  "required": ["format_version", "key_fields", "rows", "table"],
+  "additionalProperties": false,
+  "properties": {
+    "format_version": {"type": "string", "pattern": "^1\\.[0-9]+$"},
+    "table": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "row_size": {"type": ["integer", "null"], "minimum": 1},
+    "key_fields": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}},
+    "codec": {"type": "string", "pattern": "^[a-z][a-z0-9_.]*$"},
+    "note": {"type": "string"},
+    "rows": {"type": "array", "items": {"$ref": "#/$defs/row"}}
+  },
+  "$defs": {
+    "hex": {"type": "string", "pattern": "^([0-9a-f]{2})*$"},
+    "ns": {"type": "string", "pattern": "^(pkg:[^!#]+(![^!#]+)*(#[0-9]+)?|iso:PSP_GAME/[^!#]+|img:(EBOOT|OVL_MENU_APP|OVL_BATTLE_APP)|save:[a-z0-9_]+)$"},
+    "row": {
+      "type": "object",
+      "required": ["key", "ns", "op"],
+      "additionalProperties": false,
+      "properties": {
+        "ns": {"$ref": "#/$defs/ns"},
+        "key": {"type": "object", "minProperties": 1, "additionalProperties": {"type": ["integer", "string"]}},
+        "op": {"enum": ["add", "replace", "delete", "patch"]},
+        "raw": {"$ref": "#/$defs/hex"},
+        "old_raw": {"$ref": "#/$defs/hex"},
+        "offset": {"type": "integer", "minimum": 0},
+        "old": {"$ref": "#/$defs/hex"},
+        "new": {"$ref": "#/$defs/hex"},
+        "fields": {"type": "object"},
+        "text": {"type": "string"},
+        "note": {"type": "string"}
+      },
+      "oneOf": [
+        {"properties": {"op": {"const": "add"}}, "required": ["raw"]},
+        {"properties": {"op": {"const": "replace"}}, "required": ["raw", "old_raw"]},
+        {"properties": {"op": {"const": "delete"}}, "required": ["old_raw"]},
+        {"properties": {"op": {"const": "patch"}}, "required": ["offset", "old", "new"]}
+      ]
+    }
+  }
+}

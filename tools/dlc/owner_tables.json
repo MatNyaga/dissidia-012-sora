@@ -1,0 +1,2991 @@
+{
+ "version": 1,
+ "task": "P0.8 registry spec (static)",
+ "written": "2026-10-18 by Claude (P0.8 helper)",
+ "sources": [
+  "notes/dlc.md 2, 3.5, appendix D/E",
+  "notes/dlc-phase0.md P0.1-P0.9",
+  "tools/scripts/spot33_*.py headers",
+  "tools/scripts/bootstrap_base.sh",
+  "tools/scripts/build_sora.sh",
+  "tools/dlc/owner34_scan.py"
+ ],
+ "address_conventions": {
+  "EBOOT": "VA = ELF off - 0x1018 + 0x08804040; ISO sector 560 (plain since test20)",
+  "menu overlay": "OVL_MENU_APP.ELF, off = VA - 0x089DD4C0 + 0x54, ISO sector 185056",
+  "battle overlay": "OVL_BATTLE_APP.ELF, same base, ISO sector 185824"
+ },
+ "legend": {
+  "kind": [
+   "data",
+   "code-site",
+   "menu-pack",
+   "text",
+   "save",
+   "iso-file"
+  ],
+  "category": {
+   "table": "per-owner table / site",
+   "id-range": "id space the installer must allocate",
+   "special-case": "engine-level item, not per fighter"
+  },
+  "new_fighter.type": [
+   "data row",
+   "registry field",
+   "code generalisation",
+   "id allocation"
+  ],
+  "phase2_target": [
+   "registry lookup",
+   "append",
+   "EXTRA.IDX",
+   "module code",
+   "none (already generic)"
+  ],
+  "owner_max_data_only": "highest owner number this table/site serves with data only (null = not owner-bounded)"
+ },
+ "tables": [
+  {
+   "id": "unlock_table",
+   "name": "Unlock / roster table",
+   "category": "table",
+   "kind": "data",
+   "where": "EBOOT 0x089D7BE0 (file off 0x1D4BB8); walkers FUN_088d5ac8 / FUN_088d5ce8 (available list max 0x23 entries)",
+   "row_size": "20 B (5 x i32: owner, unlock flag, costume-2 flag, costume-3 flag, SEEN flag = yellow NEW tag while clear; vanilla 3600+owner)",
+   "index_base": "none (list, searched by owner; order = grid order)",
+   "capacity": {
+    "max_rows": 33,
+    "used_rows": 33,
+    "free_rows": "1 more row fits exactly (new -1 at 0x089D7E74; 0x089D7E78 is a runtime pointer)"
+   },
+   "covers": "32 vanilla rows + Sora",
+   "owner_max_data_only": null,
+   "owner34": "fits exactly (last free row)",
+   "sora_today": {
+    "scripts": [
+     "eboot_plain.py",
+     "spot33_catalog.py",
+     "spot33_outfits.py",
+     "spot33_newtag.py"
+    ],
+    "what": "row 22 (Chaos, flag 925) -> owner 33; catalog sets flag -1 -> 925 (buy for 300 PP); outfits set costume-2/3 flags -> 1; newtag sets SEEN flag 3623 -> 3633 (NEW tag after buying)"
+   },
+   "new_fighter": {
+    "needs": "one row: owner, unlock flag (allocated), costume flags, SEEN flag (allocated, never set in old saves; 3634..3650 look free)",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Chaos lost his row (and so his QB-CPU / Original Quest pick). 2nd extra owner needs the table relocated (registry).",
+   "refs": [
+    "notes/dlc-phase0.md P0.4",
+    "notes/unlocks.md"
+   ]
+  },
+  {
+   "id": "owner_bit_masks",
+   "name": "32-bit owner masks (unlock / item equip / AI item)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "EBOOT FUN_088d5ce8, FUN_088c1ae8, FUN_088c1234; menu FUN_08af3b64; acit",
+   "row_size": "u32 mask",
+   "index_base": "(owner - 1) & 31",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": "owners 1..32 (bit per owner)",
+   "owner_max_data_only": 32,
+   "owner34": "aliases Garland bit 1 -> needs owner table",
+   "sora_today": {
+    "scripts": [
+     "spot33_exitems.py"
+    ],
+    "what": "ELIG / ROWMASK / MENU hooks: items 678..681 are all-bits for owner 33, none for others (33 aliases WoL bit 0)"
+   },
+   "new_fighter": {
+    "needs": "nothing if the fighter has no own items; otherwise its items in the item->owner table",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "owner 34 aliases Garland (bit 1), 35 Firion ... every new owner aliases a vanilla fighter. Generic fix = item->owner table in the module instead of the mask.",
+   "refs": []
+  },
+  {
+   "id": "name_key_ptrs_eboot",
+   "name": "Name key pointers (voice_load_p_<key>.bin)",
+   "category": "table",
+   "kind": "data",
+   "where": "EBOOT 0x089D6CA8[owner]; loop FUN_088a3a94 < 0x23",
+   "row_size": "u32 ptr",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 35,
+    "used_rows": 34,
+    "free_rows": "1 (slot 34; 0x089D6D30 unreferenced)"
+   },
+   "covers": "0..34",
+   "owner_max_data_only": 34,
+   "owner34": "OK: key string + pointer",
+   "sora_today": {
+    "scripts": [],
+    "what": "already 'sev120' (Aerith's key) for 33 - no script"
+   },
+   "new_fighter": {
+    "needs": "key string + pointer",
+    "type": [
+     "data row",
+     "registry field"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "35+ need the loop bound and table room.",
+   "refs": []
+  },
+  {
+   "id": "name_index_eboot",
+   "name": "Owner -> character-name index (FUN_088d6254)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "EBOOT FUN_088d6254 + u32 table 0x089CC020[owner] (bound < 35)",
+   "row_size": "u32",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 33,
+    "used_rows": 33,
+    "free_rows": 0
+   },
+   "covers": "0..32 (+33 by code)",
+   "owner_max_data_only": 33,
+   "owner34": "needs code (extend the remap)",
+   "sora_today": {
+    "scripts": [
+     "spot33_ownername.py"
+    ],
+    "what": "owner 33 -> name index 63 (by code; table ends at 32)"
+   },
+   "new_fighter": {
+    "needs": "name index (appended name-list entry)",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Users: Records (collection), menu FUN_089ef21c / FUN_089f46e8 / FUN_089f4a4c, an EBOOT caller. 34 reads string bytes after the table.",
+   "refs": []
+  },
+  {
+   "id": "scenario_names",
+   "name": "Scenario / Labyrinth character names",
+   "category": "table",
+   "kind": "data",
+   "where": "EBOOT 0x089CF350 + 4*owner (FUN_08911d68; EBOOT 0x08911DBC, menu 0x08B4E414 / 0x08B4E688)",
+   "row_size": "4 B (u16 name, u16 manikin name)",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 34,
+    "used_rows": 33,
+    "free_rows": "1 (slot 34 = zero padding)"
+   },
+   "covers": "1..31 (+33)",
+   "owner_max_data_only": 34,
+   "owner34": "OK: write (name, name)",
+   "sora_today": {
+    "scripts": [
+     "spot33_ownername.py"
+    ],
+    "what": "owner 33 slot (padding) -> (63, 63)"
+   },
+   "new_fighter": {
+    "needs": "(name, name) pair",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "35+ collide with the next table at 0x089CF3DC.",
+   "refs": []
+  },
+  {
+   "id": "save_record_slot",
+   "name": "Saved fighter record (level, equipment, abilities)",
+   "category": "table",
+   "kind": "save",
+   "where": "EBOOT owner list 0x089CBC98 (31 u8) + FUN_088cb3b4 / FUN_088cb164; friend-card limit sites 0x088F523C / 0x088F52A0 (FUN_088f520c / FUN_088f526c)",
+   "row_size": "0x38040-B friend-card slot area",
+   "index_base": "owner -> record index (code)",
+   "capacity": {
+    "max_rows": 31,
+    "used_rows": "31 + Sora",
+    "free_rows": "via friend-card slots only"
+   },
+   "covers": "31 owners + 33",
+   "owner_max_data_only": 33,
+   "owner34": "needs a record slot (friend card 23)",
+   "sora_today": {
+    "scripts": [
+     "spot33_save.py"
+    ],
+    "what": "owner 33 -> record at save + 0xF58 + 0x38040 (friend card 24); friend-card limit 25 -> 24"
+   },
+   "new_fighter": {
+    "needs": "one record slot (next friend card 23, limit 24 -> 23)",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Each extra fighter costs one friend-card slot. Phase 2 = record-slot allocator in the module (registry field \"record slot\").",
+   "refs": [
+    "notes/dlc.md 4.3"
+   ]
+  },
+  {
+   "id": "start_preset_table",
+   "name": "Default equipment preset per owner",
+   "category": "table",
+   "kind": "data",
+   "where": "EBOOT 0x089CB7E8[owner] (FUN_088b97d0)",
+   "row_size": "i32",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 35,
+    "used_rows": 34,
+    "free_rows": "1 (slot 34 = -1)"
+   },
+   "covers": "0..34",
+   "owner_max_data_only": 34,
+   "owner34": "needs a preset id",
+   "sora_today": {
+    "scripts": [
+     "spot33_save.py"
+    ],
+    "what": "[33] = 250"
+   },
+   "new_fighter": {
+    "needs": "preset id",
+    "type": [
+     "registry field"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "assist_drop_words",
+   "name": "\"Drop assist owner 33 unless Aerith unlocked\"",
+   "category": "table",
+   "kind": "code-site",
+   "where": "EBOOT 0x088F9CA4 (FUN_088f9bb0), 0x088F6C04 (FUN_088f6a58), 0x08929060 (FUN_0892905c)",
+   "row_size": "3 compare immediates",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "OK",
+   "sora_today": {
+    "scripts": [
+     "spot33_assist.py"
+    ],
+    "what": "0x21 -> 0x7f (no owner dropped)"
+   },
+   "new_fighter": {
+    "needs": "nothing",
+    "type": []
+   },
+   "phase2_target": "none (already generic)",
+   "notes": "Already generic after Sora.",
+   "refs": []
+  },
+  {
+   "id": "ablt_rows",
+   "name": "Ability table rows",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin ablt (ARC chunk); binary-searched by (owner, idx)",
+   "row_size": "40 B",
+   "index_base": "id = owner << 8 | idx (sorted)",
+   "capacity": {
+    "max_rows": 832,
+    "used_rows": 809,
+    "free_rows": 23
+   },
+   "covers": "any owner (id byte)",
+   "owner_max_data_only": 255,
+   "owner34": "needs ~20 rows + cap raise; ids from 0x2201",
+   "sora_today": {
+    "scripts": [
+     "bootstrap_base.sh (ablt_patch copy-row 617-620)",
+     "spot33_moves.py",
+     "spot33_movenames.py",
+     "spot33_ai.py"
+    ],
+    "what": "rows 0x2100..0x2116 (23 abilities); +32..39 CPU auto-equip priority; names/descs -> placeholder texts"
+   },
+   "new_fighter": {
+    "needs": "~20-25 rows (owner << 8 | idx), keep sorted",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Owner 34 already has one placeholder row id 0x2200.",
+   "refs": []
+  },
+  {
+   "id": "ablt_cap",
+   "name": "Ability table runtime row cap",
+   "category": "table",
+   "kind": "code-site",
+   "where": "EBOOT 0x088B1CF0 'ori a1,zero,0x328' (FUN_088b1cc0)",
+   "row_size": "one immediate",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": 832,
+    "used_rows": 809,
+    "free_rows": 23
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "needs cap raise",
+   "sora_today": {
+    "scripts": [
+     "spot33_ablt_cap.py"
+    ],
+    "what": "808 -> 832 rows (+960 B heap)"
+   },
+   "new_fighter": {
+    "needs": "raise again (~+24 per fighter)",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Phase 2: module computes cap = row count (or set once to a large value).",
+   "refs": []
+  },
+  {
+   "id": "chrp",
+   "name": "Character params (chrp)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin chrp",
+   "row_size": "144 B",
+   "index_base": "owner (rows 1..34)",
+   "capacity": {
+    "max_rows": 34,
+    "used_rows": 34,
+    "free_rows": "row 34 (org800) can be overwritten; none for 35+"
+   },
+   "covers": "1..34",
+   "owner_max_data_only": 34,
+   "owner34": "OK: overwrite in place",
+   "sora_today": {
+    "scripts": [
+     "roster_patch.py copy-chrp (bootstrap)",
+     "spot33_voice.py (+0x74)",
+     "spot33_soundids.py (+0x7c..+0x88)",
+     "spot33_reflect.py (+7 TRINITY_CTL)",
+     "spot33_exguard.py (+8, +0x0C bit 2)",
+     "spot33_exdamage.py (+0x0C bit 0x400)"
+    ],
+    "what": "row 33 = Cloud's copy + voice key P_SEV120, own voice ids, burst controller variant 1, stance 10, EX flags 0xC03"
+   },
+   "new_fighter": {
+    "needs": "one row (key, spec key +4, burst controller +6/+7, stance +8, EX flags +0x0C, voice key +0x74, voice ids +0x7c..)",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Row 34 = org800 (Cosmos) can be overwritten. 35+ needs a bigger table (loader check).",
+   "refs": []
+  },
+  {
+   "id": "objentry",
+   "name": "Model table (objentry)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin objentry.bin; RAM buffer 0x09AFEE58, 0x13D30 B (FUN_08847158); bsearch by u16 id",
+   "row_size": "68 B (0x44)",
+   "index_base": "id (sorted u16); +6 owner, +7 costume, +8 kind, +9 from-ms0",
+   "capacity": {
+    "max_rows": 1194,
+    "used_rows": 1173,
+    "free_rows": 21
+   },
+   "covers": "any owner",
+   "owner_max_data_only": null,
+   "owner34": "COLLIDES with Cosmos id 1338 on owner 34 costume 1 -> ids < 1338",
+   "sora_today": {
+    "scripts": [
+     "roster_patch.py copy-objentry/set-name/set-model (bootstrap)",
+     "spot33_outfits.py (ids 1457..1459)",
+     "spot33_assist.py (kind-8 rows)"
+    ],
+    "what": "owner-33 rows: costumes 1..6 (ids 1187, 1436, 1437, 1457..1459), *_PUB placeholders, kind-8 assist rows"
+   },
+   "new_fighter": {
+    "needs": "~9-12 rows (costumes, _PUB placeholders for DLC, kind-8 assist)",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Buffer fits about one more fighter; Phase 2 = bigger buffer (module) + append. DLC costume files can only overwrite existing ids (P0.6).",
+   "refs": []
+  },
+  {
+   "id": "objentry_id_rule_owner34",
+   "name": "objentry id order rule (first match wins)",
+   "category": "id-range",
+   "kind": "data",
+   "where": "EBOOT FUN_08846ccc (wrapper FUN_088470dc): first row in id order with owner+costume+assist flag, name P_*, not *_W",
+   "row_size": "n/a",
+   "index_base": "id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "273 free ids below 1338"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "ids < 1338",
+   "sora_today": {
+    "scripts": [],
+    "what": "n/a (owner 33 had no other rows)"
+   },
+   "new_fighter": {
+    "needs": "owner 34: all new rows need ids < 1338 so Cosmos's P_ORG800_1P (1338) / _W (1339) are not picked",
+    "type": [
+     "id allocation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Installer must allocate ids below 1338 for owner 34, or Phase 2 changes the lookup to prefer registry rows.",
+   "refs": [
+    "notes/dlc-phase0.md P0.4"
+   ]
+  },
+  {
+   "id": "dlc_placeholder_rows",
+   "name": "DLC costume placeholder rows (*_PUB)",
+   "category": "id-range",
+   "kind": "data",
+   "where": "main.bin objentry.bin rows named *_PUB",
+   "row_size": "68 B",
+   "index_base": "id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": "~50 (13 match the real DLC list)",
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "bootstrap_base.sh (roster_patch set-name ... _PUB)"
+    ],
+    "what": "P_SEV120_1P/2P/3P_PUB renamed from Cloud names"
+   },
+   "new_fighter": {
+    "needs": "placeholder rows for future ms0 costumes",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Plain DLC costume files overwrite a row by id (P0.6), so the ISO must plant placeholders.",
+   "refs": []
+  },
+  {
+   "id": "eqpm_presets",
+   "name": "Equipment presets (eqpm)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin eqpm; RAM 0x09B59AF8..0x09B5DA00 (16136 B)",
+   "row_size": "preset (variable)",
+   "index_base": "preset id",
+   "capacity": {
+    "max_rows": "16136 B",
+    "used_rows": "16136 B",
+    "free_rows": 0
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "needs buffer moved or a preset reused",
+   "sora_today": {
+    "scripts": [
+     "spot33_save.py"
+    ],
+    "what": "preset 250 = Cloud's preset 7 remapped to owner-33 abilities"
+   },
+   "new_fighter": {
+    "needs": "one preset",
+    "type": [
+     "data row",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Buffer full: move it (module) or reuse a preset.",
+   "refs": []
+  },
+  {
+   "id": "chrl",
+   "name": "Level-up learn table (chrl)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin chrl (same layout as amas)",
+   "row_size": "16-B row + 8-B entries",
+   "index_base": "owner (row field)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 33,
+    "free_rows": "append"
+   },
+   "covers": "32 rows + 33",
+   "owner_max_data_only": null,
+   "owner34": "append a row",
+   "sora_today": {
+    "scripts": [
+     "spot33_save.py",
+     "spot33_moves.py"
+    ],
+    "what": "owner 33 table = Cloud's minus his 0x0Dxx abilities, + Sora's learn levels"
+   },
+   "new_fighter": {
+    "needs": "one row + entries",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "amas",
+   "name": "Customization ability list (amas)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin amas; read by menu FUN_08ad0d48",
+   "row_size": "16-B row + 8-B entries",
+   "index_base": "owner (row field)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 33,
+    "free_rows": "append"
+   },
+   "covers": "owners 1..32 (no 23) + 33",
+   "owner_max_data_only": null,
+   "owner34": "append a row (else menu freeze)",
+   "sora_today": {
+    "scripts": [
+     "spot33_amas.py"
+    ],
+    "what": "owner 33 row = Cloud's entries without 0x0Dxx"
+   },
+   "new_fighter": {
+    "needs": "one row (missing row = Customization freeze)",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "acab",
+   "name": "CPU auto-equip list (acab)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin acab",
+   "row_size": "8-B entry + shared lists",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 35,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "append",
+   "sora_today": {
+    "scripts": [
+     "spot33_ai.py"
+    ],
+    "what": "entry 33 -> Cloud's list"
+   },
+   "new_fighter": {
+    "needs": "one entry",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "jobp_stance",
+   "name": "Stance table (jobp) for EX motion overrides",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin jobp; static RAM buffer 0x09b692b0 (13 rows); picked by chrp +8",
+   "row_size": "row (4 override pairs per stance)",
+   "index_base": "key (chrp +8)",
+   "capacity": {
+    "max_rows": 13,
+    "used_rows": 11,
+    "free_rows": 2
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exguard.py"
+    ],
+    "what": "row key 10: stance 1 = 470 -> 10318, 471 -> 10319 (EX Reflect cast)"
+   },
+   "new_fighter": {
+    "needs": "a row only if the fighter swaps motions in EX",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Then buffer move (module).",
+   "refs": []
+  },
+  {
+   "id": "uicn",
+   "name": "Player icons (uicn)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin uicn; EBOOT buffer 0xD24 B",
+   "row_size": "8 B",
+   "index_base": "icon index",
+   "capacity": {
+    "max_rows": 420,
+    "used_rows": 417,
+    "free_rows": 3
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "append (3 left)",
+   "sora_today": {
+    "scripts": [
+     "spot33_museum.py",
+     "spot33_catalog.py"
+    ],
+    "what": "icons 414 (Sora), 415/416 (Riku/Kairi), 417 (avatar); unlock flags 1 / 1253 / 1254; viewed flag 2580+idx"
+   },
+   "new_fighter": {
+    "needs": "1-4 icons",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Only 3 rows left: buffer move (code) after that.",
+   "refs": []
+  },
+  {
+   "id": "item_rows",
+   "name": "Items (Sora-only equipment)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin item; texts main_lang item.bin / item_help.bin",
+   "row_size": "item row",
+   "index_base": "item id (sorted)",
+   "capacity": {
+    "max_rows": "683 (loader + save-inventory ceiling)",
+    "used_rows": "682 (ids 0..681)",
+    "free_rows": "~1"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exitems.py"
+    ],
+    "what": "ids 678 Kingdom Key, 679 Protect Belt, 680 Save the King, 681 Crown Pendant (clones), names/help appended"
+   },
+   "new_fighter": {
+    "needs": "own items need the ceiling raised",
+    "type": [
+     "data row",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Ceiling is a loader + save layout limit.",
+   "refs": []
+  },
+  {
+   "id": "item_code_hooks",
+   "name": "Item ownership / starting inventory hooks",
+   "category": "table",
+   "kind": "code-site",
+   "where": "EBOOT dead fn 0x089a8b94..0x089a8de4 (EXITEMS): ENSURE 0x088b8fd0, NEWGAME 0x088b8778, ELIG 0x088c1afc, ROWMASK 0x088c132c/0x088c1364; menu MENU 0x08af9004 / 0x08af8ed8",
+   "row_size": "single-word / pair hooks",
+   "index_base": "item id range 678..681 + owner 33",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exitems.py"
+    ],
+    "what": "owned from start, Sora-only equip (range 678..681, owner == 33)"
+   },
+   "new_fighter": {
+    "needs": "item->owner table entries",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Generic: item -> owner / start-owned flags table.",
+   "refs": []
+  },
+  {
+   "id": "item_battle_effects",
+   "name": "Item battle effects (EX gain, x1.5 reflect, EX drain)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "battle cave / EBOOT dead code (spot33_reflect EXITEMS)",
+   "row_size": "code",
+   "index_base": "item id + owner 33",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_reflect.py (EXITEMS)"
+    ],
+    "what": "effects hard-wired for 678..681 / owner 33"
+   },
+   "new_fighter": {
+    "needs": "item -> effect table rows",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Behaviour module (\"item effects\"), parameterised.",
+   "refs": []
+  },
+  {
+   "id": "exrun_hook",
+   "name": "EX Mode run speed multiplier",
+   "category": "table",
+   "kind": "code-site",
+   "where": "battle overlay 0x08b2d380 (FUN_08b2d2cc) -> EBOOT 0x089a8b24..0x089a8b94 (EXRUN)",
+   "row_size": "2-word hook",
+   "index_base": "owner == 33",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exspeed.py"
+    ],
+    "what": "x1.40 while Sora runs in EX Mode"
+   },
+   "new_fighter": {
+    "needs": "multiplier (0 = off)",
+    "type": [
+     "registry field"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Registry: per-owner float table.",
+   "refs": []
+  },
+  {
+   "id": "reflect_guard",
+   "name": "EX Reflect guard (unbreakable guard, melee/HP/projectile reflect)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "EBOOT 0x0880a384 (hook 1), 0x0880a408 (C2), 0x08808b74 (C4); battle 0x08ada22c (hook 3), 0x08adaaac (+0x08adb32c C7); cave OVL_BATTLE 0x08B62F70",
+   "row_size": "hooks + 496 B cave",
+   "index_base": "owner == 33 && EX (IS_SORA_EX)",
+   "capacity": {
+    "max_rows": "512 B cave",
+    "used_rows": "496 B",
+    "free_rows": "16 B"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_reflect.py --apply-code"
+    ],
+    "what": "whole feature for owner 33"
+   },
+   "new_fighter": {
+    "needs": "feature flag + params (reflect guard on/off)",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Only if the fighter has this feature. Behaviour module; guard scripts (op 0x46, voice, barrier) stay package data.",
+   "refs": [
+    "notes/reflect.md"
+   ]
+  },
+  {
+   "id": "burst_controller",
+   "name": "EX Burst controller choice / TRI",
+   "category": "table",
+   "kind": "code-site",
+   "where": "chrp +6/+7 (data); TRI over dead controller-0 variant-1 body battle 0x08a3a638 (+ table 0x08a3b298), sites 0x08a3a048 / 0x08a3a094; TRI code now EBOOT 0x089C1C8C",
+   "row_size": "code",
+   "index_base": "controller id (chrp) + owner 33 stubs",
+   "capacity": {
+    "max_rows": "20 vanilla controllers",
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_reflect.py (TRINITY_CTL)"
+    ],
+    "what": "Sora runs his own TRI controller (variant 1)"
+   },
+   "new_fighter": {
+    "needs": "vanilla controller = data only; custom = behaviour module + dispatcher",
+    "type": [
+     "data row",
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "A fighter on one of the 20 vanilla controllers needs no code. Dispatcher owner -> controller code in the module.",
+   "refs": [
+    "notes/ex-burst-controller.md"
+   ]
+  },
+  {
+   "id": "ex_burst_sound_skip",
+   "name": "Cloud's hard-wired EX Burst sounds skipped",
+   "category": "table",
+   "kind": "code-site",
+   "where": "battle overlay 0x08a3a15c / 0x08a3a374 (EX_SND)",
+   "row_size": "code",
+   "index_base": "owner == 33",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_reflect.py (EX_SND)"
+    ],
+    "what": "skips 2200053/2200054 for Sora"
+   },
+   "new_fighter": {
+    "needs": "feature flag",
+    "type": [
+     "registry field"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "eboot_dead_code",
+   "name": "Free code room in the EBOOT",
+   "category": "special-case",
+   "kind": "code-site",
+   "where": "dead fn 0x089a8b14..0x089a8f0c (probe words 0x089a8b14..23, EXRUN ..8b94, EXITEMS ..8de4, EX-gain reserve); TRI 0x089C1C8C (519/523 words); spare 0x0886EF90",
+   "row_size": "words",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "~30 loose words"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exspeed.py",
+     "spot33_exitems.py",
+     "spot33_reflect.py"
+    ],
+    "what": "all used"
+   },
+   "new_fighter": {
+    "needs": "nothing (new code goes to EXTRA.PRX)",
+    "type": []
+   },
+   "phase2_target": "module code",
+   "notes": "Phase 2 moves owner-33 routines into the module.",
+   "refs": []
+  },
+  {
+   "id": "ex_mode_page",
+   "name": "Customization -> EX Mode page",
+   "category": "table",
+   "kind": "data",
+   "where": "menu overlay 0x08b23f28 (FUN_08b22ec0); texts mess_pk_exmode_0 groups 2/3",
+   "row_size": "0x20 B (int character, 2 x 7 u16)",
+   "index_base": "none (searched, -1 ends)",
+   "capacity": {
+    "max_rows": "rows to -1",
+    "used_rows": "all",
+    "free_rows": 0
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exitems.py"
+    ],
+    "what": "unused Chaos row (23) -> Sora; texts 82..85"
+   },
+   "new_fighter": {
+    "needs": "one row + 4 texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "No free row: relocate into the registry.",
+   "refs": []
+  },
+  {
+   "id": "select_panel_list",
+   "name": "Select / Characters-panel owner list",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08B0119C (31 u32, -1) + cells 0x08B0121C + row sizes 0x08B0125C (FUN_08aff218)",
+   "row_size": "u32",
+   "index_base": "list order",
+   "capacity": {
+    "max_rows": 31,
+    "used_rows": 31,
+    "free_rows": 0
+   },
+   "covers": "31 owners",
+   "owner_max_data_only": null,
+   "owner34": "needs relocation + panel sprite",
+   "sora_today": {
+    "scripts": [
+     "roster_patch.py select-swap 32 33 (bootstrap)"
+    ],
+    "what": "owner 32 (Feral Chaos) -> 33"
+   },
+   "new_fighter": {
+    "needs": "one list entry",
+    "type": [
+     "data row",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Cell table follows: relocation needed.",
+   "refs": []
+  },
+  {
+   "id": "char_panel_sprites",
+   "name": "Characters panel face sprites (Artifacts / Shop / Customization)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu FUN_08aff218 (5 words) + parts: customize 0x08AEB130 part 57, shop 0x08B1B5B8 part 68, network 0x08A23538 part 53; network pk entry 129",
+   "row_size": "sprite per owner",
+   "index_base": "base + owner + 1",
+   "capacity": {
+    "max_rows": 32,
+    "used_rows": 32,
+    "free_rows": 0
+   },
+   "covers": "1..32",
+   "owner_max_data_only": 33,
+   "owner34": "needs more sprites (code)",
+   "sora_today": {
+    "scripts": [
+     "spot33_charpanel.py"
+    ],
+    "what": "Sora uses owner 32's free sprite + own icon textures (3179 / 7269 / 8321)"
+   },
+   "new_fighter": {
+    "needs": "a sprite + icon per scene",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Scenes create sprites for owners 1..32 only: no sprite left for a 2nd extra fighter.",
+   "refs": []
+  },
+  {
+   "id": "qb_grid_rows",
+   "name": "Character-select grid row table (5 screens)",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08A864D0 (getter FUN_08a85ecc; mode table 0x08A8665C follows)",
+   "row_size": "12 B (u16 pic, u16 name pic, u16 logo, u16 ?, i32 owner)",
+   "index_base": "row index (32 = random/free, magic)",
+   "capacity": {
+    "max_rows": 33,
+    "used_rows": 33,
+    "free_rows": 0
+   },
+   "covers": "32 + random",
+   "owner_max_data_only": 34,
+   "owner34": "needs relocated table + 3 bounds + cap",
+   "sora_today": {
+    "scripts": [
+     "roster_patch.py qb-row (bootstrap)",
+     "spot33_qbpics.py"
+    ],
+    "what": "Chaos row 31 -> owner 33, pictures 245 / logo 148"
+   },
+   "new_fighter": {
+    "needs": "row at index 33 (relocated 408-B table, getter 2 words)",
+    "type": [
+     "data row",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "P0.5: + builder bound 0x08A85100, row bounds 0x08A7F30C / 0x08A8019C, 34-entry cap; 3rd+ fighter = L/R page (module).",
+   "refs": [
+    "notes/dlc-phase0.md P0.5"
+   ]
+  },
+  {
+   "id": "grid_owner_bounds",
+   "name": "Grid owner bounds (slti 0x23)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu 0x08A8032C, 0x08A80438, 0x08A804C8, 0x08A816F0, 0x08A81760",
+   "row_size": "immediates",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "n/a"
+   },
+   "covers": "1..34",
+   "owner_max_data_only": 34,
+   "owner34": "OK",
+   "sora_today": {
+    "scripts": [],
+    "what": "owners <= 34 pass already"
+   },
+   "new_fighter": {
+    "needs": "raise for owner 35+",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "grid_cells",
+   "name": "Grid cells per page (layout)",
+   "category": "special-case",
+   "kind": "code-site",
+   "where": "menu_pk_*_seq_* locator SEQs (38 tracks), state+0x678 (40 cells)",
+   "row_size": "34 cells (6/10/10/8)",
+   "index_base": "slot",
+   "capacity": {
+    "max_rows": 34,
+    "used_rows": 33,
+    "free_rows": 1
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [],
+    "what": "Sora + \"?\" fill 6/10/10/7"
+   },
+   "new_fighter": {
+    "needs": "cell 34 for one more; then a 2nd page",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "No layout-file change ever needed; page logic in the module (Phase 3).",
+   "refs": []
+  },
+  {
+   "id": "qb_pictures",
+   "name": "Quick Battle select pictures (pack append)",
+   "category": "table",
+   "kind": "menu-pack",
+   "where": "menu/menu_pk_free_battle_gim_3.bin (id_base 28799; ids 28672..28928 taken; pack <= 0xE1000 B)",
+   "row_size": "GIM entry",
+   "index_base": "picture number (art/icon/face/name) + logo number",
+   "capacity": {
+    "max_rows": "0xE1000 B",
+    "used_rows": null,
+    "free_rows": "by size"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_qbpics.py",
+     "spot33_portrait.py"
+    ],
+    "what": "pictures at picture number 245 (indexes 130/165/296/328/197), logo 148 (idx 132)"
+   },
+   "new_fighter": {
+    "needs": "GIMs + a picture number",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Installer allocates picture numbers; size-0 filler entries keep indexes.",
+   "refs": []
+  },
+  {
+   "id": "setup_banner_remap",
+   "name": "Battle setup banner pictures / frames",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu FUN_08aa44ac / FUN_08aa6148 (SETUP_PATCH owner-1 32 -> 245); frames 0x08AA8864[owner-1] (FRAME_PATCH)",
+   "row_size": "10 B frames",
+   "index_base": "owner - 1",
+   "capacity": {
+    "max_rows": 32,
+    "used_rows": 32,
+    "free_rows": 0
+   },
+   "covers": "1..32 (+33 by code)",
+   "owner_max_data_only": 33,
+   "owner34": "needs code",
+   "sora_today": {
+    "scripts": [
+     "spot33_qbpics.py"
+    ],
+    "what": "owner 33 -> picture 245 / own frame"
+   },
+   "new_fighter": {
+    "needs": "picture number + frame",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "menu_picture_remaps",
+   "name": "Menu picture runs base + owner - 1 (13 sites)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu overlay: Quick Battle party, Untold Tale party, party setting/arrange, Original Quest, Level Adjust (13 sites, notes/menu-art.md)",
+   "row_size": "code",
+   "index_base": "owner - 1",
+   "capacity": {
+    "max_rows": 32,
+    "used_rows": 32,
+    "free_rows": 0
+   },
+   "covers": "1..32",
+   "owner_max_data_only": 33,
+   "owner34": "needs code",
+   "sora_today": {
+    "scripts": [
+     "spot33_menuart.py"
+    ],
+    "what": "owner - 1 == 32 -> 245"
+   },
+   "new_fighter": {
+    "needs": "picture number",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Generic owner -> picture index table.",
+   "refs": []
+  },
+  {
+   "id": "menu_scene_packs",
+   "name": "Per-scene picture packs (party, story, OQ, level adjust, shop, customize)",
+   "category": "table",
+   "kind": "menu-pack",
+   "where": "menu packs of each scene (base + 245, logo + 148); shop / level_adjust Aerith slots in place",
+   "row_size": "GIM entry",
+   "index_base": "picture number",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_menuart.py",
+     "spot33_banner.py",
+     "spot33_names.py"
+    ],
+    "what": "Sora pictures appended / Aerith leftovers replaced"
+   },
+   "new_fighter": {
+    "needs": "GIMs per scene",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "party_frame",
+   "name": "Party slot frame table",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08B2D168[owner-1] (FUN_08b2c330)",
+   "row_size": "u16",
+   "index_base": "owner - 1",
+   "capacity": {
+    "max_rows": 31,
+    "used_rows": 31,
+    "free_rows": 0
+   },
+   "covers": "1..31 (+33)",
+   "owner_max_data_only": 33,
+   "owner34": "needs code",
+   "sora_today": {
+    "scripts": [
+     "spot33_menuart.py"
+    ],
+    "what": "owner 33 -> owner 24's frame 14 (code)"
+   },
+   "new_fighter": {
+    "needs": "frame id",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "labyrinth_face",
+   "name": "Labyrinth face table",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08B4173C[owner]; icon GIM in menu_pk_dungeon_gim_0",
+   "row_size": "6 B (u16 wm icon, u16, i16)",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 34,
+    "used_rows": 33,
+    "free_rows": "1 (34 = padding)"
+   },
+   "covers": "1..32 (+33)",
+   "owner_max_data_only": 34,
+   "owner34": "OK: icon id + GIM",
+   "sora_today": {
+    "scripts": [
+     "spot33_menuart.py"
+    ],
+    "what": "icon 0x102D (dungeon pack entry 45)"
+   },
+   "new_fighter": {
+    "needs": "icon id + wm GIM",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "records_list",
+   "name": "Records list (wins/losses/time)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu: owner table 0x08A40880 (26 u8) + six jal 0x08a3d790 appends; array obj+0x4B8 (32 x 0x10C, sort list at +0x2638)",
+   "row_size": "0x10C",
+   "index_base": "list order",
+   "capacity": {
+    "max_rows": 32,
+    "used_rows": 32,
+    "free_rows": 0
+   },
+   "covers": "32 entries",
+   "owner_max_data_only": null,
+   "owner34": "needs code",
+   "sora_today": {
+    "scripts": [
+     "spot33_museum.py"
+    ],
+    "what": "Chaos's append (0x08A3D8F4 0x17 -> 0x21)"
+   },
+   "new_fighter": {
+    "needs": "record slot (array must grow)",
+    "type": [
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "Hard limit for a 2nd extra fighter until the array grows.",
+   "refs": []
+  },
+  {
+   "id": "records_icons",
+   "name": "Records icon table",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08A40720[owner]; menu_pk_collection_gim_0",
+   "row_size": "u32",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 33,
+    "used_rows": 33,
+    "free_rows": 0
+   },
+   "covers": "0..32 (+33 in padding)",
+   "owner_max_data_only": 33,
+   "owner34": "needs code (next data)",
+   "sora_today": {
+    "scripts": [
+     "spot33_museum.py"
+    ],
+    "what": "word 0x08A407A4 (padding) -> 0x4060 (Sora face)"
+   },
+   "new_fighter": {
+    "needs": "icon id + GIM",
+    "type": [
+     "registry field",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "network_names",
+   "name": "Friend Card / Ghost character names",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08A23ACC[owner-1] (FUN_08a1d7f8)",
+   "row_size": "u16",
+   "index_base": "owner - 1",
+   "capacity": {
+    "max_rows": 32,
+    "used_rows": 32,
+    "free_rows": 0
+   },
+   "covers": "1..32 (+33)",
+   "owner_max_data_only": 33,
+   "owner34": "needs code",
+   "sora_today": {
+    "scripts": [
+     "spot33_ownername.py"
+    ],
+    "what": "owner 33 -> name 63 (code)"
+   },
+   "new_fighter": {
+    "needs": "name index",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "museum_viewer_owners",
+   "name": "Museum 3D viewer owner table (DLC costumes)",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08A358FC",
+   "row_size": "s16",
+   "index_base": "list (0-terminated)",
+   "capacity": {
+    "max_rows": 30,
+    "used_rows": 30,
+    "free_rows": 0
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "needs relocation",
+   "sora_today": {
+    "scripts": [],
+    "what": "Sora absent -> outfits 4+ not in the viewer"
+   },
+   "new_fighter": {
+    "needs": "list entry",
+    "type": [
+     "data row",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Data follows: relocate.",
+   "refs": []
+  },
+  {
+   "id": "menu_name_keys",
+   "name": "Menu name-key tables",
+   "category": "table",
+   "kind": "data",
+   "where": "menu 0x08B57FBC (file 0x17ab50) + tables at file 0xCF58 / 0xF100 [owner-1]",
+   "row_size": "u32 ptr",
+   "index_base": "owner - 1",
+   "capacity": {
+    "max_rows": 33,
+    "used_rows": 33,
+    "free_rows": 0
+   },
+   "covers": "1..33",
+   "owner_max_data_only": 33,
+   "owner34": "needs pointers + key string",
+   "sora_today": {
+    "scripts": [
+     "spot33_names.py"
+    ],
+    "what": "entry 33 -> 'sev120'"
+   },
+   "new_fighter": {
+    "needs": "key pointer + string",
+    "type": [
+     "registry field"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "Check readers don't treat 0 as list end.",
+   "refs": []
+  },
+  {
+   "id": "title_call",
+   "name": "Title call (fighter says the title)",
+   "category": "table",
+   "kind": "code-site",
+   "where": "menu FUN_089deaa8: bound 0x089DEC04 (sltiu 0x22 -> 0x23), SQE 0x089E08B0, DDD moved to 0x089E0504 (35), day table 0x089E07D8",
+   "row_size": "u32 string ptrs",
+   "index_base": "caller index (not owner)",
+   "capacity": {
+    "max_rows": 35,
+    "used_rows": 35,
+    "free_rows": 0
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_vsvoices.py"
+    ],
+    "what": "index 34 = Sora, days 25 / 29"
+   },
+   "new_fighter": {
+    "needs": "caller index + 2 .at3 + days",
+    "type": [
+     "registry field",
+     "code generalisation"
+    ]
+   },
+   "phase2_target": "module code",
+   "notes": "String area repacked full; generic caller table in the module.",
+   "refs": []
+  },
+  {
+   "id": "battle_name_keys",
+   "name": "Battle name-key table",
+   "category": "table",
+   "kind": "data",
+   "where": "battle overlay 0x08AFBC68[owner]",
+   "row_size": "u32 ptr",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": 35,
+    "used_rows": 34,
+    "free_rows": "1 (slot 34)"
+   },
+   "covers": "0..33",
+   "owner_max_data_only": 34,
+   "owner34": "OK: key string + pointer",
+   "sora_today": {
+    "scripts": [],
+    "what": "already 'sev120' for 33"
+   },
+   "new_fighter": {
+    "needs": "key pointer",
+    "type": [
+     "registry field"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "battle_names_file",
+   "name": "Battle character names",
+   "category": "table",
+   "kind": "data",
+   "where": "battle overlay file off 0x11E284[owner-1]",
+   "row_size": "i32 x 2",
+   "index_base": "owner - 1",
+   "capacity": {
+    "max_rows": 33,
+    "used_rows": 32,
+    "free_rows": "1 (34 = -1,-1)"
+   },
+   "covers": "1..32",
+   "owner_max_data_only": 34,
+   "owner34": "OK: name index",
+   "sora_today": {
+    "scripts": [],
+    "what": "owner 33's row = Aerith's (unchanged)"
+   },
+   "new_fighter": {
+    "needs": "name index",
+    "type": [
+     "registry field"
+    ]
+   },
+   "phase2_target": "registry lookup",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "cmd_list",
+   "name": "Command charts (Customization -> Abilities -> square)",
+   "category": "table",
+   "kind": "data",
+   "where": "command_list_param.bin (PACKAGE file, linear search) + mess_pk_customize_ability_0 group 1",
+   "row_size": "40 B record",
+   "index_base": "ability id",
+   "capacity": {
+    "max_rows": "old sectors",
+    "used_rows": "581 + 23",
+    "free_rows": "grows inside its sectors"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_cmdlist.py"
+    ],
+    "what": "records 0x2100..0x2116 + texts after 2604"
+   },
+   "new_fighter": {
+    "needs": "records + texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "If the file outgrows its sectors -> EXTRA.IDX row.",
+   "refs": []
+  },
+  {
+   "id": "battle_tips",
+   "name": "Battle Tips \"Character Info\"",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin manual_param.bin (loader room 0xCD rows) + customize_common group 2",
+   "row_size": "22 B",
+   "index_base": "file order (category 0x10)",
+   "capacity": {
+    "max_rows": 205,
+    "used_rows": 202,
+    "free_rows": 3
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_tips.py"
+    ],
+    "what": "row id 201 + texts after 178"
+   },
+   "new_fighter": {
+    "needs": "one row + pages",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "museum_char_files",
+   "name": "Museum Character Files records",
+   "category": "table",
+   "kind": "data",
+   "where": "collection_param.bin section 0 + mess_pk_collection_0 group 1",
+   "row_size": "48 B",
+   "index_base": "record order; viewed flag bit 3651..3685",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 35,
+    "free_rows": "append; viewed flags: 3681 was the free one"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_museum.py"
+    ],
+    "what": "record for Sora (viewed flag 3681, models 1187/1436/1437) + 4 texts"
+   },
+   "new_fighter": {
+    "needs": "record + texts + viewed flag",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "A 2nd fighter needs a new viewed-flag bit outside 3651..3685 (allocator).",
+   "refs": []
+  },
+  {
+   "id": "museum_icons",
+   "name": "Museum Player Icons + friend-card icon archive",
+   "category": "table",
+   "kind": "data",
+   "where": "collection_param section 4; menu/JP/Collection/user_icon/user_iconNNN.gim; general_archive/menu/user_icon12.bin (icons 385..416)",
+   "row_size": "8-B row / GIM",
+   "index_base": "icon number",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 417,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_museum.py"
+    ],
+    "what": "icon 414 + texts 212 / 413"
+   },
+   "new_fighter": {
+    "needs": "icons + texts",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "museum_music",
+   "name": "Museum music records",
+   "category": "table",
+   "kind": "data",
+   "where": "collection_param section 6",
+   "row_size": "record",
+   "index_base": "bgm id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_music.py"
+    ],
+    "what": "records for bgm 131..133"
+   },
+   "new_fighter": {
+    "needs": "records",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "jukebox_voice",
+   "name": "Jukebox voice groups",
+   "category": "table",
+   "kind": "data",
+   "where": "collection_voice_param (33 groups)",
+   "row_size": "group",
+   "index_base": "group index",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 33,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [],
+    "what": "Sora has none (open)"
+   },
+   "new_fighter": {
+    "needs": "one group",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "pp_catalog",
+   "name": "PP Catalog items",
+   "category": "table",
+   "kind": "data",
+   "where": "update_list_param.bin (5 tabs, 28-B items) + mess_pk_update_list_0",
+   "row_size": "28 B",
+   "index_base": "tab + order",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": "117/44/31/93/41 + 3",
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_catalog.py"
+    ],
+    "what": "tab 0 item 15 Chaos -> Sora (flag 925); tab 3 icons (1253/1254); tab 4 BGM (1249..1251)"
+   },
+   "new_fighter": {
+    "needs": "items + flags",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "bgm_entry",
+   "name": "BGM table + 64-bit owner mask",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin bgm_entry.bin (RAM max 0x100 rows)",
+   "row_size": "44 B (mask at +16)",
+   "index_base": "bgm id",
+   "capacity": {
+    "max_rows": 256,
+    "used_rows": 134,
+    "free_rows": 122
+   },
+   "covers": "owners 0..63",
+   "owner_max_data_only": 63,
+   "owner34": "OK",
+   "sora_today": {
+    "scripts": [
+     "spot33_music.py"
+    ],
+    "what": "ids 131..133, owner bit 33 (auto music vs Sora)"
+   },
+   "new_fighter": {
+    "needs": "rows + owner bit",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "brai_seco",
+   "name": "Global AI owner table + brain sets (seco)",
+   "category": "table",
+   "kind": "data",
+   "where": "battle_non_residing.bin brai \"seco\": owner list 0x1a8, owner x brain matrix 0x1c0, brain sets",
+   "row_size": "rows",
+   "index_base": "owner (list) / set id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": "append",
+   "sora_today": {
+    "scripts": [
+     "spot33_ai.py"
+    ],
+    "what": "owner 33 appended (+pad), own brain sets 200..207 + EX / reaction rows"
+   },
+   "new_fighter": {
+    "needs": "owner row + brain-set range",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Installer allocates brain-set ids (Sora 200..207).",
+   "refs": []
+  },
+  {
+   "id": "assist_bin",
+   "name": "Assist table",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin assist.bin",
+   "row_size": "104 B",
+   "index_base": "owner (row field)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 33,
+    "free_rows": "append"
+   },
+   "covers": "1..33",
+   "owner_max_data_only": null,
+   "owner34": "append (+ eqaa, _a.objx)",
+   "sora_today": {
+    "scripts": [
+     "spot33_assist.py"
+    ],
+    "what": "owner-33 row (was Aerith's): actions 1020/321/326/328"
+   },
+   "new_fighter": {
+    "needs": "one row",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "eqaa",
+   "name": "Assist equip preset (eqaa)",
+   "category": "table",
+   "kind": "data",
+   "where": "main.bin -> system.bin eqaa",
+   "row_size": "preset",
+   "index_base": "preset id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_assist.py"
+    ],
+    "what": "uses existing preset 396 (enables ablt 0x2100..0x2103)"
+   },
+   "new_fighter": {
+    "needs": "preset",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "vold_lists",
+   "name": "Voice line lists (VOLD), own + everyone else's",
+   "category": "table",
+   "kind": "data",
+   "where": "voice/EN/voice_load_<KEY>.bin (24-B rows); voice_load_parameter.mpk = Museum copy (battle never reads it)",
+   "row_size": "24 B (clip, line id, moment, cond, value)",
+   "index_base": "line id / (moment, cond, value)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_voice.py",
+     "voice_lines.py",
+     "spot33_lines.py",
+     "spot33_vsvoices.py"
+    ],
+    "what": "own list; cond-2 rows value 33 in 29 other fighters' lists; Sora mirror row"
+   },
+   "new_fighter": {
+    "needs": "own list + vs rows merged into shared lists",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Shared files: installer merges rows (order-independent).",
+   "refs": []
+  },
+  {
+   "id": "ability_text",
+   "name": "Ability names (ability.bin)",
+   "category": "table",
+   "kind": "text",
+   "where": "main_lang.bin (MPK) -> ability.bin; same-size rule",
+   "row_size": "text entry",
+   "index_base": "text id",
+   "capacity": {
+    "max_rows": "fixed table",
+    "used_rows": null,
+    "free_rows": "placeholder pool (392..399, 1042+)"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_movenames.py",
+     "spot33_moves.py"
+    ],
+    "what": "names in unused placeholders"
+   },
+   "new_fighter": {
+    "needs": "name entries",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Growing the table garbles entries: reuse placeholders; finite pool.",
+   "refs": []
+  },
+  {
+   "id": "customize_desc_text",
+   "name": "Customization descriptions / chart texts",
+   "category": "table",
+   "kind": "text",
+   "where": "text/EN/mess_pk_customize_ability_0.bin group 0 (u16 offsets, < 131,070 B) + group 1",
+   "row_size": "text entry",
+   "index_base": "text id",
+   "capacity": {
+    "max_rows": "same size",
+    "used_rows": null,
+    "free_rows": "filler entries"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_desc.py",
+     "spot33_cmdlist.py"
+    ],
+    "what": "descs 395..398 / 1042..; filler emptied"
+   },
+   "new_fighter": {
+    "needs": "texts",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "char_name_lists",
+   "name": "Character name lists (name index 63)",
+   "category": "table",
+   "kind": "text",
+   "where": "name-list groups: collection 3, colosseum 1, creation_room 1, dungeon 2, loading 1, md_list 4, network 3, worldmap 1, update_list 2",
+   "row_size": "text entry",
+   "index_base": "name index (0..62 vanilla)",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 64,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_ownername.py",
+     "spot33_catalog.py"
+    ],
+    "what": "'Sora' = entry 63 in every group"
+   },
+   "new_fighter": {
+    "needs": "entry 64, 65 ...",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "item_texts",
+   "name": "Item names / help",
+   "category": "table",
+   "kind": "text",
+   "where": "main_lang item.bin / item_help.bin",
+   "row_size": "text entry",
+   "index_base": "text id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exitems.py"
+    ],
+    "what": "names 762.., help 784.."
+   },
+   "new_fighter": {
+    "needs": "texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "exmode_texts",
+   "name": "EX Mode page texts",
+   "category": "table",
+   "kind": "text",
+   "where": "text/EN/mess_pk_exmode_0.bin groups 2/3",
+   "row_size": "text entry",
+   "index_base": "text id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 86,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_exitems.py"
+    ],
+    "what": "entries 82..85"
+   },
+   "new_fighter": {
+    "needs": "texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "tips_texts",
+   "name": "Battle Tips texts",
+   "category": "table",
+   "kind": "text",
+   "where": "text/EN/mess_pk_customize_common_0.bin group 2",
+   "row_size": "text entry",
+   "index_base": "text id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_tips.py"
+    ],
+    "what": "entries after 178"
+   },
+   "new_fighter": {
+    "needs": "texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "museum_texts",
+   "name": "Museum texts",
+   "category": "table",
+   "kind": "text",
+   "where": "text/EN/mess_pk_collection_0.bin groups 0/1/4",
+   "row_size": "text entry",
+   "index_base": "text id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_museum.py"
+    ],
+    "what": "profile/name + 212 / 413"
+   },
+   "new_fighter": {
+    "needs": "texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "catalog_texts",
+   "name": "PP Catalog texts",
+   "category": "table",
+   "kind": "text",
+   "where": "text/EN/mess_pk_update_list_0.bin groups 0/2/6",
+   "row_size": "text entry",
+   "index_base": "text id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_catalog.py"
+    ],
+    "what": "#169/#170, #63, #132..134"
+   },
+   "new_fighter": {
+    "needs": "texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "bgm_names",
+   "name": "BGM names",
+   "category": "table",
+   "kind": "text",
+   "where": "main_lang bgm_name.bin (EN)",
+   "row_size": "text entry",
+   "index_base": "bgm text id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": 135,
+    "free_rows": "append"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_music.py"
+    ],
+    "what": "ids 132..134"
+   },
+   "new_fighter": {
+    "needs": "texts",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "voice_subtitles",
+   "name": "Voice subtitles + line ids",
+   "category": "id-range",
+   "kind": "text",
+   "where": "field_lang.bin -> battle_voice_name.bin",
+   "row_size": "text entry",
+   "index_base": "line id (0..1205 free)",
+   "capacity": {
+    "max_rows": 1206,
+    "used_rows": "~150 (Sora 1000..1143)",
+    "free_rows": "about 1050"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "voice_lines.py",
+     "spot33_lines.py",
+     "spot33_vsvoices.py"
+    ],
+    "what": "line ids 1000..1143 (+ Lightning 1100/1101)"
+   },
+   "new_fighter": {
+    "needs": "a line-id range + subtitles",
+    "type": [
+     "data row",
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Installer allocates line-id ranges.",
+   "refs": []
+  },
+  {
+   "id": "battle_move_names",
+   "name": "In-battle move / EX banners (mlng)",
+   "category": "table",
+   "kind": "text",
+   "where": "own obj/p_<key>.objx 'text' chunk",
+   "row_size": "entry",
+   "index_base": "banner index",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "own file"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_battlenames.py",
+     "spot33_p2fix.py"
+    ],
+    "what": "Sora names; Cloud entry 9 renamed"
+   },
+   "new_fighter": {
+    "needs": "package data (own file)",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Inside the fighter file: no shared table.",
+   "refs": []
+  },
+  {
+   "id": "fep_id",
+   "name": "Effect package (FEP) global id",
+   "category": "id-range",
+   "kind": "data",
+   "where": "own objx 'effe' header +0x10 (FUN_08943124 refuses duplicates)",
+   "row_size": "u32",
+   "index_base": "id >> 18",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "free ids on disc"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_effects.py",
+     "spot33_assist.py"
+    ],
+    "what": "Sora 3146 << 18 = 0x31280000 (Cloud 0x311C0000; sev 3143..3145); Sora assist 0x51280000"
+   },
+   "new_fighter": {
+    "needs": "unique FEP id (+ assist FEP id)",
+    "type": [
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "All 226 internal refs move with it. Installer must check the id is free on the whole disc.",
+   "refs": []
+  },
+  {
+   "id": "texture_keys",
+   "name": "Effect TEX/MDL/ANM keys",
+   "category": "id-range",
+   "kind": "data",
+   "where": "own objx 'effe' resources",
+   "row_size": "u32 key",
+   "index_base": "prefix",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_fx.py (rekey)",
+     "spot33_assist.py"
+    ],
+    "what": "Sora 0x980128NN (from 0x98011cNN); assist textures 0xa80128NN"
+   },
+   "new_fighter": {
+    "needs": "own prefix",
+    "type": [
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Effect rules: 16-B alignment, dense node serials, TEX count <= 21, strips <= 384 vertices, effe size-neutral.",
+   "refs": [
+    "docs/learn/12-lessons-learned.md H"
+   ]
+  },
+  {
+   "id": "fepa_ids",
+   "name": "FEPA effect row ids spawned by scripts",
+   "category": "id-range",
+   "kind": "data",
+   "where": "own objx effe FEPA rows (op 0x19 one-shots)",
+   "row_size": "row",
+   "index_base": "id",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_firefx.py",
+     "spot33_magnet.py",
+     "spot33_barrier.py"
+    ],
+    "what": "pools 9100..9141"
+   },
+   "new_fighter": {
+    "needs": "own ids (file-local as far as known)",
+    "type": [
+     "id allocation"
+    ]
+   },
+   "phase2_target": "none (already generic)",
+   "notes": "Believed file-local (inside the fighter FEP); installer still checks.",
+   "refs": []
+  },
+  {
+   "id": "sound_bank_ids",
+   "name": "Sound / voice bank ids",
+   "category": "id-range",
+   "kind": "data",
+   "where": "SSCF headers of snd_ (objx) + voice/EN/battle/voice_<KEY>_00.scd; p_se ops 0x03/0x11/0x15; FXSE base; chrp +0x7c..+0x88",
+   "row_size": "u32 ids",
+   "index_base": "base + slot",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "free 219xxx-style bases"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_soundids.py",
+     "spot33_sfx.py",
+     "spot33_assist.py"
+    ],
+    "what": "snd 219000 (21,900,000+slot), voice 219100; assist snd 219500, voice 219600 (engine +50000 for assist)"
+   },
+   "new_fighter": {
+    "needs": "own base pair (+ assist pair)",
+    "type": [
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Run LAST-style rebasing; installer checks every SSCF header + chrp voice ids for overlap.",
+   "refs": [
+    "notes/sound-bank-ids.md"
+   ]
+  },
+  {
+   "id": "objx_internal_ids",
+   "name": "Fighter-file internal ids (magi, plya, motion ids, p_se blocks)",
+   "category": "id-range",
+   "kind": "data",
+   "where": "own obj/p_<key>.objx chunks",
+   "row_size": "rows",
+   "index_base": "per file",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "per file"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_magic.py",
+     "spot33_chain.py",
+     "spot33_combos.py",
+     "spot33_exmode.py"
+    ],
+    "what": "magi > 0x7C0, motion ids 10300+, blocks = GMO motion index"
+   },
+   "new_fighter": {
+    "needs": "package data",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "none (already generic)",
+   "notes": "No cross-fighter clash (each fighter loads its own file). GMO budget ~2,506,640 B.",
+   "refs": []
+  },
+  {
+   "id": "picture_numbers",
+   "name": "Menu picture numbers / icon ids",
+   "category": "id-range",
+   "kind": "data",
+   "where": "QB/menu packs, Labyrinth, Records, panel icons",
+   "row_size": "u16",
+   "index_base": "number",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_qbpics.py",
+     "spot33_menuart.py",
+     "spot33_museum.py",
+     "spot33_charpanel.py"
+    ],
+    "what": "picture 245, logo 148, Labyrinth 0x102D, Records 0x4060, panel 3179 / 7269 / 8321"
+   },
+   "new_fighter": {
+    "needs": "own numbers per scene",
+    "type": [
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "unlock_flags",
+   "name": "Save unlock / viewed flags",
+   "category": "id-range",
+   "kind": "save",
+   "where": "save flag bits (DAT_089d726c area)",
+   "row_size": "bit",
+   "index_base": "flag number",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "unknown free set"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_catalog.py",
+     "spot33_museum.py",
+     "spot33_music.py"
+    ],
+    "what": "925 (Chaos's flag reused), SEEN 3633 (spot33_newtag), 1249..1251 BGM, 1253/1254 icons, viewed 3681, icon viewed 2993"
+   },
+   "new_fighter": {
+    "needs": "unused flag bits",
+    "type": [
+     "id allocation"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Need a map of unused flags (Phase 1 task).",
+   "refs": []
+  },
+  {
+   "id": "save_stats_blocks",
+   "name": "Save stats per owner",
+   "category": "table",
+   "kind": "save",
+   "where": "save +0x10D38 + owner*200 (owners 0..35); +0x12958 + owner*0x30 (0..34)",
+   "row_size": "200 B / 0x30 B",
+   "index_base": "owner",
+   "capacity": {
+    "max_rows": "36 / 35",
+    "used_rows": 34,
+    "free_rows": "2 / 1"
+   },
+   "covers": "0..35 / 0..34",
+   "owner_max_data_only": 34,
+   "owner34": "OK in both",
+   "sora_today": {
+    "scripts": [],
+    "what": "owner 33 fits both"
+   },
+   "new_fighter": {
+    "needs": "nothing up to 34",
+    "type": []
+   },
+   "phase2_target": "none (already generic)",
+   "notes": "35 fits only the \"as\" block, 36+ needs save relocation.",
+   "refs": []
+  },
+  {
+   "id": "package_info",
+   "name": "Disc file index (PACKAGE_INFO.BIN)",
+   "category": "table",
+   "kind": "iso-file",
+   "where": "PSP_GAME/USRDIR/DATA/PACKAGE_INFO.BIN; RAM 0x09B26BC0 (0x20F8C B)",
+   "row_size": "12 B (hash, sector, size|tier)",
+   "index_base": "hash (sorted)",
+   "capacity": {
+    "max_rows": 11253,
+    "used_rows": 11179,
+    "free_rows": 74
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "pkg_add.py",
+     "spot33_installfix.py"
+    ],
+    "what": "+136 rows, 65 repointed; added rows tier 0 (installfix)"
+   },
+   "new_fighter": {
+    "needs": "zero rows (all go to EXTRA.IDX)",
+    "type": []
+   },
+   "phase2_target": "EXTRA.IDX",
+   "notes": "Phase 1: restore the vanilla bytes; every mod row moves to EXTRA.IDX (also keeps Data Install valid).",
+   "refs": [
+    "notes/dlc-phase0.md P0.7, P0.9"
+   ]
+  },
+  {
+   "id": "fighter_files",
+   "name": "Fighter files (model, battle file, voices, pictures)",
+   "category": "table",
+   "kind": "iso-file",
+   "where": "PACKAGE paths: obj/p_<key>.objx, _a.objx, P_<KEY>_nP.gmo/.cosx/.exex, _A.gmo, chara_image, voice banks, voice_load list, .at3 lines, name/encount/face GIMs, user icons",
+   "row_size": "file",
+   "index_base": "path hash",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": "~136 for Sora",
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "bootstrap_base.sh (pkg_add)",
+     "pkg_put.py",
+     "spot33_2p.py",
+     "spot33_p2fix.py",
+     "spot33_outfits.py",
+     "spot33_faces.py",
+     "spot33_vsname.py",
+     "spot33_voice.py",
+     "spot33_voicex.py",
+     "spot33_lines.py",
+     "spot33_assist.py"
+    ],
+    "what": "appended at the ISO end, PACKAGE.BIN stretched"
+   },
+   "new_fighter": {
+    "needs": "all files of the package",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "EXTRA.IDX",
+   "notes": "~30 MB per fighter; 684 MB sector reach left.",
+   "refs": []
+  },
+  {
+   "id": "own_battle_file",
+   "name": "Fighter's own battle file content (obj/p_<key>.objx)",
+   "category": "table",
+   "kind": "iso-file",
+   "where": "own objx chunks: comb, plya, atkp, magi, p_se, brat, text, effe (FEP/FEPA/FXSE), snd_, d_se camera, spec (burst gauge)",
+   "row_size": "file",
+   "index_base": "path hash",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "own file"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_combos.py",
+     "spot33_chain.py",
+     "spot33_speed.py",
+     "spot33_magic.py",
+     "spot33_thunder.py",
+     "spot33_thundaga.py",
+     "spot33_exmode.py",
+     "spot33_exface.py",
+     "spot33_trinity.py",
+     "spot33_reflectvoice.py",
+     "spot33_breakgauge.py",
+     "spot33_introcam.py",
+     "spot33_effects.py",
+     "spot33_fx.py",
+     "spot33_burstfx.py",
+     "spot33_firefx.py",
+     "spot33_magicfx.py",
+     "spot33_lightningfx.py",
+     "spot33_barrier.py",
+     "spot33_magnet.py",
+     "spot33_sfx.py",
+     "spot33_spellsfx.py",
+     "spot33_weaponsfx.py",
+     "spot33_sndtrim.py",
+     "spot33_soundids.py",
+     "spot33_battlenames.py",
+     "spot33_ai.py (brat)"
+    ],
+    "what": "all moves, effects, sounds, AI weights, banners live in this one file"
+   },
+   "new_fighter": {
+    "needs": "package data (the final objx bytes)",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "EXTRA.IDX",
+   "notes": "Writers are order-dependent and some (Codex objx->objx candidates) are NOT re-runnable: a package should ship the FINAL objx (+ its build recipe), not re-run the chain. Mirror-match memory: snd_ bank size limits (sndtrim).",
+   "refs": []
+  },
+  {
+   "id": "template_hygiene",
+   "name": "Donor fighter stays vanilla (template rule)",
+   "category": "special-case",
+   "kind": "data",
+   "where": "donor files (Cloud: p_sev100.objx, _w.objx, ablt 0x0d00)",
+   "row_size": "n/a",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_cloudvanilla.py"
+    ],
+    "what": "Cloud restored byte-identical to clean after the bootstrap"
+   },
+   "new_fighter": {
+    "needs": "installer rule: templates are read from the clean disc; never edit the donor",
+    "type": []
+   },
+   "phase2_target": "none (already generic)",
+   "notes": "Phase 1 check: donor files == clean bytes after install.",
+   "refs": []
+  },
+  {
+   "id": "extra_idx",
+   "name": "Extra file index EXTRA.IDX",
+   "category": "table",
+   "kind": "iso-file",
+   "where": "PSP_GAME/USRDIR/DATA/EXTRA.IDX (new)",
+   "row_size": "32-B header + 12-B rows",
+   "index_base": "hash",
+   "capacity": {
+    "max_rows": 16384,
+    "used_rows": 0,
+    "free_rows": 16384
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [],
+    "what": "not used yet (P0.7 probe only)"
+   },
+   "new_fighter": {
+    "needs": "rows for every package file",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "EXTRA.IDX",
+   "notes": "Hook word 0x08871420 (RAM, by EXTRA.PRX).",
+   "refs": []
+  },
+  {
+   "id": "extra_prx",
+   "name": "Engine module EXTRA.PRX + loader stub",
+   "category": "special-case",
+   "kind": "iso-file",
+   "where": "PSP_GAME/USRDIR/DATA/MODULE/EXTRA.PRX; loader FUN_0886eebc rewritten, jal 0x0893361C -> stub 0x0886EF60",
+   "row_size": "module",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": "~240 KB free block"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [],
+    "what": "probe only (P0.2)"
+   },
+   "new_fighter": {
+    "needs": "nothing per fighter (registry rows inside)",
+    "type": []
+   },
+   "phase2_target": "module code",
+   "notes": "",
+   "refs": []
+  },
+  {
+   "id": "eboot_plain",
+   "name": "Plain EBOOT",
+   "category": "special-case",
+   "kind": "iso-file",
+   "where": "PSP_GAME/SYSDIR/EBOOT.BIN (sector 560)",
+   "row_size": "file",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "eboot_plain.py"
+    ],
+    "what": "decrypted ELF + unlock row"
+   },
+   "new_fighter": {
+    "needs": "nothing",
+    "type": []
+   },
+   "phase2_target": "none (already generic)",
+   "notes": "Engine base, once.",
+   "refs": []
+  },
+  {
+   "id": "battle_overlay_cave",
+   "name": "Battle overlay cave",
+   "category": "special-case",
+   "kind": "iso-file",
+   "where": "OVL_BATTLE_APP.ELF grows (0x08B62F70..0x08B63170)",
+   "row_size": "512 B",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": "512 B",
+    "used_rows": "496 B",
+    "free_rows": "16 B"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_reflect.py"
+    ],
+    "what": "reflect / EE code"
+   },
+   "new_fighter": {
+    "needs": "nothing",
+    "type": []
+   },
+   "phase2_target": "module code",
+   "notes": "Move into EXTRA.PRX in Phase 2.",
+   "refs": []
+  },
+  {
+   "id": "bgm_files",
+   "name": "Music files on disc (DATA/BGM)",
+   "category": "table",
+   "kind": "iso-file",
+   "where": "PSP_GAME/USRDIR/DATA/BGM/*.AT3 (4-sector directory)",
+   "row_size": "ISO dir record",
+   "index_base": "file name",
+   "capacity": {
+    "max_rows": "4 sectors of records",
+    "used_rows": null,
+    "free_rows": "a few records"
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [
+     "spot33_music.py"
+    ],
+    "what": "KH2TR/KH2WT/KH2SS.AT3"
+   },
+   "new_fighter": {
+    "needs": "AT3 files",
+    "type": [
+     "data row"
+    ]
+   },
+   "phase2_target": "append",
+   "notes": "Read via disc0 directly, not PACKAGE: cannot go to EXTRA.IDX; ISO9660 append (or ms0 DLC music).",
+   "refs": []
+  },
+  {
+   "id": "install_param_sfo",
+   "name": "Data Install PARAM.SFO template",
+   "category": "special-case",
+   "kind": "iso-file",
+   "where": "package save/EN/PARAM.SFO (ptr 0x089D5FA8)",
+   "row_size": "PSF",
+   "index_base": "n/a",
+   "capacity": {
+    "max_rows": null,
+    "used_rows": null,
+    "free_rows": null
+   },
+   "covers": null,
+   "owner_max_data_only": null,
+   "owner34": null,
+   "sora_today": {
+    "scripts": [],
+    "what": "unchanged (release TODO)"
+   },
+   "new_fighter": {
+    "needs": "nothing (one byte per release)",
+    "type": []
+   },
+   "phase2_target": "none (already generic)",
+   "notes": "Bump one text byte per release so old installs are ignored (P0.9).",
+   "refs": []
+  }
+ ]
+}

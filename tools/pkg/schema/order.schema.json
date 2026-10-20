@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dissidia012-sora/pkg/order.schema.json#1.0",
+  "title": "order.json, format 1.0 (optional file)",
+  "description": "Only where the final position of appended rows in a SHARED container differs from key order (e.g. VOLD rows merged into other fighters' voice lists). Each sequence lists every row of (table, ns) in application order; keys must exist in rows/<table>.json. docs/PACKAGE-FORMAT.md section 9.",
+  "type": "object",
+  "required": ["format_version", "sequences"],
+  "additionalProperties": false,
+  "properties": {
+    "format_version": {"type": "string", "pattern": "^1\\.[0-9]+$"},
+    "sequences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["keys", "ns", "reason", "table"],
+        "additionalProperties": false,
+        "properties": {
+          "table": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "ns": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "keys": {"type": "array", "minItems": 2, "items": {"type": "object", "minProperties": 1}}
+        }
+      }
+    }
+  }
+}

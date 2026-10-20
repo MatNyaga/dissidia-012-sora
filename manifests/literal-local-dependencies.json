@@ -1,0 +1,805 @@
+{
+  "warning": "Static literal-reference inventory, including comments and partial expressions. Not a complete build manifest. Missing references are intentionally local or unresolved.",
+  "references": [
+    {
+      "consumer": "tools/scripts/spot33_portrait.py",
+      "literal_reference": "codex/inbox/20261016-select-portrait",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_portrait.py",
+      "literal_reference": "tools/art/approved/qb_art.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_portrait.py",
+      "literal_reference": "tools/art/qb_art.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/keychain.py",
+      "literal_reference": "dumps/models/keychain/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/gmo_camcopy.py",
+      "literal_reference": "dumps/models/camdonor/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/pose_author.py",
+      "literal_reference": "dumps/kh2anim",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/pose_author.py",
+      "literal_reference": "dumps/models/sora/fitn/sora_fit.map.json",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/pose_author.py",
+      "literal_reference": "dumps/models/sora/keyn/sora_fit_key.gltf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_museum.py",
+      "literal_reference": "tools/art/approved/qb_art.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_qbpics.py",
+      "literal_reference": "tools/art/qb_",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_assist.py",
+      "literal_reference": "dumps/ULUS10566.iso.",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/bootstrap_base.sh",
+      "literal_reference": "dumps/ULUS10566-base-fromclean.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/bootstrap_base.sh",
+      "literal_reference": "dumps/ULUS10566-test28-lines.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/bootstrap_base.sh",
+      "literal_reference": "dumps/ULUS10566-testNN.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/bootstrap_base.sh",
+      "literal_reference": "dumps/ULUS10566.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261015-ex-timed",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-fire-appearance-v3/build.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-fire-core-readability/build.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-fire-thunder-redesign/build_candidates.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-fire-thunder-visibility-v2/revise.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-reflect-gap",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-reflect-gap/prototype/guard-v2/guard-reflect.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-select-portrait",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-thunder-test305-visual-stack/build.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-trinity-finisher-level/patch_finisher.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-trinity-ready-3s/retime_events.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-trinity-ready-voice/patch_events.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-trinity-solo-staging/output/trinity-solo-staged.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "codex/inbox/20261016-trinity-solo-staging/retime_events.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/ULUS10566-base-fromclean.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/ULUS10566-test28-lines.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/ULUS10566-testNN.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/ULUS10566.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/kh2anim",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/kh2anim/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/models",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/models/camdonor",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/models/sora/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/models/sora_final.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/models/tumble_approved.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/package/01193_1b867bde_t1.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/renders/trinitycam/test263_codexcam_",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "dumps/voice_sora",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/art/approved/qb_art.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/art/qb_",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/art/qb_art.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/art/sora_encount.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/art/sora_name_banner.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/art/sora_name_left.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/voice/sora_battle_voice.txt",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/build_sora.sh",
+      "literal_reference": "tools/voice/sora_lines.txt",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/go_battle.py",
+      "literal_reference": "dumps/screens/go",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_se.py",
+      "literal_reference": "kh2_export/raw",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_se.py",
+      "literal_reference": "kh2_export/raw/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/ablt_patch.py",
+      "literal_reference": "dumps/extracted/PACKAGE_INFO.BIN",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_cloudvanilla.py",
+      "literal_reference": "dumps/ULUS10566-test28-lines.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_cloudvanilla.py",
+      "literal_reference": "dumps/ULUS10566.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsname.py",
+      "literal_reference": "tools/art/sora_name_banner.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_mdlx2gltf.py",
+      "literal_reference": "kh2_export/logs/decode_mdlx.py.",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_trinity.py",
+      "literal_reference": "codex/inbox/20261016-trinity-battle-stance-v5/reference-output/event-contract.json",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_reflect_mesh.py",
+      "literal_reference": "codex/inbox/20261016-reflect-gap/build_shell_prototype.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/kh2_reflect_mesh.py",
+      "literal_reference": "kh2_export/raw/kh2_fifth/original/magic/REFLECT_3.mag",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_slot.sh",
+      "literal_reference": "dumps/models/sora/rtn/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_slot.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.bin",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_slot.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.gltf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_slot.sh",
+      "literal_reference": "dumps/renders/poses",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_triggers.py",
+      "literal_reference": "kh2_export/raw/kh2_sixth/original/obj/P_EX100.mset",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_exitems.py",
+      "literal_reference": "dumps/ULUS10566.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_exitems.py",
+      "literal_reference": "dumps/extracted/EBOOT.elf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_exitems.py",
+      "literal_reference": "dumps/extracted/OVL_MENU_APP.ELF",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_outfits.py",
+      "literal_reference": "codex/inbox/20261016-drive-outfits",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/go_battle.sh",
+      "literal_reference": "dumps/ULUS10566-testNN.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/go_battle.sh",
+      "literal_reference": "dumps/screens/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_installfix.py",
+      "literal_reference": "dumps/extracted/PACKAGE_INFO.BIN",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_select_art.py",
+      "literal_reference": "dumps/renders/portrait/win_20.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_select_art.py",
+      "literal_reference": "kh2_export/raw/kh2_fifth/remastered/menu/jmface_ex0.imd/-0.dds",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_select_art.py",
+      "literal_reference": "kh2_export/raw/kh2_first/remastered/menu/us/title.2ld/US_title_2ld7.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_select_art.py",
+      "literal_reference": "tools/art/qb_",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_select_art.py",
+      "literal_reference": "tools/art/sora_name_banner.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/eboot_plain.py",
+      "literal_reference": "dumps/extracted/EBOOT.elf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_faces.py",
+      "literal_reference": "kh2_export/raw/kh2_fifth/remastered/menu/jmface_ex0.imd/-0.dds",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_faces.py",
+      "literal_reference": "tools/art/qb_arcade/qb_art.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_faces.py",
+      "literal_reference": "tools/art/sora_face_",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/test_combo.sh",
+      "literal_reference": "dumps/ULUS10566-exp-run.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_magic.py",
+      "literal_reference": "dumps/ULUS10566.iso.",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2anim.py",
+      "literal_reference": "kh2_export/model/P_EX100_decoded.json",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2anim.py",
+      "literal_reference": "kh2_export/model/sora.glb",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_magicfx.py",
+      "literal_reference": "kh2_export/raw/kh2_fifth/original/magic/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/kh2anim",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/kh2anim/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/kh2anim/list_named.txt",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/models/sora/fitn/sora_fit.map.json",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/models/sora/rtn/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.bin",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.gltf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/models/sora_final.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/renders/poses",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "dumps/renders/poses/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "kh2_export/model/P_EX100.mdlx",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_kh2_motion.sh",
+      "literal_reference": "kh2_export/raw/kh2_sixth/original/obj/P_EX100.mset",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_exspeed.py",
+      "literal_reference": "dumps/ULUS10566.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_exspeed.py",
+      "literal_reference": "dumps/extracted/EBOOT.elf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_exspeed.py",
+      "literal_reference": "dumps/extracted/OVL_BATTLE_APP.ELF",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/ppexspeed.py",
+      "literal_reference": "dumps/exspeed_runs.csv",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_fx210.py",
+      "literal_reference": "dumps/ULUS10566-test210-fx.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_fx210.py",
+      "literal_reference": "dumps/renders/kh2fx/test210/firaga_preview.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_fx210.py",
+      "literal_reference": "dumps/renders/kh2fx/test210/tex/fep_9801280f.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_fx210.py",
+      "literal_reference": "dumps/renders/kh2fx/test210/tex/fep_98012812.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_fx210.py",
+      "literal_reference": "dumps/renders/kh2fx/test210/thundaga_bolt_preview.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_hits.py",
+      "literal_reference": "dumps/kh2anim/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/pkg_add.py",
+      "literal_reference": "dumps/extracted/PACKAGE_INFO.BIN",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/comb_add.py",
+      "literal_reference": "dumps/extracted/PACKAGE_INFO.BIN",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_barrier.py",
+      "literal_reference": "kh2_export/raw/kh2_fifth/original/magic/REFLECT_3.mag",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_exface.py",
+      "literal_reference": "codex/inbox/20261015-ex-strained-face/build_face.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/pp.sh",
+      "literal_reference": "dumps/screens/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_music.py",
+      "literal_reference": "codex/inbox/20261016-kh2-music/encoded/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_music.py",
+      "literal_reference": "dumps/ULUS10566.iso.",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_firefx.py",
+      "literal_reference": "kh2_export/raw/kh2_fifth/original/magic/FIRE_3.mag",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/record_game.sh",
+      "literal_reference": "dumps/screens",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/record_game.sh",
+      "literal_reference": "dumps/screens/rec_",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/roster_patch.py",
+      "literal_reference": "dumps/extracted/PACKAGE_INFO.BIN",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/fep_edit.py",
+      "literal_reference": "kh2_export/raw/kh2_sixth/original/obj/P_EX100.a.us",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_vsvoices.py",
+      "literal_reference": "codex/inbox/20261018-approved-voices",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_menuart.py",
+      "literal_reference": "tools/art/sora_wm.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/comb_patch.py",
+      "literal_reference": "dumps/extracted/PACKAGE_INFO.BIN",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_title_art.py",
+      "literal_reference": "kh2_export/raw/kh2_first/remastered/menu/us/title.2ld/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_title_art.py",
+      "literal_reference": "kh2_export/raw/kh2_first/remastered/menu/us/title.2ld/US_title_2ld4.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_title_art.py",
+      "literal_reference": "tools/art/qb_art.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_title_art.py",
+      "literal_reference": "tools/art/sora_face_vs64.png",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_pose.sh",
+      "literal_reference": "dumps/models/sora/rtn/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_pose.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.bin",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_pose.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.gltf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_pose.sh",
+      "literal_reference": "dumps/models/sora_final.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_pose.sh",
+      "literal_reference": "dumps/renders/poses",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/preview_pose.sh",
+      "literal_reference": "dumps/renders/poses/pose_",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_combo.py",
+      "literal_reference": "dumps/kh2anim",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_combo.py",
+      "literal_reference": "dumps/kh2anim_kh1f",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_combo.py",
+      "literal_reference": "dumps/kh2anim_kh1f.",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_combo.py",
+      "literal_reference": "kh2_export/model/P_EX100.mdlx",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_combo.py",
+      "literal_reference": "kh2_export/raw/kh2_sixth/original/obj",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_magnet.py",
+      "literal_reference": "dumps/renders/kh2magnet/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_reflectvoice.py",
+      "literal_reference": "codex/inbox/20261016-reflect-gap/reflect_voice_split.py",
+      "present_in_export": true
+    },
+    {
+      "consumer": "tools/scripts/spot33_reflect.py",
+      "literal_reference": "dumps/ex_snd_disasm.txt",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_reflect.py",
+      "literal_reference": "dumps/extracted",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_reflect.py",
+      "literal_reference": "dumps/extracted/EBOOT.elf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/spot33_reflect.py",
+      "literal_reference": "dumps/extracted/OVL_BATTLE_APP.ELF",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/kh2anim_kh1f/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/models/sora/fitn/sora_fit.map.json",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/models/sora/rtn/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.bin",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/models/sora/rtn/sora_final.gltf",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/models/sora_final.gmo",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/renders/kh2limit",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2limit_sheets.sh",
+      "literal_reference": "dumps/renders/kh2limit/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_release.sh",
+      "literal_reference": "dumps/ULUS10566.iso",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_release.sh",
+      "literal_reference": "dumps/release",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_release.sh",
+      "literal_reference": "dumps/release/",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/make_release.sh",
+      "literal_reference": "dumps/release/NAME.xdelta",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_magnet_mesh.py",
+      "literal_reference": "kh2_export/raw/kh2_fifth/original/magic/MAGNET_3.mag",
+      "present_in_export": false
+    },
+    {
+      "consumer": "tools/scripts/kh2_magnet_mesh.py",
+      "literal_reference": "kh2_export/raw/kh2_sixth/original/obj/P_EX100.a.us",
+      "present_in_export": false
+    }
+  ]
+}

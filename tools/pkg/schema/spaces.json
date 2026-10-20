@@ -1,0 +1,231 @@
+{
+  "about": "Allocation spaces for manifest.json 'allocations' (P1.1, docs/PACKAGE-FORMAT.md section 6). Every space names the owner_tables.json id it belongs to. scope: global = must not overlap across installed packages; owner = ids are per owner (no cross-package clash because owners are unique); package = file-local ids, recorded for documentation only. kind: int = 'ids' list, string = 'values' list (string clash = equal or one is a prefix of the other). limits.level: error = hard rule, warn = known soft ceiling (needs code first). Adding a space = minor format bump.",
+  "format_version": "1.0",
+  "spaces": {
+    "ablt_index": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "ablt rows are keyed (owner, idx); the 832-row cap (ablt_cap) is a row count, checked by the installer",
+      "ns_required": false,
+      "scope": "owner",
+      "table": "ablt_rows"
+    },
+    "assist_row": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "main.bin assist.bin row",
+      "ns_required": false,
+      "scope": "global",
+      "table": "assist_bin"
+    },
+    "battle_tips_row": {
+      "kind": "int",
+      "limits": {"level": "warn", "max": 204, "min": 0},
+      "note": "manual_param.bin rows; loader room 0xCD = 205 rows (Sora = 201)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "battle_tips"
+    },
+    "bgm_id": {
+      "kind": "int",
+      "limits": {"level": "warn", "max": 255, "min": 0},
+      "note": "bgm_entry.bin row (RAM max 0x100 rows)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "bgm_entry"
+    },
+    "brain_row": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "battle_non_residing.bin brai 'seco' owner-list / brain-set rows",
+      "ns_required": false,
+      "scope": "global",
+      "table": "brai_seco"
+    },
+    "catalog_item": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "update_list_param.bin item; ns = tab number as a string ('0'..'4')",
+      "ns_required": true,
+      "scope": "global",
+      "table": "pp_catalog"
+    },
+    "cmd_record": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "command_list_param.bin record id (Sora 0x2100..0x2116)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "cmd_list"
+    },
+    "code_cave": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 4294967295, "min": 0},
+      "note": "VA ranges of code room a package owns; ns = image (EBOOT | OVL_MENU_APP | OVL_BATTLE_APP); allocating it makes clashes between packages visible before any patch exists",
+      "ns_required": true,
+      "scope": "global",
+      "table": "eboot_dead_code"
+    },
+    "comb_id": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "comb ids inside the fighter's own objx (file-local)",
+      "ns_required": false,
+      "scope": "package",
+      "table": "own_battle_file"
+    },
+    "fep_id": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 16383, "min": 0},
+      "note": "objx 'effe' header +0x10 (id >> 18); FUN_08943124 refuses duplicates; fighter + assist ids",
+      "ns_required": false,
+      "scope": "global",
+      "table": "fep_id"
+    },
+    "fepa_id": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 4294967295, "min": 0},
+      "note": "FEPA rows (file-local as far as known)",
+      "ns_required": false,
+      "scope": "package",
+      "table": "fepa_ids"
+    },
+    "item_id": {
+      "kind": "int",
+      "limits": {"level": "warn", "max": 683, "min": 0},
+      "note": "system.bin item row; 683 = loader/save-inventory ceiling (raise = code, Phase 2)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "item_rows"
+    },
+    "jobp_stance": {
+      "kind": "int",
+      "limits": {"level": "warn", "max": 12, "min": 0},
+      "note": "jobp stance rows; static RAM buffer of 13 rows",
+      "ns_required": false,
+      "scope": "global",
+      "table": "jobp_stance"
+    },
+    "jukebox_group": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "collection_voice_param group",
+      "ns_required": false,
+      "scope": "global",
+      "table": "jukebox_voice"
+    },
+    "motion_slot": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "GMO motion slots of the fighter's own model (file-local)",
+      "ns_required": false,
+      "scope": "package",
+      "table": "own_battle_file"
+    },
+    "museum_icon": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 999, "min": 0},
+      "note": "collection_param section 4 player icon number (user_iconNNN.gim)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "museum_icons"
+    },
+    "museum_record": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "collection_param section 0 Character Files record (Sora = 35)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "museum_char_files"
+    },
+    "name_index": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "EBOOT name table index (Sora = name 63)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "name_index_eboot"
+    },
+    "objentry_id": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "objentry.bin u16 id. Rule (P0.4): fighters on owner >= 34 use ids < 1338 (owner_min_34_max)",
+      "ns_required": false,
+      "owner_min_34_max": 1337,
+      "scope": "global",
+      "table": "objentry"
+    },
+    "picture_number": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "picture index inside a shared menu pack; ns = the pack's package path (e.g. menu/menu_pk_free_battle_gim_3.bin)",
+      "ns_required": true,
+      "scope": "global",
+      "table": "picture_numbers"
+    },
+    "plya_id": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "plya ids inside the fighter's own objx (file-local)",
+      "ns_required": false,
+      "scope": "package",
+      "table": "own_battle_file"
+    },
+    "record_slot": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 255, "min": 0},
+      "note": "save fighter-record slot (Sora = friend card 24)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "save_record_slot"
+    },
+    "save_flag": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "save flag bits (unlock, Museum viewed, icon viewed, BGM unlock ...); one bit space, role says which. Sora: 925, 1249..1251, 1253, 1254, 2993, 3681",
+      "ns_required": false,
+      "scope": "global",
+      "table": "unlock_flags"
+    },
+    "sound_bank": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 4294967295, "min": 0},
+      "note": "SSCF bank ids (snd_ bank, voice bank, assist pair); role = snd | voice | assist_snd | assist_voice. Sora: 219000 / 219100",
+      "ns_required": false,
+      "scope": "global",
+      "table": "sound_bank_ids"
+    },
+    "subtitle": {
+      "kind": "int",
+      "limits": {"level": "warn", "max": 1205, "min": 0},
+      "note": "battle_voice_name.bin entry; same numbering as voice_line in today's build (P1.2 to confirm)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "voice_subtitles"
+    },
+    "text_index": {
+      "kind": "int",
+      "limits": {"level": "error", "max": 65535, "min": 0},
+      "note": "entry index inside a shared text group; ns = '<text path>#<group>' (e.g. text/EN/mess_pk_customize_common_0.bin#2); set 'table' on the entry to the text table id",
+      "ns_required": true,
+      "scope": "global",
+      "table": "customize_desc_text"
+    },
+    "texture_key_prefix": {
+      "kind": "string",
+      "limits": {"level": "error", "max_length": 16, "min_length": 2},
+      "note": "own effect texture key prefix; clash = equal or prefix of another package's prefix",
+      "ns_required": false,
+      "scope": "global",
+      "table": "texture_keys"
+    },
+    "voice_line": {
+      "kind": "int",
+      "limits": {"level": "warn", "max": 1205, "min": 0},
+      "note": "VOLD spoken-line id (Sora 1000..1143 + vs lines)",
+      "ns_required": false,
+      "scope": "global",
+      "table": "voice_subtitles"
+    }
+  }
+}

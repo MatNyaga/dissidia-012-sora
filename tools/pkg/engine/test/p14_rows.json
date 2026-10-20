@@ -1,0 +1,10 @@
+{
+ "format": 1,
+ "comment": "P1.4 runtime test rows (dumps/ULUS10566-p14-engine.iso). Row 1 = the one harmless override (as p07b): Sora's 64x64 VS-screen face shows Lightning's face. Row 2 = deliberate UNFLAGGED collision with a vanilla path: EXTRA.PRX must DROP it at boot (status rejected = 1, first_rejected = 5dfed0af) so Lightning keeps her own face.",
+ "rows": [
+  {"path": "menu/JP/story_mode/chara2/p_sev120_1p.gim", "from": "menu/JP/story_mode/chara2/p_gst130_1p.gim",
+   "override": true, "note": "Sora VS face -> Lightning's face data (same size 5,408 B)"},
+  {"path": "menu/JP/story_mode/chara2/p_gst130_1p.gim", "from": "menu/JP/story_mode/chara2/p_sev120_1p.gim",
+   "test_collision": true, "note": "must be rejected by the module (vanilla hash, no override flag)"}
+ ]
+}

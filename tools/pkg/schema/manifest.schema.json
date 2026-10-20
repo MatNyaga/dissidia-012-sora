@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dissidia012-sora/pkg/manifest.schema.json#1.0",
+  "title": "Dissidia 012 fighter package manifest, format 1.0",
+  "description": "docs/PACKAGE-FORMAT.md. Uses only the JSON-Schema subset that tools/pkg/validate.py implements (type, enum, const, properties, required, additionalProperties, patternProperties, propertyNames, items, minItems, maxItems, uniqueItems, pattern, minLength, maxLength, minimum, maximum, oneOf, anyOf, $ref to #/$defs). Cross-field rules (owner >= 34 objentry ids, hashes, table ids, collisions) are in validate.py.",
+  "type": "object",
+  "required": ["allocations", "base", "display_names", "distribution", "features", "files", "format", "format_version", "id", "inventory", "kind", "layouts", "package_sha256", "patches", "requires", "rows", "version"],
+  "additionalProperties": false,
+  "properties": {
+    "format": {"const": "dissidia012-package"},
+    "format_version": {"type": "string", "pattern": "^1\\.[0-9]+$"},
+    "id": {"$ref": "#/$defs/slug"},
+    "version": {"$ref": "#/$defs/semver"},
+    "kind": {"enum": ["fighter", "engine", "content"]},
+    "owner": {"type": ["integer", "null"], "minimum": 1, "maximum": 255},
+    "key": {"type": ["string", "null"], "pattern": "^[a-z]{3}[0-9]{3}$"},
+    "display_names": {
+      "type": "object",
+      "required": ["EN"],
+      "propertyNames": {"pattern": "^(EN|FR|DE|IT|ES|JP)$"},
+      "additionalProperties": {"type": "string", "minLength": 1, "maxLength": 64}
+    },
+    "distribution": {"const": "never-publish-raw"},
+    "base": {
+      "type": "object",
+      "required": ["serial"],
+      "additionalProperties": false,
+      "properties": {
+        "serial": {"const": "ULUS10566"},
+        "clean_iso_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "requires": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "version"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"$ref": "#/$defs/slug"},
+          "version": {"type": "string", "pattern": "^(>=|==)[0-9]+\\.[0-9]+\\.[0-9]+$"}
+        }
+      }
+    },
+    "conflicts": {"type": "array", "items": {"$ref": "#/$defs/slug"}, "uniqueItems": true},
+    "install_after": {"type": "array", "items": {"$ref": "#/$defs/slug"}, "uniqueItems": true},
+    "layouts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["A", "B"]}},
+    "allocations": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/allocation"}}
+    },
+    "files": {"type": "array", "items": {"$ref": "#/$defs/file"}},
+    "rows": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/table_id"}},
+    "patches": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/table_id"}},
+    "features": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {"$ref": "#/$defs/feature"}
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {"type": "string", "minLength": 1, "maxLength": 40},
+        "param_sfo_bump": {"type": "boolean"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clean_iso_sha256": {"$ref": "#/$defs/sha256"},
+        "reference_iso_sha256": {"$ref": "#/$defs/sha256"},
+        "tool": {"type": "string", "maxLength": 80},
+        "tool_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "notes": {"type": "string"},
+    "inventory": {
+      "type": "object",
+      "propertyNames": {"pattern": "^(files|rows|patches)/[^\\\\]+$|^order\\.json$"},
+      "additionalProperties": {
+        "type": "object",
+        "required": ["sha256", "size"],
+        "additionalProperties": false,
+        "properties": {"sha256": {"$ref": "#/$defs/sha256"}, "size": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "package_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "slug": {"type": "string", "pattern": "^[a-z][a-z0-9-]{1,31}$"},
+    "semver": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "table_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "id_item": {
+      "oneOf": [
+        {"type": "integer", "minimum": 0},
+        {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 0}}
+      ]
+    },
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id_item"}},
+        "values": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "ns": {"type": "string", "minLength": 1},
+        "role": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "table": {"$ref": "#/$defs/table_id"},
+        "note": {"type": "string"}
+      },
+      "oneOf": [{"required": ["ids"]}, {"required": ["values"]}]
+    },
+    "file": {
+      "type": "object",
+      "required": ["action", "origin", "path", "sha256", "size", "table", "target"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {"type": "string", "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.\\-]*(/[A-Za-z0-9_][A-Za-z0-9_.\\-]*)*$", "maxLength": 200},
+        "target": {"enum": ["package", "iso"]},
+        "action": {"enum": ["add", "replace"]},
+        "table": {"$ref": "#/$defs/table_id"},
+        "origin": {"enum": ["derived", "own"]},
+        "tier": {"type": "integer", "minimum": 0, "maximum": 3},
+        "produce": {"enum": ["eboot_plain"]},
+        "layouts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["A", "B"]}},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "size": {"type": "integer", "minimum": 0},
+        "note": {"type": "string"}
+      }
+    },
+    "feature": {
+      "type": "object",
+      "required": ["enabled", "kind", "table"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "kind": {"enum": ["behaviour", "lookup"]},
+        "table": {"$ref": "#/$defs/table_id"},
+        "params": {"type": "object"},
+        "transitional_patches": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/table_id"}},
+        "note": {"type": "string"}
+      }
+    }
+  }
+}
