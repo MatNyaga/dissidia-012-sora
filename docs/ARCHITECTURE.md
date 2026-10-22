@@ -42,7 +42,8 @@ still fail in battle, so effects always need an in-game test.
 | `tools/installer/` | Early copy of the patch app (GPL-3.0-or-later): Rust core and CLI, Tauri window, synthetic tests |
 | `tools/repository/` | Checks that need no game files, and an input inventory |
 | `manifests/` | Hashes and selection metadata only |
-| `docs/` | Guides and technical specs |
+| `docs/` | Guides and technical specs; `docs/learn/` = the learning path, `docs/modding/` = the modding layer |
+| `notes/` | Research notes (reviewed subset); `notes/phase2/` = one note per Phase 2 step |
 | `dumps/`, `kh2_export/` | Your own local game files and build outputs; ignored by Git |
 
 ## Engine module and packages
@@ -50,8 +51,10 @@ still fail in battle, so effects always need an in-game test.
 The engine module `EXTRA.PRX` is loaded at boot and looks up an extra file index (`EXTRA.IDX`) before the game's own
 index. That lets the release disc keep the game's index exactly as shipped while still finding Sora's files. Details:
 [ENGINE.md](ENGINE.md). The package format that describes everything a fighter adds is in
-[PACKAGE-FORMAT.md](PACKAGE-FORMAT.md). Neither of these makes arbitrary new fighters work yet; that is the
-Phase 2 goal in the [roadmap](ROADMAP.md).
+[PACKAGE-FORMAT.md](PACKAGE-FORMAT.md). The Phase 2 engine (a stub table in the EBOOT, the registry `EXTRA.REG`
+and Sora's behaviour in the module) is described in [modding/OVERVIEW.md](modding/OVERVIEW.md) and ENGINE.md; most
+of its sources are not in this snapshot yet ([list](REPRODUCIBILITY.md#phase-2-tools-not-in-this-snapshot)).
+Status: [roadmap](ROADMAP.md).
 
 ## Patch app
 

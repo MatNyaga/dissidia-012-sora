@@ -3,6 +3,11 @@
 The whole process in plain words. Each part says **what** we did, **why**, and **which tool** does it. For the
 exact formats, see [ARCHITECTURE.md](ARCHITECTURE.md) and the specs linked from the [README](../README.md).
 
+> This tour follows the Sora build (October 2026, before Phase 2). For the current picture start at the
+> [README](../README.md) and the [roadmap](ROADMAP.md); the long version is the learning path
+> [learn/00-START-HERE.md](learn/00-START-HERE.md), and the engine is explained in
+> [modding/OVERVIEW.md](modding/OVERVIEW.md).
+
 ## Part 1: The goal and the rules
 
 - **Goal:** add Sora (Kingdom Hearts II) to Dissidia 012 as a real fighter: his own model, size, stance, moves,
@@ -135,7 +140,7 @@ Tools: `sscf.py`, `voice_lines.py`, `voice_text.py`. More in [AUDIO.md](AUDIO.md
    restart resets them.
 4. PPSSPP's remote debugger lets scripts (`ppctl.py`, `ppdbg.py`) drive the game and read memory.
    `tools/scripts/record_game.sh` records only the game window.
-5. Real-hardware checks run on a PS Vita with Adrenaline (see [TESTING.md](TESTING.md#testing-on-a-ps-vita)).
+5. Real-hardware checks run on a PS Vita with Adrenaline (see [TEST-ON-VITA.md](TEST-ON-VITA.md)).
 
 ## Part 11: What's done and what's next
 
@@ -143,7 +148,8 @@ Done: Sora's own model, size and Keyblade; KH2 animations for his stance, moveme
 loss; his own moves and finishers; voices and Keyblade sounds; EX Mode with the Reflect barrier; the Trinity Limit
 EX Burst; menus, saves, unlocks and CPU behaviour; the package format, the engine module and the patch app.
 
-Next: release 1.0, then the multi-fighter engine. See the [roadmap](ROADMAP.md).
+Since then: release 1.0 shipped on 20 October 2026, and the multi-fighter engine (Phase 2) is being built; Sora as
+package #1 on it is in progress. See the [roadmap](ROADMAP.md). Full glossary: [learn/GLOSSARY.md](learn/GLOSSARY.md).
 
 ## Glossary
 

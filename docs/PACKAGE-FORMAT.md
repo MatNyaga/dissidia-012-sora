@@ -1,7 +1,11 @@
-# Fighter package format (v1.0)
+# Fighter package format (v1.0, v1.1)
 
 This spec describes a **package**: one folder with everything a fighter adds to the clean game. It is part of
-Phase 1 (see the [roadmap](ROADMAP.md)). Nothing here touches an ISO.
+Phase 1 (see the [roadmap](ROADMAP.md)). Format 1.1 (§16) adds identity keys, the registry inside the package and
+the engine package for layout C (Phase 2 task P2.8, **in progress**). Nothing here touches an ISO.
+
+Some tools named here are in the private working project and not published yet:
+[list](REPRODUCIBILITY.md#phase-2-tools-not-in-this-snapshot).
 
 - Machine-readable parts: `tools/pkg/schema/` (manifest / rows / patches / order schemas + `spaces.json`).
 - Checker: `python3 -I tools/pkg/validate.py PKG [PKG ...]`. Sealer: `python3 -I tools/pkg/pkgformat.py seal PKG`.
@@ -29,6 +33,8 @@ A **package** is one folder that holds everything one fighter (or the engine) ad
 
 The installer (P1.3/P1.5) reads clean ISO + packages and writes a new ISO. The validator proves a package is
 complete and consistent before anything is built, and that several packages don't take the same numbers.
+
+Making a new package: [modding/MAKE-A-FIGHTER.md](modding/MAKE-A-FIGHTER.md).
 
 ## 1. Folder layout
 ```
@@ -61,7 +67,8 @@ Nothing else may be in the folder (the validator rejects stray files; READMEs li
    (target, lower-case path) order at 2048-byte sector alignment. Same inputs → same output ISO sha256.
 
 ## 3. Versioning
-- `format_version` = `"MAJOR.MINOR"` in the manifest and in every rows/patches/order file. Current: **1.0**.
+- `format_version` = `"MAJOR.MINOR"` in the manifest and in every rows/patches/order file. Current: **1.0** (layouts A/B,
+  release 1.0) and **1.1** (layout C, the engine; §16).
 - **Minor** bump = additive only (new optional field, new allocation space in `spaces.json`, new `produce` transform).
   A validator/installer of 1.x refuses files newer than its own minor (no silent ignoring of fields it does not know).
 - **Major** bump = incompatible; new schema `$id`, old packages are converted by a tool, never reinterpreted.
@@ -187,6 +194,12 @@ position in the key (`pos`).
 Rules: one table per file; the table id must exist in owner_tables.json; keys unique and sorted; `raw` length =
 `row_size` when fixed; a package must not both ship a container whole (`files/`) and edit it with rows; two packages
 must not touch the same (table, ns, key) or one replace a file whole that another edits by rows.
+
+**Keys (fixed 2026-10-22, P2.8 §3; applies from format 1.1, §16):** v1.0 / §15 keys `add` rows by their **final** row
+index and bytes leaves by byte offset. Those keys do not compose: a second package shifts final indexes and edits the
+same count / offset bytes. From 1.1 every row is keyed by **identity** (owner, text entry, model id, picture id,
+allocated id, or (owner, k) for append lists); final positions, counts, offset tables and fillers are derived by the
+installer, never stored (§16).
 
 ## 8. patches/<owner_tables id>.json (code; transitional layout A)
 ```json
@@ -317,3 +330,132 @@ by `tools/pkg/code_sites.json` (address range → owner_tables id, the script th
 - 2026-10-20 (release candidate 3): new code site `menu_clock` (`spot33_menuclock.py`: EBOOT 0x08860DF8-FF,
   0x08860E90-97, 0x08860EA0-A3 → `patches/menu_clock.json`); new `grwp` rows (the Max CP growth table in
   `system.bin`, `spot33_grwp.py` → `rows/grwp.json`); the `oq_slot_tables` ranges widened to whole words.
+
+Details (P1.2 helper, 2026-10-18, and later additions; code: `tools/pkg/containers.py` (codec registry +
+apply), `tools/pkg/pkgapply.py` (in-memory apply + verify), `tools/pkg/code_sites.json`):
+- **One key field for every rows file: `key_fields: ["at"]`.** Its meaning comes from the node the `ns` names:
+  container node (MPK member name, ARC chunk key = tag or `tag.N` for a repeated tag, menu-pak entry id,
+  collection_param section `sec0..sec8`/`tail`) → whole-member add / replace / delete; **grid** leaf (fixed rows,
+  registry in containers.py: objentry 8+68, ablt 16+40, item 16+104, chrp 8+144, eqpm 8+126, jobp 8+112, uicn 4+8,
+  bgm_entry 16+44, VOLD 16+24 — loose lists and the Museum copies `voice_load_parameter.mpk!voice_load_p_<key>.bin`,
+  collection_param sections) → row index (`hdr` / `tail` for the bytes around the rows;
+  replace/patch/delete use the clean index, add the final index — **superseded in format 1.1 by identity keys, §16**; row-count fields are derived, never stored);
+  **bytes** leaf (texts, mess-pak groups `#g`, chrl/amas/acab, brai, assist, manual_param, command/update_list
+  params) → byte offset in the clean node (replace old_raw→raw, add = insert, delete = remove; never overlapping).
+- **Data tables inside code images** (owner_tables kind data/save: unlock_table, start_preset_table, scenario_names,
+  qb_grid_rows, select_panel_list, ex_mode_page, records_icons, labyrinth_face, menu_name_keys, opp_info_name) are rows with
+  `ns: img:<IMAGE>`, `key.at` = VA (int), op replace with equal-length `old_raw`/`raw`; `fields.va` shows it in hex.
+  Code-site / iso-file ids stay `patches/`. Apply order on an image: produce (eboot_plain) → patches → img: rows.
+- **Canonical container re-encoders** (installer default): MPK = header + entry table + names, members 16-aligned,
+  end padded to 16; ARC = `pack4` for main.bin!system.bin (spot33_save.arc_join), `grow16` elsewhere (arcfile.py);
+  pak = header + table, entries 16-aligned, zero filler, empty entries offset 0, end padded to 16; collection_param =
+  20×u16 header (2, 9, counts, sizes) + sections + tail.
+- **Layout pin** = row `key.at: "layout"`, op replace on a container ns: `raw` = the exact non-member bytes of the
+  reference container (index table, gaps, filler, tail), `old_raw` = the skeleton of the canonical re-encode (the
+  guard). Only where today's bytes are history-dependent (old 0x77 filler kept, in-place writes). Sora R0: 8 paks.
+  A pin makes that container single-package in layout A (a second package touching it collides on the pin key).
+- **Code sites** for word diffs: `tools/pkg/code_sites.json` (VA range → owner_tables id, writing script, note).
+  New owner_tables ids from P1.2: `save_record_hooks`, `network_name_hook` (code parts of save_record_slot /
+  network_names, so patches never target a data/save id).
+  2026-10-19 (RR-08/RR-17 helper): `bgm_mode7_fallback` (code-site, spot33_bgmfallback.py: EBOOT 0x0888B61C-73,
+  0x0888B6A4-B3 and the BGM-mode jump-table word 0x089CA530 -> patches/bgm_mode7_fallback.json; the jump-table word
+  is kept with its code, not as an img: row) and `char_blurbs` (text, spot33_selectblurb.py: mess-pak groups
+  chara_select #2, creation_room #5, party_setting #5, story_mode #1, update_list #7 -> rows/char_blurbs.json; rules
+  in extract.py TABLE_RULES ahead of the whole-file text rules). Re-extract after the next R build.
+  2026-10-19 (RR-08 Jukebox gate helper): `jukebox_gate_code` (code-site, spot33_jukeboxgate.py: OVL_MENU_APP
+  0x08A36DB0-EB, 0x08A36F7C-B7, 0x08A370D8-113 -> patches/jukebox_gate_code.json); `jukebox_list_code` range
+  0x08A37078-12B split into 0x08A37078-9B + 0x08A37128-2B around it (same words). Re-extract after the next R build.
+  2026-10-18 (RC2 helper): spot33_selectblurb rewrites `mess_pk_chara_select_0` / `mess_pk_story_mode_0` so their
+  re-encode differs (2 new layout pins, 10 in total); the whole-pack ns of those two paks → `char_blurbs` (extract.py
+  TABLE_RULES), otherwise the pin row was UNMATCHED.
+  2026-10-20 (RC3 helper): `menu_clock` (new owner_tables id, code-site, spot33_menuclock.py: EBOOT 0x08860DF8-FF,
+  0x08860E90-97, 0x08860EA0-A3 -> patches/menu_clock.json); `grwp` rows (system.bin chunk grwp, containers.py grid
+  codec header 8 / row 0x1C / count u32 @4, extract.py TABLE_RULES -> rows/grwp.json); `oq_slot_tables` ranges
+  widened to whole words (0x08A6B3D4, 0x08A6CB94: the changed u16 fields sit in the upper half of a word, so the
+  word diff started 2 bytes before the old range and was UNMATCHED).
+  2026-10-20 (opp-info helper, R4 test): `opp_info_name` (new owner_tables id, kind data, spot33_oppinfo.py:
+  OVL_BATTLE_APP 0x08AFB7F0-F7 = owner-33 row of the battle overlay owner → name-index table 0x08AFB6E8 →
+  rows/opp_info_name.json, ns img:OVL_BATTLE_APP, same-length replace before the cave).
+- §14 answers: row sizes/codecs = above; fighter-own files (`*sev120*`) are whole files, every shared container is
+  rows (no stop-gap needed for Sora); subtitle vs voice line not separated (allocations list `voice_line` only);
+  `eboot_plain` lives in the Sora manifest until the engine package exists (then it moves there).
+
+## 16. v1.1 — identity keys, registry in the package, engine package (built in P2.8 step E2)
+Design: [notes/phase2/P2.8-sora-package.md](../notes/phase2/P2.8-sora-package.md) §2-§3 (prototype codecs
+`tools/pkg/p28_codecs.py prove`, 82/82 PASS). Designed 2026-10-21; built in P2.8 step E2 on 2026-10-22 (`tools/pkg/containers.py`, `tools/pkg/pkg11.py convert`,
+`validate.py` rules, the package `packages/sora-C`; P2.8 as a whole is still **in progress**). Where this design and
+the build differ, §16.1 "As built" wins;
+v1.0 packages (`packages/sora-R4`) stay readable; a 1.1 package is re-extracted (`packages/sora-C`), not converted
+in place. Minor bump: a 1.0 installer refuses 1.1 files (§3).
+- **`registry` field** (manifest): path of the package's registry source (`"registry": "registry.json"` = today's
+  `tools/dlc/registry/<id>.json`: row, behaviours, items, flags, install.*). It is the one source; `features` with
+  `transitional_patches` (§11) goes away. Install fields added in P2.7: `install.title_call {sqe, ddd, days}` (the
+  caller index is derived per roster), `install.qb_row: "append"` (the fighter gets a character-grid row of its own,
+  GRD1 row 33), `install.uicn` (its entry count drives the size of the uicn buffer).
+- **Codecs with identity keys** (design: `codec` + `key_fields` per rows file; as built the codec sits on each row and
+  carries the `.v1` names below, §16.1):
+  | codec | tables | key fields |
+  |---|---|---|
+  | `odir.v1` | owner directories (amas, chrl): header 16 B (count @8), rows sorted by owner, data region kept, new lists appended | `owner` (one keyed row = the owner's whole list) |
+  | `acab.v1` | acab lists | `owner` (e.g. Sora = "share owner 13's list") |
+  | `text.v1` | text groups (u16 and OFF4) | (`group`, `entry`) — plain text; XOR from the final index applied by the installer; vanilla placeholder entries reused via a global `text_index` allocation |
+  | `grid-id.v1` | sorted, binary-searched grids (ablt u16 id, objentry s16 id) | `id` |
+  | `positional.v1` | grids where the index is the id (bgm_entry = BGM id, item = id − 1, uicn, jobp, collection_param sections, eqpm preset) | the allocated id (gap filler for an absent lower package: open, P2.8 §3.3) |
+  | `append.v1` | append lists (VOLD lists: one row per other fighter) | (`owner`, `k`), merged in owner order |
+  | `pak-fill.v1` | picture packs | absolute picture id from the `picture_number` allocation |
+  brai seco and the string tables (ability / item / item_help / bgm_name / battle_voice_name, manual / command_list /
+  update_list params, assist) have no identity codec yet: as built they are `bytes.v1` rows with one editor per node;
+  identity codecs for them are still to build (P2.9 / E8).
+- **Derived, never stored:** counts, offsets / offset tables, final row indexes, picture-pack fillers (size-0 entries
+  that keep ids contiguous), sort order. Rows of `img:` data tables that rowgen generates (G5) are not stored either
+  (installer: `rowgen.generate(roster)`, `p23_lookups.tables(roster)`, `panel_tex`).
+- **Layout pins** (§15) = **sole editor only**: a pin applies when its package is the only editor of that container;
+  with two editors the installer re-encodes canonically and reports it (Sora-only discs stay byte-identical; Mat
+  decided Q-P28-M2 = yes).
+- **`set: transitional`** (patches, §8): owner-specific code that a later engine task retires (designed for
+  Sora's `save_record_hooks` and `title_call`; P2.5 and P2.7 retired both before the build, so no package uses it). It carries an **exclusive claim**: a second package touching the same words is an
+  error. The installer treats it as plain package data.
+- **Engine package** (`kind: engine`, id `engine`, folder `packages/engine`): `produce: eboot_plain`, the file
+  `DATA/MODULE/EXTRA.PRX` (engine v2), `patches/engine_base.json` (`set: engine`, the clean-based base words with
+  **old = clean words**), the `code_cave` allocations (EBOOT 0x089A8B14–0x089A8F0C, TRI 0x089C1C8C–0x089C2508, jump
+  table 0x089D1FB4–0x089D2084). No owner, no registry row. Fighter packages declare
+  `requires: [{"id": "engine", "version": ">=2.5.0"}]`.
+- **Declared reuse:** vanilla ids a package reuses are declared in its allocations (`role: reused_rows`, flags
+  `reuse_vanilla`) instead of a validator exemption list.
+
+### 16.1 As built (2026-10-22, P2.8 build steps E1-E3; P2.8 in progress)
+Source: [notes/phase2/P2.8-build.md](../notes/phase2/P2.8-build.md).
+Plain words: a 1.1 package stores each edit by **what it is** (an owner, a text entry, an id, a picture number), never
+by where it ends up; the installer works out positions, counts and fillers when it builds a disc. Where the design
+above differs from what was built, this section wins.
+- **Codec per row, not per file.** A 1.1 row may carry `"codec"`; `key_fields` stays `["at"]` (as in §15) and
+  `key.at` holds the row's identity for that codec. One table file may mix codecs (e.g. `museum_icons`: positional
+  section rows + pak entries); the rows of one node (ns) share one codec. Codecs (`tools/pkg/containers.py`):
+  | codec | node | `key.at` = | notes |
+  |---|---|---|---|
+  | `odir.v1` | system.bin amas / chrl | owner | op add, raw = the owner's entry list; offsets / count derived |
+  | `acab.v1` | system.bin acab | owner | op add, `fields.share` = the owner whose list is shared (raw ""), or raw = own list + `fields.n` |
+  | `text.v1` | mess-pak text group (u16 or OFF4) | entry index | raw = the PLAIN entry; replace / delete carry `old_sha256` (sha256 of the clean plain entry) and `old_raw: ""`, so no clean text is shipped |
+  | `grid-id.v1` | sorted grids: ablt (u16), objentry (s16), eqpm (u16) | the row id | add inserts in id order; replace / patch address the clean row with that (unique) id |
+  | `positional.v1` | grids whose index is the identity: bgm_entry, item, uicn, jobp, collection_param sections | final row index | all adds of all packages must form ONE contiguous block that starts at or before the clean row count (collection_param sec8: row 32 = owner − 1 goes in before the last clean row); a gap = refused (open question: a package owning lower positions is missing) |
+  | `append.v1` | VOLD lists (`voice_load_p_*`) | `"owner:k"` | appended after the clean rows in (owner, k) order |
+  | `pak-fill.v1` | menu picture pack entries | absolute picture id | size-0 filler entries are derived (never shipped) |
+  | `bytes.v1` | bytes leaves without an identity codec yet (brai seco, ability / item / item_help / bgm_name / battle_voice_name string tables, manual / command_list / update_list params, assist) | byte offset in the clean node (1.0 meaning) | **one editor per ns** (validator error otherwise); identity codecs for these are still to build (P2.9 / E8) |
+  Rows without a codec keep their 1.0 meaning (container members by name, grid replace / patch by clean index, layout
+  pins). A 1.1 row without a codec may not add grid rows by final index, and a byte-offset row must say `bytes.v1`.
+- **Layout pins** stay sole-editor. With two editors of a pinned container the installer drops the pin and re-encodes
+  canonically (Mat Q-P28-M2 = yes; `install.py --pins refuse` turns that into an error instead).
+- **registry.json** sits at the package top level (allowed only with `"registry": "registry.json"` in a 1.1 manifest);
+  the validator checks its owner / package against the manifest. `features` is `{}` in a 1.1 fighter.
+- **Layout C** = `"layouts": ["C"]`; a layout-C fighter must `require` the engine (`>=2.5.0` for sora-C). The engine
+  package (§16 above) is `packages/engine`: patch files `engine_base`, `extra_prx`, `menu_clock` (each `set: engine`,
+  old = clean words), EXTRA.PRX, `produce: eboot_plain`, `code_cave`. `set: transitional` exists in the schema but no
+  package uses it: P2.5 and P2.7 retired both Sora-only patches before this build.
+- **Fighter packages hold no code patches** (sora-C: 0): every Sora code word is engine base or an installer word
+  (rowgen / OXT / SRC1 / panel_tex, `tools/pkg/rostergen.py`). `img:` rows and grwp rows are generated, never stored.
+- **Tools:** `tools/pkg/pkg11.py convert SRC_1.0 OUT --registry SRC.json` (re-key a 1.0 package into a NEW folder; it
+  proves every touched PACKAGE file comes out byte-identical before writing), `tools/pkg/layoutc.py verify CLEAN REF
+  PKG...` (layout-C contents in memory vs a reference disc), `tools/pkg/engine/make_engine_pkg.py`, `tools/pkg/rostergen.py`.
+  `pkgapply.py verify` still reads 1.0 packages only. `pkgformat.FORMAT_MINOR` = 1 (a 1.0 tool refuses 1.1 files).
+- **Distribution:** unchanged (§4): sora-C ships the same derived files as sora-R4, minus the eboot produce entry;
+  text rows ship plain text instead of XOR-ed bytes and no clean text at all (sha guards).

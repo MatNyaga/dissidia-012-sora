@@ -2,6 +2,10 @@
 
 Thanks for your interest! Bug reports, test results and fixes are all welcome.
 
+For modders: the sharing rules, naming patterns and how to write up a research finding are in
+[docs/modding/CONTRIBUTING.md](docs/modding/CONTRIBUTING.md); how changes are checked is in
+[docs/modding/TESTING.md](docs/modding/TESTING.md).
+
 ## Reporting a bug or a test result
 
 Open an issue on GitHub and include:
@@ -33,7 +37,8 @@ rather than the file itself.
 
 ## Before you commit
 
-- Run `bash tools/repository/smoke.sh`.
+- Run `bash tools/repository/smoke.sh` (it tests the committed state; `python3 tools/repository/check_source.py`
+  also checks uncommitted files).
 - Look at the list and sizes of staged files. Nothing from a game, no build outputs, no personal paths or secrets.
 - Don't add third-party assets. New code is MIT like the rest of the repository; changes in `tools/installer/` are
   GPL-3.0-or-later (see [LICENSE](LICENSE)).

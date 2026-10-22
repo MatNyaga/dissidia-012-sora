@@ -7,7 +7,11 @@ operating system with the release patch built in.
 <https://github.com/MatNyaga/sora-fan-patch> (GPL-3.0-or-later). `tools/installer/` in this repository is an
 **early copy** (refreshed 20 October 2026, before the 1.0.0 version bump): the decoder, checks, EBOOT decryption,
 CLI, window and the GPL text (`tools/installer/LICENSE`) are there, but not the build pipeline. Use the app
-repository for anything current.
+repository for anything current. Screens and texts: [INSTALLER-UX.md](INSTALLER-UX.md).
+
+**Status.** Release 1.0 shipped with this app on 20 October 2026 (Windows, macOS, Linux). A version for more
+fighters is **planned, not built**: Phase 2 decision P2.11 is one app with a fighter-pack checklist, every pack
+installed from the player's own clean disc (see [ROADMAP.md](ROADMAP.md)).
 
 ## 1. Design rules
 
@@ -143,3 +147,38 @@ The Linux build pulls in glib 0.18 through Tauri 2's GTK3 stack. The advisory af
 fixed 0.18 release exists, and moving to glib 0.20 means GTK4 (Tauri 3). Neither our code nor any dependency in the
 lock calls the affected API, so it is recorded as **not reachable** and re-checked at every release. Windows and
 macOS builds contain no glib.
+
+## 9. Measured numbers (release 1.0 build)
+
+- **Patch size.** `tools/pkg/make_release.py` encodes with `xdelta3 -e -9 -S none -B 2147483648` (one source window
+  for the whole disc). That gave 15.6 MB for the release layout; the default 64 MiB window gave 20.4 MB and stored
+  617 KB of unchanged game bytes as new data, because edited files sit far from their originals. The format 2
+  (decrypt-on-the-player's-machine) patch is 14.7 MB; the EBOOT part of it is 1,885 bytes of our own changes, with
+  0 bytes of the game's EBOOT stored.
+- **Speed and memory.** The command-line tool built the full result from a clean disc in about 150 s with about
+  33 MB of memory. On a 256 MB synthetic disc: check 2.4 s, build 3.2 s, final flush 4.5 s, peak memory 49.6 MB.
+- **App sizes.** Linux AppImage about 95 MB (it carries WebKitGTK 4.1, built on Ubuntu 22.04 so it runs on 22.04 and
+  newer); the inner program is about 21 MB. A Windows cross-build check made a 5.3 MB GUI exe and a 560 KB
+  `sorapatch-cli.exe`, which passed the real-release checks under Wine; the shipped Windows builds come from CI.
+- **Why not DJW compression.** `-S djw` patches were 16 % smaller on synthetic data, but the app refuses them
+  (`E-PATCH`); with the whole-disc window the plain patch was small enough, so no extra decoder was added.
+
+## 10. CI and release lessons
+
+The app repository's workflow (`.github/workflows/build.yml`) runs `test` (cargo test, the synthetic suite, the
+strings check) → `release-data` (downloads the release zip given as input, checks its SHA-256 and that it holds
+only `release.json`, `patch.vcdiff` and `README.txt`; without input it uses the synthetic release) → a `build`
+matrix (Windows NSIS setup and portable exe, macOS arm64 and x64 `.dmg` with an ad-hoc signature, Linux AppImage).
+Rust and the Tauri CLI are pinned and builds run `--locked`. Every artifact carries `LICENSE.txt`, `SOURCE.txt`
+(the exact commit) and `SHA256SUMS.txt`.
+
+Lessons from shipping 1.0 (more in [notes/release-1.0-lessons.md](../notes/release-1.0-lessons.md)):
+
+- GitHub renames release assets (spaces become dots, brackets are dropped), so the checksum file must use the
+  GitHub names; the attach step now renames before hashing.
+- A release event runs the workflow files as they are at the **tag**, not at `main`.
+- In a public repository, workflow artifacts can be downloaded by any logged-in user, so a run with the real
+  release data makes the patch downloadable before launch.
+- A hard kill mid-build once left a hidden temporary file that made the next run fail with "We can't save in this
+  folder"; the app now removes only its own temporary files after 10 minutes without activity, and the window
+  cancels and cleans up when closed mid-build.

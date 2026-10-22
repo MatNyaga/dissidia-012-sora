@@ -115,6 +115,30 @@ The implemented voice encoding command is in `spot33_lines.at3`: FFmpeg converts
 
 The patch app core and CLI need the Rust crates from `Cargo.lock` in your Cargo cache. The app window also needs the Tauri platform libraries and generated icons (`python3 tools/installer/app/src-tauri/icons/make_icons.py`). A real patch run needs a `release.json` and a matching patch, as described in [INSTALLER-TECH.md](INSTALLER-TECH.md); neither is included. The synthetic tests make their own files, so the smoke command needs **no game inputs**.
 
+## Phase 2 tools not in this snapshot
+
+The docs and notes added on 22 October 2026 (`docs/modding/`, `docs/learn/`, `notes/`) describe Phase 2 work done
+after the 20 October code refresh. Many of the tools they name live only in the private working project for now and
+are **not published in this repository yet**. When a command below appears in a doc, read it as a description of
+how the check is done, not as something you can run from this clone. Publishing them is a follow-up.
+
+| group | tools named in the docs, not in this snapshot |
+|---|---|
+| acceptance kit (P2.10) | `tools/qa/acceptance/` (`run_static.py`, `runtime_plan.py`, `stack_rule.py`, `engine_disc.py`, the profiles), `tools/qa/owner_rows.py`, `tools/qa/owner_names.py`, `tools/qa/objentry_resolve.py`, `tools/qa/static_checks.py`, `tools/qa/runtime/` |
+| engine v2 module source | `tools/pkg/engine/extra/v2.c`, `tools/pkg/engine/extra/beh.c` (the committed `extra.c` is module v1), `tools/pkg/engine/engine.json`, `engine_v2.json`, `tools/pkg/engine/patches/` |
+| engine step builders | `tools/pkg/engine/build_p23.sh`, `build_p24_*.sh`, `build_p25.sh`, `build_p27.sh`, `make_engine_pkg.py`, `p24_stubs.py`, `p24_refscan.py`, `gen_limits.py` |
+| engine host tests | `tools/pkg/engine/test/run_host_test_v2.py`, `host_test_v2.c`, `mips_emu.py`, `run_p23_test.py`, `run_p25_test.py`, `run_p27_test.py` (the committed `run_host_test.py` is the v1 test) |
+| package format 1.1 and layout C (P2.8, in progress) | `tools/pkg/pkg11.py`, `tools/pkg/layoutc.py`, `tools/pkg/rostergen.py`, `tools/pkg/p28_codecs.py`, `tools/pkg/p28_plan.py` |
+| table generators and scans | `tools/pkg/rowgen.py`, `tools/pkg/rowgen_disc.py`, `tools/pkg/owner_scan.py`, `tools/pkg/allocate.py` (not written yet), `tools/pkg/ref/vanilla_ids.json` |
+| registry sources | `tools/dlc/registry/` (`sora.json`, `test34.json`, `tests/cases.json`), `tools/dlc/flag_map.json`, `tools/dlc/id_spaces.json` (the committed `registry.py`, `id_spaces.py` and `flag_writers.py` are the builders) |
+| local helpers | `tools/blender/` render checks, `tools/ghidra.sh`, `tools/ghidra-headless.sh` (wrappers around a local Ghidra install) |
+
+Committed and usable without game files: `tools/repository/smoke.sh`, `tools/repository/check_source.py` and
+`python3 -I tools/pkg/engine/find_status.py --selftest`. (`tools/dlc/registry.py selftest` needs the registry
+sources above, so it does not run from this clone yet.) Committed but needing your own
+disc: `tools/pkg/equiv.py`, `install.py`, `extract.py`, `validate.py`, `pkgapply.py`, `make_release.py`,
+`tools/pkg/engine/install_engine.py` and `run_host_test.py`.
+
 ## What "reproducible" will take
 
 1. Export the missing helper scripts (without personal data).
